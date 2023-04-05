@@ -117,6 +117,8 @@
             $task->note = '';
             $task->manufactory = '';
             $task->features = '';
+            $task->phieu = '';
+            $task->khachMuonMay = '';
             $data['task'] = $task;
             $data['view'] = 'customer/task/add';
             $data['customers'] = $this->customer_model->read_all();
@@ -165,6 +167,8 @@
                 $task['note'] = $this->input->post('note');
                 $task['manufactory'] = $this->input->post('manufactory');
                 $task['features'] = $this->input->post('features');
+                $task['phieu'] = $this->input->post('phieu');
+                $task['khachMuonMay'] = $this->input->post('khachMuonMay');
 
                 if ($this->input->post('warrantyPeriodEnd') != '') {
                     $dateAndTime = $this->input->post('warrantyPeriodEnd').' '.$this->input->post('warrantyPeriodTimeEnd');

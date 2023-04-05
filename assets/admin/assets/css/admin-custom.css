@@ -17,3 +17,7 @@ tr.expired, tr.expired a, tr.expired p {
     background: red !important;
     color: #ffffff !important;
 }
+
+.dat-linh-kien .checkbox.no-padding-left label {
+    padding-left: 10px;
+}

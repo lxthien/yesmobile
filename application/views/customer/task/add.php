@@ -67,15 +67,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="pass1" class="control-label col-lg-4">Đặc điểm</label>
+                                    <div class="col-lg-8">
+                                        <input name="features" class="form-control" type="text" placeholder="Đặc điểm" value="<?php echo $task->features; ?>"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="pass1" class="control-label col-lg-4">Tình trạng <br/><span style="color: red; font-size: 13px;">(Máy treo logo, treo phần mềm... Tư vấn trước: "CÓ THỂ" không trả lại được tình trạng ban đầu.)</span></label>
                                     <div class="col-lg-8">
                                         <input name="phoneStatus" class="form-control" type="text" placeholder="Tình trạng" value="<?php echo $task->phoneStatus; ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass1" class="control-label col-lg-4">Đặc điểm</label>
+                                    <label for="pass1" class="control-label col-lg-4"><span style="color: red;">Hướng xử lý (nội bộ)</span></label>
                                     <div class="col-lg-8">
-                                        <input name="features" class="form-control" type="text" placeholder="Đặc điểm" value="<?php echo $task->features; ?>"/>
+                                        <textarea class="form-control" name="note"><?php echo $task->note; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -84,19 +90,27 @@
                                         <textarea class="form-control" placeholder="Không kiểm tra được chức năng, Khách mượn máy, máy trầy, cấn móp, hư chức năng..." name="notePrivate"><?php echo $task->notePrivate; ?></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group dat-linh-kien">
                                     <label class="control-label col-lg-4">Đặt linh kiện</label>
                                     <div class="col-lg-8">
-                                        <div class="checkbox">
+                                        <div class="checkbox no-padding-left">
                                             <label><input class="uniform" type="radio" name="useAccessories" value="1" <?php echo $task->useAccessories == 1 ? 'checked=""' : ''; ?>>&nbsp; Có</label>
                                         </div>
-                                        <div class="checkbox">
+                                        <div class="checkbox no-padding-left">
                                             <label><input class="uniform" type="radio" name="useAccessories" value="0" <?php echo $task->useAccessories == 0 ? 'checked=""' : ''; ?>>&nbsp; Không</label>
                                         </div>
-                                        <div class="checkbox">
+                                        <div class="checkbox no-padding-left">
                                             <label>
                                                 <input class="uniform" type="radio" name="useAccessories" value="2" <?php echo $task->useAccessories == 2 ? 'checked=""' : ''; ?>><span>&nbsp; Đã đặt hàng</span>
                                                 <input class="form-control" type="text" name="manufactory" value="<?php echo $task->manufactory; ?>" placeholder="Nhà cung cấp">
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input class="uniform" type="checkbox" name="phieu" value="1" <?php echo $task->phieu == 1 ? 'checked=""' : ''; ?>><span style="color:red; font-weight: bold;">Không phiếu</span>
+                                            </label>
+                                            <label>
+                                                <input class="uniform" type="checkbox" name="khachMuonMay" value="1" <?php echo $task->khachMuonMay == 1 ? 'checked=""' : ''; ?>><span style="color:red; font-weight: bold;">Khách mượn máy cửa hàng</span>
                                             </label>
                                         </div>
                                     </div>
@@ -171,12 +185,6 @@
                                     <label for="pass1" class="control-label col-lg-4">Thời gian bảo hành (Ngày)</label>
                                     <div class="col-lg-8">
                                         <input name="timeWarranty" class="form-control" type="text" placeholder="Thời gian bảo hành (Ngày)" value="<?php echo $task->timeWarranty; ?>"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="pass1" class="control-label col-lg-4">Lưu ý nội bộ</label>
-                                    <div class="col-lg-8">
-                                        <textarea class="form-control" name="note"><?php echo $task->note; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
