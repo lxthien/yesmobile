@@ -1,0 +1,63 @@
+a:link, a:active, a:visited
+{
+	color: #e62e21;
+	font-weight: normal;
+	text-decoration: none;
+}
+a:hover{text-decoration: underline;}
+
+a.menu_title:link, a.menu_title:active, a.menu_title:visited
+{
+	color: #e62e21;
+	font-size:15px;
+	font-weight: bold;
+	text-decoration: none;
+}
+a.menu_title:hover{text-decoration: underline;}
+
+.form
+{
+	border:1px solid #f6ba00;
+	font-size:11px;
+}
+
+.img{
+	cursor:pointer;	
+	border: 1px solid #000000;
+}
+
+td
+{
+	color:#343434;
+	font-size:12px;
+	font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+}
+
+body
+{
+	margin: 0px;
+	font-size:12px;
+	font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+	background-image:url(../../images/bg_03.gif);
+}
+
+hr
+{
+	color:#bcbcbc;
+}
+
+.header_title{color: #931111; font-size: 48px; font-weight:bold; background-color:#f6ba00; text-align:center;}
+.main_title{color: #931111; font-size: 18px; font-weight:bold;}
+.td_account_title{font-weight:bold; background-color:#f3e2a7; text-align:right;}
+.td_form_title{font-weight:bold; text-align:right;}
+.td_form_bg{ background-color:#FFFFCC; text-align:right;}
+.select_form{border:1px solid #999999; font-size:11px;}
+
+.table_line{border:dashed 1px #999999;}
+.table_border_line{border:solid 1px #f6ba00; background-color:#f2f2f2;}
+.table_border_line_body{border:solid 5px #f6ba00; background-color:#f2f2f2;}
+.td_table{background-color:#f2f2f2;}
+.td_box{border:solid 1px #bcbcbc; background-color:#ffffff; border-top-width:0px; padding:10px;}
+.td_title{color: #e62e21; font-size:15px; font-weight: bold; text-decoration: none;}
+.tr_title_bg{ background-image:url(../../images/admin-blue_11.gif); height:30px;}
+.td_title_main{ font-weight:bold; color:#FFFFFF; text-decoration:none;}

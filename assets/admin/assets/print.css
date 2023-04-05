@@ -1,0 +1,12 @@
+.cls2 {
+	width:794px; height:1122px; margin: 0 auto;
+}
+.cls2 .logo {
+	width: 100%; text-align: center; padding: 30px 0;
+}
+.cls2 .black {
+	width: 100%; text-align: center; padding: 10px 0;
+}
+.cls2 .black p{
+	text-transform: uppercase; font-size: 20px; font-weight: 600;
+}

@@ -1,0 +1,45 @@
+/*
+// "Tabs & Slides In Content Items" Plugin for Joomla! 1.0.x - Version 2.2
+// License: http://www.gnu.org/copyleft/gpl.html
+// Authors: Fotis Evangelou - George Chouliaras
+// Copyright (c) 2006-2007 JoomlaWorks.gr - http://www.joomlaworks.gr
+// Project page at http://www.joomlaworks.gr - Demos at http://demo.joomlaworks.gr
+// ***Last update: January 14th, 2007***
+*/
+
+/* --- Tabs --- */
+.tabberlive .tabbertabhide {display:none;}
+.tabber {}
+.tabberlive {margin:8px 0px;}
+ul.tabbernav {margin:0px;padding:3px 0px;border-bottom:1px solid #ce9200;font-size:12px;font-weight:bold;}
+ul.tabbernav li {list-style:none;margin:0;display:inline;}
+ul.tabbernav li a {padding:3px 4px;margin-left:3px;border:1px solid #ce9200;border-bottom:none;background:#eee url(vinafx_v2_bg_03.gif) repeat-x top;text-decoration:none;}
+ul.tabbernav li a:link {color:#500701}
+ul.tabbernav li a:visited {}
+ul.tabbernav li a:hover {color:#FF0000;background:#f2f2f2;border-color:#ce9200;}
+ul.tabbernav li.tabberactive a {background:#fff;border-bottom:1px solid #fff;}
+ul.tabbernav li.tabberactive a:hover {background:#fff;border-bottom:1px solid #fff;}
+li.tabberactive {background-image:none;padding:0px;}
+li.tabberinactive {background-image:none;padding:0px;}
+.tabberlive .tabbertab {padding:5px;border:1px solid #ce9200;border-top:0;
+/* If you don't want the tab size changing whenever a tab is changed you can set a fixed height 
+height:200px;
+/* If you set a fix height set overflow to auto and you will get a scrollbar when necessary
+overflow:auto;*/
+background:#ffffff url();
+}
+.tabberlive .tabbertab h2 {display:none;}
+.tabberlive .tabbertab h3 {display:none;}
+.tabberlive#tab1 {}
+.tabberlive#tab2 {}
+.tabberlive#tab2 .tabbertab {overflow:auto; /*height:500px;*/}
+
+
+/* --- Slides --- */
+.jw_slidetitle {cursor:pointer;margin:0px;overflow:hidden;background:url(slide_bg_r.png) no-repeat right top;}
+.jw_st_left {background:url(slide_bg_l.png) no-repeat left top;margin-right:10px;}
+.jw_st_cont {background:url(star.png) no-repeat;background-position:0px 3px;padding:5px 2px 5px 20px !important;padding:4px 2px 6px 20px;margin-left:8px;font-size:12px;font-weight:bold;color:#C64934;}
+/* Parent box of slide down content */
+.jw_slide {border:none;background-color:#cccccc;width:100%;visibility:hidden;height:0px;overflow:hidden;position:relative;}
+/* Content that slides down */
+.jw_slidecontent {padding:2px;margin:0px;position:relative;}

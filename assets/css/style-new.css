@@ -1,0 +1,2824 @@
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1010px;
+    }
+}
+
+body {
+    background: #ffffff;
+}
+.sreenwrap {
+    margin:0px auto;
+}
+.wrap {
+    background-color:#FFFFFF; float:left;
+}
+
+.green-color {
+    background: none;
+}
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+.cl {
+    clear: both;
+}
+h1.h1-title{
+    font-weight:bold; font-size:16px; margin-bottom:3px; color:#424242; text-transform: uppercase; line-height: 20px;
+}
+h1.h1-title-detail {
+    color: #000080; text-transform: uppercase; font-size: 20px; font-weight: 400;
+}
+p.no-item {
+    font-size: 15px; padding: 10px 0; float: left; width: 100%;
+}
+.noidungthitruongchitiet {
+    width:675px; margin-top:5px; font-size: 17px; line-height: 1.7;
+}
+.noidungthitruongchitiet p{
+    margin-bottom: 10px;
+}
+.noidungthitruongchitiet img{
+    max-width: 100%;
+}
+
+/**
+ * Menu
+ *************************/
+.headter-top, .dropdown-navigative-menu {
+    height: 40px;
+}
+.headter-top #page-navigative-menu{
+    height: 40px; background: none; background-color: #000080;
+}
+#page-navigative-menu ul {
+    margin: 0;
+}
+#page-navigative-menu ul li {
+    margin: 0px; height: 40px; padding: 0 22px; position: relative;
+}
+#page-navigative-menu ul li a.haslin {
+    text-transform: uppercase; line-height: 40px; font-size: 13px;
+}
+#page-navigative-menu a:hover {
+    color: #ffed21;
+}
+#page-navigative-menu li li {
+    height: 35px;
+}
+#page-navigative-menu li li a{
+    padding: 2px 0;
+}
+
+
+#page-navigative-menu ul.menu-category {
+    width: 450px; border-bottom: none; position: absolute; top: 40px; left: 0;
+}
+#page-navigative-menu ul.menu-category li{
+    width: 100%; float: left; height: auto; padding-bottom: 10px; border-top: none;
+}
+#page-navigative-menu ul.menu-category li:hover {
+    background: #ffffff;
+}
+#page-navigative-menu ul.menu-category li div.menu-category-list{
+    width: 48%; float: left; margin-right: 10px;
+}
+#page-navigative-menu ul.menu-category li div.menu-category-list:last-child {
+    margin-right: 0px;
+}
+#page-navigative-menu ul.menu-category li div.menu-category-list p {
+    text-transform: uppercase; color: #262626; line-height: 30px; border-bottom: 1px solid #cccccc; margin-top: 5px; height: 30px;
+}
+#page-navigative-menu ul.menu-category li div.menu-category-list .item{
+    height: 30px; background: url("../images/icon-menu.png") no-repeat 1px 11px;
+}
+#page-navigative-menu ul.menu-category li div.menu-category-list .item a{
+    height: 30px; display: block; width: 206px; padding: 0; margin: 0; line-height: 30px; padding-left: 10px;
+}
+#page-navigative-menu ul.menu-category li div.menu-category-list .item a:hover {
+    background: url("../images/icon-menu-active.png") no-repeat 1px 11px #000080; color: #ffffff;
+}
+
+
+.dropdown-navigative-menu .dropdown-navigative-menu2 ul {
+    border: 1px solid #cccccc; background: #ffffff; min-width: 268px; border-top: none;
+}
+.dropdown-navigative-menu .dropdown-navigative-menu2 ul:hover {
+    border: 1px solid #000080; border-top: none;
+}
+#page-navigative-menu .dropdown-navigative-menu .dropdown-navigative-menu2 ul li {
+    height: 30px; background: url("../images/icon-menu.png") no-repeat 10px 11px; border: none; padding: 0;
+}
+#page-navigative-menu .dropdown-navigative-menu .dropdown-navigative-menu2 ul li a {
+    padding: 0 0 0 19px; height: 30px; line-height: 30px; width: 250px; margin: 0;
+}
+#page-navigative-menu .dropdown-navigative-menu .dropdown-navigative-menu2 ul li a:hover {
+    background: url("../images/icon-menu-active.png") no-repeat 10px 11px #000080; color: #ffffff;
+}
+/**
+ * Slider
+ **************************/
+.main-slider {
+     width: 625px; float: left;
+}
+.banner {
+     width: 345px; float: right;
+}
+.banner .banner-6of12 {
+     width: 166px; float: left; border: 1px solid #cccccc; height: 85px; margin-bottom: 8px; margin-right: 8px;
+}
+.banner .banner-6of12:nth-child(2n) {
+    margin-right: 0px; float: right;
+}
+.banner .banner-12of12 {
+     width: 343px; border: 1px solid #cccccc; float: left; height: 85px;
+}
+
+/**
+ * Home page
+ ******************************/
+.home-service {
+    /*width: 100%; height: 110px; clear: both;*/
+}
+.title-service {
+    padding: 10px 0;
+}
+.title-service hr{
+    border: 0; border-top: 2px solid #cccccc;
+}
+.title-service h2 {
+    position: absolute; text-align: center; padding: 5px 10px; background-color: #ffffff; top: -4px; left: 30%; text-transform: uppercase; color: #000000; font-weight: bold; font-size: 17px;
+    font-family: "Roboto";
+}
+.home-service div#service-bxslider{margin-top: 5px; float: left; width: 980px;}
+.home-service div#service-bxslider .slide {float: left; height: 80px; min-height: 80px;}
+.home-service div#service-bxslider .slide a.image {float: left; width: 150px; margin-right: 8px;} 
+.home-service div#service-bxslider .slide a.image img {width: 150px;}
+
+.home-service div#service-bxslider .slide a.name {font-size: 15px; display: block; color: #000000; font-weight: 500; padding-right: 5px;}
+.home-service div#service-bxslider .slide a.name:hover{color: #000080;}
+
+.main-service-bxslider {width: 980px; height: 95px; float: left; overflow: hidden; padding: 10px 0;}
+.main-service-bxslider .bx-wrapper, .main-service-bxslider .bx-wrapper .bx-window{
+    width: 980px !important;
+}
+.main-service-bxslider .bx-prev, .main-service-bxslider .bx-next {
+    top: 30px;
+}
+
+/**
+ * Main
+ ********************************/
+.main .left {
+    float: left; width: 675px;
+}
+.left .allboxsp2 .spbanchay {
+    width: 675px; border: 1px solid #cccccc;
+}
+.spbanchay {
+    padding-bottom: 0px; border-bottom: none !important;
+}
+.spbanchay hr {
+    float: left; width: 100%; margin: 8px 0; border: 0; border-top: 1px solid #cccccc;
+}
+.spbanchay .boxsp {
+    width: 337px; border-right: 1px solid #cccccc; height: 275px; border-bottom: 1px solid #cccccc;
+}
+.spbanchay .boxsp .title-boxsp {
+    padding: 10px; line-height: 20px;
+}
+.spbanchay .boxsp .title-boxsp h2{
+    float: left; color: #000080; text-transform: uppercase; background: url("../images/icon-arrows.png") no-repeat 5px 2px;
+    padding-left: 18px; font-size: 15px;
+}
+.spbanchay .boxsp .title-boxsp h2 a{
+    color: #000080; font-family: "Roboto, sans-serif"; font-weight: 500;
+}
+.spbanchay .boxsp .title-boxsp>a{
+    float: right; color: #1a1a1a; font-size: 13px; background: url("../images/icon-arrows-02.png") no-repeat 5px 5px; padding-left: 16px;
+    font-family: "Roboto, sans-serif";
+}
+.spbanchay .boxsp.odd {
+    border-right: none; float: right;
+}
+
+.spbanchay .boxsp .main-boxsp {
+    padding: 5px 5px 5px 10px;
+}
+.main-boxsp .main-boxsp-large {
+    border: 1px solid #cccccc; width: 142px; position: relative; float: left; margin-right: 5px;
+}
+.main-boxsp .main-boxsp-large .home-img-product-large{
+    display: block; height: 153px; position: relative;
+}
+.main-boxsp .main-boxsp-large .home-img-product-large .status-product {
+    position: absolute; left: 88px; top: 10px;
+}
+.main-boxsp .main-boxsp-large a > img {
+    margin: 8px 0 5px 8px;
+}
+.main-boxsp .main-boxsp-large .name-and-price {
+    background: #f5f5f5; padding: 5px;
+}
+.main-boxsp .main-boxsp-large .name-and-price a{
+    font-size: 13px; color: #000000; line-height: 18px; display: block; min-height: 36px; font-family: "Roboto, sans-serif";
+}
+.main-boxsp .main-boxsp-large .name-and-price p {
+    color: #1a1a1a; margin-top: 2px; font-size: 12px; font-family: "Roboto, sans-serif";
+}
+.main-boxsp .main-boxsp-large .name-and-price p span {
+    color: #ff0000; font-size: 14px; letter-spacing: 0.1px;
+}
+.main-boxsp .main-boxsp-large .pr-news {
+    background-color: #0b6bbe;
+}
+.main-boxsp .main-boxsp-large .pr-sv{
+
+}
+.main-boxsp .main-boxsp-large .pr-gs{
+    background: #cc1414;
+}
+.main-boxsp .main-boxsp-large .pr-qt{
+    background: #7bbd0b;
+}
+.main-boxsp .main-boxsp-large .pr-icon {
+    padding: 2px 3px; color: #ffffff; font-size: 8px; text-transform: uppercase; width: 43px; text-align: center;
+    font-family: "Roboto, sans-serif"; margin-bottom: 3px;
+}
+
+.main-boxsp-small {
+    width: 172px; float: left; margin-bottom: 15px;
+}
+.main-boxsp-small img {
+    float: left;
+}
+.main-boxsp-small a{
+    color: #555555; font-size: 12px; font-family: "Roboto, sans-serif";
+}
+.main-boxsp-small a:hover, .main-boxsp .main-boxsp-large .name-and-price a:hover {
+    color: #000080;
+}
+.main-boxsp-small p{
+    margin-top: 5px; color: #1a1a1a; font-size: 12px; font-family: "Roboto, sans-serif";
+}
+.main-boxsp-small p span{
+    color: #ff0000; font-size: 14px; letter-spacing: 0.1px; font-family: "Roboto, sans-serif";
+}
+.main-boxsp-small .home-img-product-small {
+    width: 50px; padding: 0 5px; float: left;
+}
+.main-boxsp-small .home-img-product-small img{
+    width: 45px;
+}
+
+
+.main .right {
+    float: right; width: 295px;
+}
+.main .right .right-box {
+    margin-bottom: 10px; float: left; width: 100%;
+}
+
+.right .toponline {
+    background: none; width: 100%; height: auto; float: none;
+}
+.right .toponline h2 {
+    color:#424242; font-size:16px; font-weight:bold; margin-bottom:2px; text-transform: uppercase;
+    line-height: 22px;
+}
+.right .midonline {
+    background: none; width: 295px; margin-top: 5px;
+}
+
+.boxdownload {
+    width: 100%;
+}
+.boxdownload{
+    width: 100%;
+}
+.sreencontentdownload {
+    width:295px; height:80px; float:left; margin-bottom: 20px; overflow: hidden;
+}
+.imges-block-you-see{
+    float: left; width: 125px; height: 80px; margin-right: 10px;
+}
+a.link-block-you-see{
+    color: #333333; font-size: 13px;
+}
+a.link-block-you-see p {
+    overflow: hidden;
+}
+a.link-block-you-see:hover{
+    color: #005a9b;
+}
+
+.sreencontentdownload > p {
+    color: #7a7a7a; font-size: 12px; margin: 3px 0;
+}
+.sreencontentdownload p.des {
+    padding: 3px 0; color: #000000; text-align: justify; line-height: 16px;
+}
+
+
+.boxsp2 {
+    margin-left: 20px; margin-top: 10px;
+}
+.boxsp2 .titlesp3 p {
+    font-size: 14px;
+}
+.bx-window {
+    left: 0px;
+}
+.bx-prev {
+    background: url("../images/arrow-bxslider-01.png") no-repeat; top: 85px; left: 0; width: 15px;
+}
+.bx-next {
+    background: url("../images/arrow-bxslider-02.png") no-repeat; top: 85px; right: -5px; width: 15px;
+}
+.new1, .new2 {
+    width: 485px;
+}
+.new2 {
+    margin-left: 0; float: right;
+}
+.new1 .hinhnew, .new2 .hinhnew {
+    margin-left: 0; width: 150px; height: 90px; margin-top: 0px;
+}
+.hinhnew img {
+    width: 150px; height: 90px;
+}
+.contentnew a,
+.contentnew a p {
+    width: 100%;
+}
+.line2 {
+    margin-left: 0; width: 485px; background: #cccccc;
+}
+
+
+.sreenchitiet .chitiet a {
+    float: right; background: url('../images/icon-menu.png') no-repeat 3px 5px; padding-left: 10px;
+}
+
+
+/**
+ * Description: service detail
+ * Author: Thien
+ */
+.main-service-detail {
+    width: 100%;
+}
+.main-service-detail .main-product {
+    margin-top: 0;
+}
+
+.server-information {
+    width: 980px; height: 265px; margin-top: 35px;
+}
+.server-information .server-information-left {
+    width: 410px; float: left; text-align: center;
+}
+.server-information .server-information-left img {
+    text-align: center;
+}
+
+.server-information .server-information-right {
+    width: 550px; float: right;
+}
+.server-information .server-information-right h3 {
+    font-size: 16px; line-height: 20px; border-bottom: 1px solid #cccccc; font-weight: 400;
+}
+
+.main-info-note {
+    margin: 5px 0;
+}
+.main-info-note p {
+    line-height: 20px; font-size: 14px;
+}
+.main-info-note p span.span-left {
+    display: inline-block; width: 150px;
+}
+
+.server-information-detail {
+    margin-top: 10px;
+}
+.server-information-detail .server-information-left {
+    width: 675px; float: left; text-align: left; margin-top: 24px;
+}
+.server-information-detail .server-information-left p{
+    line-height: 20px; margin-bottom: 20px;
+}
+
+.server-information-detail .server-information-right {
+    width: 255px; float: right;
+}
+
+
+
+.right .product-news-right, .right .product-news-right-item {
+    float: left; width: 295px;
+}
+.right .product-news-right-item {
+    margin-bottom: 10px;
+}
+.right .product-news-right-item a.img-product-news {
+    float: left; width: 85px; margin-right: 5px; text-align: center;
+}
+.right .product-news-right-item .product-news-right-info {
+    float: right; width: 205px;
+}
+.product-news-right-info a{
+    font-size: 14px; color: #000000;
+}
+.product-news-right-info a:hover{
+    color: #000080; font-weight: 600;
+}
+.product-news-right-info p.product-new-right-price {
+    margin: 3px 0; font-size: 14px;
+}
+.product-news-right-info p.product-new-right-price span{
+    color: #ff0000;
+}
+
+.product-news-right-info p.product-new-right-status{
+    margin: 3px 0;
+}
+.product-new-right-status .pr-news {
+    background-color: #0b6bbe; padding: 2px 7px; color: #ffffff; font-size: 12px; font-weight: 600; text-transform: uppercase;
+}
+.product-new-right-status .pr-gift {
+    background-color: #7bbd0b; padding: 2px 7px; color: #ffffff; font-size: 12px; font-weight: 600; text-transform: uppercase;
+}
+.product-new-right-status .pr-good-price {
+    background-color: #cc1414; padding: 2px 7px; color: #ffffff; font-size: 12px; font-weight: 600; text-transform: uppercase;
+}
+
+/**
+ * Css footer
+ * 
+ */
+.foter {
+    background: #f5f5f5; border-top: 1px solid #ffffff; margin-top: 0px; height: 280px;
+}
+.foter .center {
+    width: 550px; margin: 0 auto; border-top: 1px solid #555555; text-align: center;
+}
+
+.foter .footer-right {
+    width: 330px; height: 110px; border: 1px solid #ffffff; border-radius: 2px; background: #ffffff; float: right; padding: 10px;
+}
+.foter .footer-right h3 {
+    text-transform: uppercase; font-size: 15px;
+}
+.footer-right-01 {
+    padding: 5px 0; border-bottom: 1px solid #cccccc;
+}
+.footer-right-01:last-child {
+    border-bottom: none;
+}
+.footer-right-01 p:first-child {
+    color: #000080; font-size: 16px; 
+}
+.footer-right-01 p:last-child {
+    font-size: 13px;
+}
+
+
+.foter .add .footer-menu {
+    margin-bottom: 10px; float: left;
+}
+.foter .add .footer-menu li {
+    float: left; margin-right: 8px; border-right: 1px solid #000000; padding-right: 10px; line-height: 12px; height: 12px;
+}
+.foter .add .footer-menu li:last-child {
+    border-right: none;
+}
+.foter .add .footer-menu li a{
+    font-size: 14px; color: #000000;
+}
+.foter .add .footer-menu li a:hover{
+    color: #000080;
+}
+
+.foter .add .category {
+    float: left; width: 100%;
+}
+.foter .add .category li {
+    float: left;
+    padding-left: 10px;
+    background: url('../images/icon-menu.png') no-repeat 0 6px;
+    margin-right: 30px;
+    line-height: 20px;
+    width: 255px;
+}
+.foter .add .category li:nth-child(2n) {
+    margin-right: 0px;
+}
+.foter .add .category li a {
+    color: #000000; font-size: 14px;
+}
+.foter .add .category li a:hover {
+    color: #000080;
+}
+
+
+.allboxsp1 {
+    border: none; padding-top: 0;
+}
+
+
+/**
+ * Product
+ *****************************/
+.main-product {
+    float: left; width: 980px; margin-top: 12px;
+}
+.main-product .left {
+    width: 100%;
+}
+.main-product .left .allboxsp1 .title {
+    position: relative; float: left; margin: 15px 0 5px;
+}
+.main-product .left .allboxsp1 .title h1{
+    position: absolute; background: #ffffff; left: 0; top: -11px; text-transform: uppercase; font-weight: 400; padding-right: 15px;
+    font-size: 20px;
+}
+.main-product .line7 {
+    width: 980px; background: #cccccc;
+}
+.main-product .xemtatca a{
+    width: auto; float: right; line-height: 25px;
+}
+.main-product .boxsp {
+    width: 215px; margin-right: 10px; border: 1px solid #cccccc; margin-bottom: 10px; border-radius: 2px; padding: 10px;
+    height: 130px;
+}
+.main-product .boxsp:nth-child(4n) {
+    margin-right: 0px;
+}
+.main-product .boxsp .sp3 {
+    width: 85px; height: 125px; text-align: center;
+}
+.main-product .boxsp .sp3 img {
+    width: 75px; height: 100px; margin-left: 0;
+}
+.main-product .boxsp .titlesp {
+    float: left; width: 130px;
+}
+.main-product .boxsp .titlesp a{
+    margin: 0; width: 100%; font-weight: 600; height: auto; margin-bottom: 8px;
+}
+.main-product .boxsp .titlesp a:hover {
+    margin: 0; color: #000080; width: 100%; height: auto; margin-bottom: 8px;
+}
+.main-product .boxsp .pricespold {
+    width: 130px;
+}
+.main-product .boxsp .pricespnew {
+    width: 130px;
+}
+.main-product .boxsp .boxsale {
+    float: left; padding: 5px 0; width: 130px;
+}
+.main-product .spbanchay {
+    width: 980px;
+}
+.main-product .boxsp .boxsale a span {
+    margin: 3px 0;
+}
+.main-product .boxsp .boxsale .sp-news span {
+    display: inline-block; padding: 3px 5px; color: #ffffff; background: #0a6abd; text-transform: uppercase; font-weight: 600;
+}
+.main-product .boxsp .boxsale .sp-gs span {
+    display: inline-block; padding: 3px 5px; color: #ffffff; background: #cc1414; text-transform: uppercase; font-weight: 600;
+}
+
+.main-product .boxsp .boxsale .sp-giff span {
+    display: inline-block; padding: 3px 5px; color: #ffffff; background: #7bbd0b; text-transform: uppercase; font-weight: 600;
+}
+
+
+.nav {
+    float: left; width: 100%; margin: 0px 0px 15px;
+}
+.nav a {
+    display: inline-block; font-size: 14px; color: #000000; margin-right: 5px; padding: 5px;
+}
+.nav span {
+    font-size: 14px; display: inline-block; margin-right: 5px; padding: 5px;
+}
+.nav a:hover, .nav span {
+    color: #ffffff; background: #000080; border-radius: 5px;
+}
+
+.main-product .sp_sub_category_big .boxsp {
+    width: 270px;
+}
+
+
+.ttinsanpham {
+    width: 980px;
+}
+
+.leftthongtin {
+    width: 460px;
+}
+.leftthongtin .boxhinhlonsp {
+    width: 440px; height: 320px;
+}
+.box-chung-toi-cam-ket {
+    padding: 10px 20px; border: 1px solid #cccccc; width: 400px; border-radius: 5px; float: left; background: #fafafa;
+}
+.box-chung-toi-cam-ket p {
+    font-size: 13px; line-height: 18px; padding: 3px 0 0 20px; background: url("../images/icon-check.png") no-repeat 0 4px;
+    text-align: justify;
+}
+.box-chung-toi-cam-ket span {
+    color: #ed0000; display: block; font-size: 18px; line-height: 20px;
+}
+
+
+.rightthongtin {
+    width: 505px; float: right; margin: 0;
+}
+.price-detail {
+    font-size: 22px; color: #ff0000; float: left; width: 100%; margin: 8px 0;
+}
+.price-detail span {
+    float: left;
+}
+.price-detail span.icon-price-rate {
+    line-height: 15px; margin-top: 5px; font-size: 19px; margin: 5px 5px 0px 5px;
+}
+.price-detail span.icon-price {
+    background-color: #ffffff; color: #000000; font-size: 10px; border: 1px solid #000000; padding: 0 5px; font-weight: 600;
+    margin: 7px 8px 0 5px;
+}
+.price-detail span.product-price {
+    font-weight: 600;
+}
+span.product-price-text {
+    font-weight: 400; font-size: 16px;
+}
+span.ngan-cach {
+    font-size: 16px; padding: 0 5px; color: #cccccc;
+}
+span.hotline-tu-van {
+    font-weight: 400; font-size: 16px; margin-top: 2px; font-weight: 600;
+}
+
+
+.tu-van {
+    font-size: 17px; color: #000000;
+}
+.tu-van span:last-child {
+    color: #ff0000;
+}
+.thongtincoban {
+    width: 100%; float: left; margin-bottom: 10px;
+}
+.thongtincoban .p-title {
+    width: 100%; font-size: 16px; color: #000000; margin: 5px 0 2px; font-weight: 600;
+}
+.thongtincoban hr {
+    border: 0; border-top: 1px solid #cccccc; float: left; width: 100%; margin-bottom: 5px;
+}
+.thongtincoban p {
+    font-size: 13px; line-height: 18px;
+}
+
+
+.thongtincanluuy {
+    width: 100%; float: left; margin-bottom: 15px;
+}
+.thongtincanluuy .p-title {
+    width: 100%; font-size: 16px; color: #000000; margin: 5px 0 2px; font-weight: 600;
+}
+.thongtincanluuy hr {
+    border: 0; border-top: 1px solid #cccccc; float: left; width: 100%; margin-bottom: 5px;
+}
+.thongtincanluuy p {
+    font-size: 13px; line-height: 18px;
+}
+
+.qua-khuyen-mai {
+    width: 435px; border: 2px solid #f3ae1a; float: left; background: url("../images/gift.png") no-repeat;
+    border-radius: 3px;
+}
+.info-qua-khuyen-mai {
+    margin: 50px 0 10px 20px;
+}
+.info-qua-khuyen-mai p {
+    font-size: 13px; line-height: 18px;
+}
+.main-product .line7 {
+    width: 100%;
+}
+
+
+.thongso a {
+    margin-left: 0px; font-size: 18px; font-weight: 400;
+}
+.thongso a:hover{
+    margin-left: 0; font-size: 18px; font-weight: 400;
+}
+.gioithieusp a {
+    font-size: 18px; font-weight: 400;
+}
+.gioithieusp a:hover {
+    font-size: 18px; font-weight: 400;
+}
+
+
+#thongsokithuat p, #gioithieusanpham p {
+    margin-bottom: 18px; line-height: 18px; font-size: 14px;
+}
+
+
+.main-product-detail {
+    width: 980px; float: left; margin-top: 15px;
+}
+.product-col-right {
+    float: right; width: 290px; margin-top: 10px;
+}
+.box-product-col-right {
+    float: left; width: 100%;
+}
+.box-product-col-right-title {
+    width: 100%;
+}
+.box-product-col-right-title h5 {
+    text-transform: uppercase; font-weight: 400; font-size: 18px; color: #000000;
+}
+.box-product-col-right-title hr {
+    border: 0; border-top: 1px solid #cccccc; float: left; width: 100%; margin-bottom: 5px;
+}
+
+
+.sub-category-service {
+    margin: 0 0 15px; width: 100%; float: left;
+}
+.sub-category-service p{
+    font-weight: 600; line-height: 20px; padding-bottom: 3px;
+}
+.sub-category-service ul li {
+    float: left; line-height: 23px; padding-right: 20px; padding-left: 10px;
+    background: url('../images/icon-menu.png') no-repeat 0 8px;
+}
+.sub-category-service ul li a {
+    color: #000000; font-size: 14px;
+}
+.sub-category-service ul li a.breadcrumb-active {
+    font-weight: 600;
+}
+.sub-category-service ul li a:hover {
+    color: #000080;
+}
+
+
+.box-service {
+    float: left; width: 100%; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #b0b0b0;
+}
+.box-service .img-server {
+    float: left; margin-right: 10px; width: 220px; height: 160px;
+}
+.box-service .right-box-service {
+    float: right; width: 443px;
+}
+.box-service .right-box-service a {
+    margin-bottom: 5px; font-size: 16px; color: #000080; font-weight: 600;
+}
+.box-service .right-box-service a:hover {
+    color: #000080;
+}
+.box-service .right-box-service p.date-service {
+    color: #7a7a7a; padding: 5px 0 0px; display: none;
+}
+.box-service .right-box-service p.des-service {
+    font-size: 14px; color: #262626; text-align: justify; padding-top: 8px; line-height: 18px;
+}
+
+.box-service-first .img-server{
+    height: 180px; width: 250px;
+}
+.box-service-first .right-box-service {
+    width: 410px;
+}
+.box-service-first .right-box-service a {
+    color: #000080;
+}
+
+
+/**
+ * Download
+ ********************************/
+.hinhcongnghe {
+    width: 220px; height: 160px; border: 1px solid #cccccc; margin-left: 0; margin-right: 10px;
+}
+.hinhcongnghe img {
+    width: 220px; height: 160px;
+}
+.titlecongnghe a {
+    width: 443px; color: #000080; margin: 0;
+}
+.ttincongghe .sreenttin {
+    margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #cccccc;
+}
+.date-technology {
+    font-style: italic; color: #7a7a7a; display: none;
+}
+
+.ttincongghe .date-technology {
+    padding: 3px 0 5px;
+}
+.ttincongghe p[align="justify"] {
+    line-height: 18px; font-size: 13px; padding-top: 8px;
+}
+
+.ttincongghe .box-service-first {
+    height: 180px;
+}
+.box-service-first .titlecongnghe a {
+    width: 410px;
+}
+.box-service-first .hinhcongnghe {
+    height: 180px; width: 250px;
+}
+.box-service-first .hinhcongnghe img {
+    height: 180px; width: 250px;
+}
+
+
+.main-news-social {
+    margin: 5px 0 10px; width: 100%; float: left;
+}
+.main-news-social .social {
+    float: left; width: 500px;
+}
+.fb_iframe_widget, #___plusone_0, #___plus_0 {
+    float: left !important;
+}
+.main-news-social span.time-update-news {
+    float: right; height: 20px; line-height: 20px; font-size: 14px; font-style: italic; color: #797979;
+}
+
+
+.cactinkhac2 {
+    width: 675px; margin: 0px;
+}
+.cactinkhac2 h3.h3-news-related {
+    border-left: 3px solid #299feb; color: #000000; text-transform: uppercase; line-height: 25px; padding-left: 10px;
+    margin-bottom: 15px; font-size: 15px; height: 25px;
+}
+.cactinkhac2 .main-news-related {
+    width: 675px; float: left;
+}
+.cactinkhac2 .main-news-related .sreentieude {
+    float: left; width: 330px; margin-right: 10px; margin-left: 0; margin-bottom: 15px;
+}
+.cactinkhac2 .main-news-related .sreentieude:nth-child(2n) {
+    margin-right: 0px;
+}
+.cactinkhac2 .main-news-related .sreentieude a.img-news-related {
+    width: 100px; height: 75px; float: left; margin-right: 5px;
+}
+.cactinkhac2 .main-news-related .sreentieude a.img-news-related img {
+    border: none; width: 100%; height: 100%;
+}
+.sreentinkhacchitiet {
+    width: 220px; float: right;
+}
+.sreentinkhacchitiet a{
+    color: #000000; margin-bottom: 3px; font-size: 13px; float: left; font-weight: 600;
+}
+.sreentinkhacchitiet a:hover {
+    color: #000080;
+}
+.sreentinkhacchitiet p.des-news-related {
+    height: 30px; overflow: hidden; margin-bottom: 2px; float: left; text-align: justify;
+}
+.sreentinkhacchitiet p.date-news-related {
+    color: #7a7a7a;
+}
+
+.cactinkhac2-large.cactinkhac2-dichvu .main-news-related .sreentieude {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #cccccc;
+}
+.cactinkhac2-large.cactinkhac2-dichvu .main-news-related .sreentieude a.img-news-related {
+    width: 45%;
+}
+.cactinkhac2-large.cactinkhac2-dichvu .main-news-related .sreentieude .sreentinkhacchitiet {
+    width: 50%;
+}
+
+
+/**************************************
+ * Lien He
+ **************************************/
+.gui input {
+    width: 70px; height: 30px; background: #000080; border: none; cursor: pointer; float: left; margin-right: 10px;
+    text-transform: uppercase; color: #ffffff; font-weight: 600;
+}
+.contact-tbl-row {
+    font-size: 14px; line-height: 25px;
+}
+.contact-tbl-row img {
+    vertical-align: middle;
+}
+.contact-tbl-label {
+    margin-bottom: 3px; font-size: 14px; color: #000000;
+}
+.contact-text-field {
+    width: 350px; height: 25px; line-height: 25px; border: 1px solid #cccccc;
+}
+textarea#message {
+    resize: none; border: 1px solid #cccccc; width: 500px; height: 170px;
+}
+
+
+.line-title {
+    width: 100%; position: relative; margin-bottom: 20px;
+}
+.line-title .left-30 {
+    width: 15%; height: 2px; background: #000080; position: absolute; top: 0; left: 0; z-index: 10;
+}
+.line-title .left-70 {
+    width: 90%; height: 2px; background: #787878; position: absolute; top: 0; right: 0;
+}
+
+.phantrang {
+    float:left; width:675px; height:20px;
+}
+.phantrang .back {
+    text-align: center;
+}
+
+.phantrang a, .phantrang span {
+    border: 1px solid #cccccc; margin: 0 2px; text-align: center; padding: 3px 7px; display: inline-block;
+}
+.phantrang span.active {
+    background-color: #000080; color: #ffffff; font-weight: 600; text-decoration: underline;
+}
+/*
+.phantrang .back a, .phantrang .back span{
+    background-color: #000080; border-radius: 50%; color: #ffffff; padding: 0 3px; margin: 0 3px; display: inline-block; float: none;
+    background-color: #999999; margin-left: 5px; color: #FFFFFF; float: left; padding: 2px 6px; font-size: 12px;
+}
+.phantrang .back span.active {
+    background-color: #000080;
+}
+*/
+
+.ttincongghe {
+    width: 675px;
+}
+
+
+h1.h1-title {
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 3px;
+    text-transform: initial;
+    color: #000080;
+}
+
+
+ul.accessories{
+    width: 675px;
+}
+ul.accessories li{
+    float: left; border: 1px solid #cccccc; margin-right: 5px; width: 32.5%; border-radius: 3px; min-height: 190px;
+}
+ul.accessories li:nth-child(3n){
+    margin-right: 0px;
+}
+ul.accessories li a.img{
+    float: left; width: 100%; text-align: center; padding: 5px 0;
+}
+ul.accessories li a.img img{
+    width: 90px; height: 120px;
+}
+ul.accessories li a.name{
+    float: left; width: 100%; text-align: center; color: #000000; font-size: 14px; font-family: "Roboto";
+}
+ul.accessories li a.name:hover{
+    color: #000080;
+}
+ul.accessories li p{
+    float: left; width: 100%; text-align: center; line-height: 20px; font-size: 13px;
+}
+ul.accessories li p span{
+    color: red; font-weight: 600; font-size: 14px; font-family: "Roboto";
+}
+
+
+.lists-service-right ul {
+    margin-top: -10px;
+}
+.lists-service-right ul li {
+    border-bottom: 1px solid #cccccc;
+}
+.lists-service-right ul li:last-child {
+    border-bottom: none;
+}
+.lists-service-right ul li a {
+    font-size: 17px; color: #000000; display: block; padding: 3px 0;
+}
+.lists-service-right ul li a:hover {
+    color: #000080;
+}
+.lists-service-right ul li a.menu_active {
+    color: #000080; font-weight: 600;
+}
+
+
+.grid .col-01 {float: left; border-right: 1px solid #cccccc; border-bottom: 1px solid #cccccc; width: 224px; padding: 15px 0px; box-shadow: 0px 3px 5px #e2e2e2;
+position: relative;}
+.grid .col-01:nth-child(3n){}
+.grid .col-01:hover{box-shadow: 0px 3px 10px #A3A3A3;}
+
+.grid .col-01>a{display: block; text-align: center;}
+.grid .col-01>a img {height: 105px;}
+.grid .col-01 .name-and-price {text-align: center; padding: 15px 8px 0px;}
+.grid .col-01 .name-and-price p{margin: 0;}
+.grid .col-01 .name-and-price a{font-size: 15px; color: #000080;}
+.grid .col-01 .name-and-price p.note{font-size: 12px; font-style: italic; color: #A3A3A3; padding: 3px 0px; min-height: 30px;}
+.grid .col-01 .name-and-price p.price{font-size: 13px; color: #A3A3A3; padding: 0px 0px;}
+.grid .col-01 .name-and-price p.price span{font-size: 16px; color: #FF0000; padding: 3px 0px; font-weight: 600;}
+
+.grid .col-01 .status-product{position: absolute; right: 8px; top: 15px;}
+.grid .col-01 .status-product .pr-icon{text-transform: uppercase; color: #ffffff; padding: 3px 5px; font-size: 9px; text-align: center; margin-bottom: 3px;}
+.grid .col-01 .status-product .pr-icon.pr-news{background: #0a6abd;}
+.grid .col-01 .status-product .pr-icon.pr-gs{background: #cc1414;}
+.grid .col-01 .status-product .pr-icon.pr-qt{background: #7bbd0b;}
+
+#page-navigative-menu ul li.active{height: 38px; border-bottom: 2px solid #f85f32;}
+
+
+.cactinkhac2-large .main-news-related .sreentieude{width: 100%;}
+.cactinkhac2-large .main-news-related .sreentieude a.img-news-related{width: 200px; height: 120px;}
+.cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet{width: 460px;}
+.cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet a{font-size: 16px;}
+.cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet p.des-news-related{font-size: 14px; margin-top: 8px;
+height: 70px;}
+.cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet p.date-news-related{display: none;}
+
+
+/*=========================
+ * Menu
+ =========================*/
+.headter-top {
+    width: 100%;
+}
+.navbar {
+    background-color: #000080;
+}
+.navbar .navbar-nav > li > a {
+    color: #ffffff; text-transform: uppercase;
+}
+.navbar .dropdown-menu {
+    border: 1px solid #cccccc; background: #ffffff; min-width: 268px; border-top: none;
+}
+.navbar .dropdown-menu .dropdown-item {
+    height: 30px; background: url(../images/icon-menu.png) no-repeat 6px 6px; padding: 0 0 0 15px;
+}
+.navbar .dropdown-menu .dropdown-item a {
+    color: #666; padding: 0; font-size: 13px;
+}
+
+
+/*=========================
+ * Banner
+ =========================*/
+.sreenbaner {
+    height: 290px; float: left; margin-top: 20px;
+}
+.main-slider {
+    display: block;
+}
+
+.navbar-brand {
+    margin: 0 auto;
+}
+.navbar-brand img {
+    vertical-align: middle;
+}
+
+
+.zalo-chat-widget {
+	left: 0 !important;
+    bottom: 10pt !important;
+}
+
+
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+    .noidungthitruongchitiet img {
+        width: 100% !important;
+        height: auto !important;
+    }
+    .noidungthitruongchitiet iframe {
+        width: 95% !important;
+        height: auto !important;
+    }
+
+    /*=========================
+     * Column right
+    =========================*/
+    .boxdownload.widget-warranty {
+        text-align: center;
+    }
+    .boxdownload.widget-warranty input {
+        width: 100%;
+        border: 1px solid #cccccc;
+        height: 30px;
+        padding: 0 0 0 10px;
+        margin-bottom: 10px;
+    }
+    .boxdownload.widget-warranty p.widget-warranty-response {
+        text-align: left;
+        margin: 5px 0 0;
+        font-style: italic;
+        font-weight: 600;
+        display: none;
+    }
+    .boxdownload.widget-warranty button {
+        border: none;
+        height: 30px;
+        text-align: center;
+        color: #ffffff;
+        background: #000080;
+        text-transform: uppercase;
+        padding: 0 20px;
+        margin: 8px 0 0 0;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .nav {
+        margin: 20px 0px 10px 15px;
+    }
+    .nav a, .nav span {
+        padding: 0 15px 0 0;
+        line-height: 25px;
+    }
+    .nav a {
+        background: url(../images/icon4.png) no-repeat right 0px center;
+        background-size: 7px;
+    }
+    .nav span {
+        background: none;
+        color: #000000;
+        font-weight: 600;
+    }
+
+    .ttincongghe.col-md-12 {
+        margin: 0 -15px; width: auto;
+    }
+    
+    /**
+     * Menu
+    *************************/
+    .top-header .col-md-4 {
+        display: none;
+    }
+    .top-header .top-header-left {
+        padding: 10px 0; float: left; width: 100%;
+    }
+    .top-header .top-header-left-01 {
+        width: 45%; float: left;
+    }
+    .top-header .top-header-left-02 {
+        float: right;
+        text-align: right;
+        padding-top: 3px;
+    }
+    .top-header .top-header-left .top-header-left-03 {
+        width: 55%;
+        margin-top: 3px;
+        text-align: right;
+    }
+    .top-header .top-header-left-01 span {
+        font-size: 14px;
+        color: #f85f32;
+        vertical-align: middle;
+        font-weight: 600;
+        margin-left: 5px;
+        display: inline-block;
+    }
+    .top-header .top-header-left-01 span.top-span {
+        display: none;
+    }
+
+
+    .logo {
+        width: 100%; height: auto; margin: 0; padding: 10px 0;
+    }
+    .logo img {
+        width: 100%;
+    }
+    .navbar {
+        background-color: #000080;
+        z-index: 100;
+        padding: .3rem 1rem;
+    }
+    .navbar-toggler {
+        
+    }
+    .navbar-collapse {
+        z-index: 100; padding: 0 15px; margin: 0 -15px;
+    }
+    .navbar-toggler-icon {
+        display: none;
+    }
+    .navbar-toggler .icon-bar {
+        display: block;
+        width: 22px;
+        height: 1px;
+        border-radius: 1px;
+        background-color: #ffffff;
+        margin: 6px 0;
+    }
+
+    .dropdown-toggle::after {
+        display: none;
+    }
+    .navbar-nav li.dropdown .drop-down {
+        position: absolute; right: 0px; top: 10px; width: 15px; height: 15px;
+    }
+    .navbar-nav li.dropdown .drop-down .icon-drop-down {
+        position: relative;
+    }
+    .navbar-nav li.dropdown .drop-down .icon-drop-down:after {
+        position: absolute; font: normal normal normal 14px/1 FontAwesome; content: "\f078"; right: -15px; color: #ffffff; top: 0px; transform: scale(0.7,0.7);
+    }
+    .navbar-nav li.dropdown .drop-down.active .icon-drop-down:after {
+        content: "\f077";
+    }
+
+    .navbar .dropdown-menu {
+        padding: 10px;
+    }
+
+    /*=========================
+     * Banner
+    =========================*/
+    .main-slider {
+        width: 384px; display: none;
+    }
+    .main-slider .nivoSlider a img {
+        width: 100%;
+    }
+    
+    .banner {
+        width: 100%; float: none; clear: both;
+    }
+    .banner img{
+        width: 100%;
+    }
+
+    .main-slider .nivoSlider img {
+        width: 100%;
+    }
+    .banner .row .col-md-6.ml {
+        padding-right: 5px; margin-bottom: 5px;
+    }
+    .banner .row .col-md-6.mr {
+        padding-left: 5px; margin-bottom: 5px;
+    }
+
+    .sreenbaner {
+        height: auto; margin-bottom: 20px;
+    }
+
+    /*=========================
+     * Home service
+    =========================*/
+    .home-service {
+        display: none;
+    }
+    .home-service .title-service{
+        padding: 3px 0;
+    }
+    .home-service .title-service h2{
+        position: relative; left: 0; top: 0; padding: 0 0px; margin: 0;
+    }
+    .home-service .title-service hr{
+        display: none;
+    }
+    .main-service-bxslider {
+        width: 100%; height: 120px;
+    }
+    .home-service div#service-bxslider .slide {
+        height: 85px; overflow: hidden;
+    }
+    .home-service div#service-bxslider .slide a.name {
+        font-size: 14px;
+    }
+
+
+    /*=========================
+     * Homepage
+    =========================*/
+    .main .left {
+        width: 100%;
+    }
+    .left .allboxsp2 .spbanchay {
+        width: 100%;
+    }
+    .grid .col-01 {
+        width: 100%;
+    }
+    .grid .col-01 .name-and-price a {
+        font-size: 16px;
+    }
+
+    .main .right {
+        width: 100%;
+    }
+    .main .right .sreencontentdownload {
+        width: 100%;
+    }
+
+    .left .allboxsp2 .spbanchay .grid .col-01{
+        border-right: none; margin: 0 15px;
+    }
+
+    .left .home-accessories{
+        display: none; margin-top: 10px; width: 100%;
+    }
+    .left .home-accessories .phu-kien-hot{
+        width: 100%; overflow: hidden;
+    }
+    .left .home-accessories .phu-kien-hot li .boxsp2 .titlesp3 a{
+        margin-bottom: 12px;
+    }
+    .left .home-accessories .phu-kien-hot li .boxsp2 .titlesp3 a p{
+        font-size: 14px;
+    }
+
+    .sreennew.home-technology {
+        display: none; width: 100%; margin-top: 5px; float: left;
+    }
+    .sreennew.home-technology .boxnew {
+        width: 100%; float: left;
+    }
+    .sreennew.home-technology .boxnew .sreennew1{
+        width: 100%; float:left; margin-bottom:12px;
+    }
+    .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew {
+        float:left; margin-left:10px; width: 220px; height: 85px;
+    }
+    .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew p{
+        margin-bottom: 5px;
+    }
+    .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew .noidung,
+    .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew .sreenchitiet {
+        display: none;
+    }
+
+    .home-technology .boxnew .new1,
+    .home-technology .boxnew .new2 {
+        width: 100%;
+    }
+    .home-technology .new1 .hinhnew,
+    .home-technology .new2 .hinhnew {
+        margin-left: 0; width: 115px; height: 85px; margin-top: 0px;
+    }
+    .home-technology .new1 .hinhnew img,
+    .home-technology .new2 .hinhnew img {
+        width: 115px; height: 85px;
+    }
+    .home-technology .line2 {
+        width: 100%; margin: 8px 0;
+    }
+
+    .main .left .sreennew.home-technology {
+        display: block; padding: 0;
+    }
+
+    /*=========================
+     * Product listing page
+    =========================*/
+    .main-product .left .allboxsp1 .title {
+        margin: 10px 0 0px;
+    }
+    .main-product .left .allboxsp1 .title h1 {
+        position: relative;
+    }
+    .nav {
+        margin: 30px 0px 10px 15px;
+    }
+     .main-product {
+        width: auto; float: none;
+    }
+
+    .product-list-page {
+        padding-top: 15px;
+    }
+    .product-list-page .spbanchay {
+        width: 100%;
+    }
+    .product-list-page .spbanchay .sreensp1 {
+        width: 100%; margin: 0;
+    }
+    .product-list-page .spbanchay .boxsp {
+        width: auto;
+    }
+
+    .main-product .product-list-page .boxsp {
+        margin: 0; height: 180px; padding: 15px 10px;
+    }
+    .main-product .product-list-page .boxsp .sp3 {
+        width: 135px;
+    }
+    .main-product .product-list-page .boxsp .sp3 img {
+        width: 100px; height: auto; float: none;
+    }
+    .main-product .product-list-page .boxsp .titlesp {
+        width: 55%;
+    }
+    .main-product .product-list-page .boxsp .titlesp p {
+        margin-bottom: 5px; font-size: 15px;
+    }
+
+    /*=========================
+     * Product detail page
+    =========================*/
+    .product-page .nav {
+        margin: 20px 0 0 0;
+    }
+    .main-product .ttinsanpham, .main-product .ttinsanpham .main-product-detail {
+        width: 109%;
+    }
+    .main-product .ttinsanpham .product-out-of-stock {
+        font-size: 18px; color: #023f81;
+    }
+    .main-product .ttinsanpham .leftthongtin,
+    .main-product .ttinsanpham .leftthongtin .boxhinhlonsp {
+        width: 100%;
+    }
+    .main-product .ttinsanpham .leftthongtin .boxhinhlonsp img {
+        width: 53%;
+    }
+    .main-product .ttinsanpham .leftthongtin .box-chung-toi-cam-ket {
+        display: none;
+    }
+    .box-chung-toi-cam-ket {
+        width: 100%;
+    }
+    .main-product .ttinsanpham .rightthongtin {
+        width: 109%;
+    }
+    .main-product .ttinsanpham .rightthongtin .price-detail {
+        margin: 5px 0;
+    }
+    .main-product .ttinsanpham .rightthongtin .thongtincoban p, .main-product .ttinsanpham .rightthongtin .thongtincanluuy p {
+        font-size: 14px; margin-bottom: 8px;
+    }
+    .thongtincoban .p-title, .thongtincanluuy .p-title {
+        text-transform: uppercase; font-weight: 600;
+    }
+    .thongtincoban hr, .thongtincanluuy hr {
+        margin: 5px 0 10px;
+    }
+
+    .main-product .ttinsanpham .qua-khuyen-mai {
+        width: 100%;
+    }
+    .main-product .ttinsanpham .note-delivery {
+        float: left; padding: 8px 0; font-size: 15px; font-weight: 600; color: #262626; margin-bottom: 5px;
+    }
+    .main-product .ttinsanpham .share-product {
+        float: left; width: 100%; margin-bottom: 8px;
+    }
+    .main-product .ttinsanpham .main-product-detail .sreenthongso {
+        display: flex;
+    }
+    .main-product .ttinsanpham .main-product-detail .thongso a,
+    .main-product .ttinsanpham .main-product-detail .gioithieusp a {
+        text-transform: uppercase; font-size: 14px; color: #000000; font-weight: 600;
+    }
+    .main-product .ttinsanpham .main-product-detail .pd-10 {
+        padding: 0 10px; color: #000000; font-size: 15px;
+    }
+
+    .main-product .ttinsanpham .main-product-detail .product-col-right {
+        width: auto;
+    }
+
+    .main-product .product-detail .ttinsanpham {
+        width: 100%;
+    }
+    .main-product .product-detail .ttinsanpham .rightthongtin h1 {
+        font-size:23px; font-weight: 400; color:#222222;
+    }
+    .main-product .product-detail .ttinsanpham .rightthongtin .product-out-of-stock,
+    .main-product .product-detail .ttinsanpham .rightthongtin .tu-van {
+        margin-bottom: 5px; font-size: 17px;
+    }
+    .main-product .product-detail .ttinsanpham, .main-product .ttinsanpham .main-product-detail {
+        width: 100%;
+    }
+    .main-product .product-detail .ttinsanpham .rightthongtin {
+        width: 100%;
+    }
+    .box-chung-toi-cam-ket span {
+        margin-bottom: 10px;
+    }
+    .qua-khuyen-mai {
+        margin-bottom: 10px;
+    }
+    .info-qua-khuyen-mai p {
+        font-size: 14px;
+    }
+    .main-product .leftthongtin .note-delivery a {
+        color: #ed0000;
+    }
+
+    .main-product .ttinsanpham .main-product-detail .thongso a, .main-product .ttinsanpham .main-product-detail .gioithieusp a {
+        font-size: 13px;
+    }
+    .main-product .ttinsanpham .main-product-detail .pd-10 {
+        font-size: 12px;
+    }
+    .thongtincanluuy {
+        margin-bottom: 15px;
+    }
+    .main-product .phu-kien .ttinsanpham .rightthongtin h1 {
+        font-size: 23px;
+    }
+
+    #gioithieusanpham img {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /*=========================
+     * Phu kien detail page
+    =========================*/
+    .phu-kien .rightthongtin > h1 {
+        font-size:23px; font-weight: 400; color:#222222;
+    }
+    .phu-kien .main-product-detail {
+        width: 100%;
+    }
+    .phu-kien .main-product-detail 	.sreenthongso {
+        float:left; margin-top: 19px; max-width: 650px;
+    }
+    .main-product .left .phu-kien.allboxsp1 .title {
+        position: relative; width: 100%; float: left; margin: 5px 0 30px;
+    }
+    .main-product .left .phu-kien.allboxsp1 .title .title1 {
+        display: none;
+    }
+    .main-product .left .phu-kien.allboxsp1 .title h1 {
+        position: absolute;
+    }
+    .main-product .phu-kien .ttinsanpham {
+        width: 100%;
+    }
+    .main-product .phu-kien .ttinsanpham .main-product-detail .sreenthongso {
+        display: block;
+    }
+    .main-product .phu-kien .ttinsanpham .rightthongtin {
+        width: 100%;
+    }
+
+    .main-product .left .phu-kien .thongtincanluuy,
+    .main-product .left .phu-kien .main-thongtincanluuy p {
+        margin-bottom: 0;
+    }
+
+    ul.accessories {
+        width: 100%;
+    }
+    ul.accessories li {
+        margin-right: 0;
+    }
+
+    .main-product .phu-kien .ttinsanpham .main-product-detail .right {
+        width: auto;
+    }
+
+    /*=========================
+     * Service page
+    =========================*/
+    .ttincongghe {
+        width: 100%;
+    }
+    .ttincongghe .sreentieude {
+        width: 100%; margin-left: 0px;
+    }
+    .ttincongghe .noidungthitruongchitiet {
+        width: 100%;
+    }
+
+    .box-service .img-server {
+        width: 38%; height: auto;
+    }
+    .box-service .img-server img {
+        width: 100%; height: 95px;
+    }
+    .box-service .right-box-service {
+        width: 58%; float: right;
+    }
+    .box-service .right-box-service .des-service {
+        margin-bottom: 0;
+        margin-top: 5px;
+    }
+    .box-service .right-box-service .des-service p {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .box-service .right-box-service .des-service p.product-price-text span {
+        color: #ff0000;
+        font-weight: 600;
+    }
+
+    .allboxsp1 .phantrang {
+        width: 100%;
+    }
+
+    .servicesCat .sub-category-service {
+        margin: 30px 0 15px;
+    }
+    .servicesCat .sub-category-service h1 {
+        margin-bottom: 10px; font-size: 18px;
+    }
+    .servicesCat .sub-category-service p {
+        font-size: 15px;
+    }
+
+    .servicesDetail .main-service-detail .server-information,
+    .servicesDetail .main-service-detail .server-information .main-news-social .social {
+        width: 100%;
+    }
+    .servicesDetail .main-service-detail .server-information .server-information-right .title-service {
+        padding: 10px 0; margin-bottom: 0;
+    }
+    .servicesDetail .main-service-detail .server-information .server-information-right .product-price {
+        font-size: 18px;
+    }
+    .servicesDetail .main-service-detail .server-information .server-information-right .time-wanarry {
+        float: left; margin-bottom: 5px; font-size: 16px; width: 100%;
+    }
+    .servicesDetail .main-service-detail .server-information .server-information-right .address {
+        float: left; margin-bottom: 5px; font-size: 16px;
+    }
+    .servicesDetail .server-information-right .right .midonline {
+        width: 100%;
+    }
+
+    .main-news-social .social {
+        width: 100%;
+    }
+    .main .right .midonline {
+        width: 100%;
+    }
+    .main .right .lists-service-right ul li a {
+        font-size: 16px;
+    }
+    .company_introduce .nav {
+        margin: 30px 0px 10px;
+    }
+    .company_introduce .allboxsp1 {
+        padding: 0 15px;
+    }
+
+    .servicesCat .allboxsp1 .allboxsp1,
+    .servicesDetail .allboxsp1 .allboxsp1 {
+        padding: 0 15px;
+    }
+    .servicesCat .server-information {
+        margin-top: 5px;
+    }
+    .servicesDetail .main-service-detail .server-information-left,
+    .servicesDetail .main-service-detail .server-information-right {
+        width: 100%;
+    }
+    .server-information-detail .server-information-left {
+        margin-top: 0px;
+    }
+    .servicesDetail .main-service-detail .server-information .server-information-left .row {
+        display: block;
+    }
+
+    .servicesDetail .main-service-detail .server-information .server-information-left .noidungthitruongchitiet a.read-more {
+        display: inline-block; margin: 10px 0px 20px; color: #000080; text-decoration: underline; font-weight: 600;
+    }
+
+    /*=========================
+     * Service detail page
+    =========================*/
+    .servicesDetail .nav {
+        margin: 30px 0px 10px 0px
+    }
+    .server-information {
+        margin-top: 0px;
+    }
+    .noidungthitruongchitiet {
+        width: 100%;
+    }
+    .price-detail {
+        font-size: 22px; color: #ff0000; float: left; width: 100%; margin: 8px 0;
+    }
+    .price-detail .product-price-text {
+        float: none; display: block;
+    }
+    .icon-price-rate {
+        margin: 3px 5px 0px 5px; font-size: 18px;
+    }
+    span.ngan-cach {
+        display: none;
+    }
+
+    span.hotline-tu-van {
+        float: left;
+    }
+    span.hotline-tu-van span{
+        color: #000000;
+        font-size:16px;
+        padding: 0 0 5px 0;
+        font-weight: 400;
+        margin-right: 5px;
+    }
+    .service-view-map {
+        font-size: 12px; font-style: italic; color: #000080;
+    }
+
+    .servicesDetail .main-service-detail .server-information .server-information-left img {
+        width: 100% !important; height: auto !important;
+    }
+    .servicesDetail .noidungthitruongchitiet {
+        width: auto; margin: 0 -15px;
+    }
+    .servicesDetail .cactinkhac2 {
+        width: auto; margin: 0 -15px;
+    }
+    .servicesDetail .server-information-right .right {
+        float: none; width: auto; margin: 0 -15px;
+    }
+
+    /*=========================
+     * Right column
+    =========================*/
+    .right .right-box{
+        margin-top: 0px;
+    }
+    .right .right-box .boxdownload .sreencontentdownload{
+        margin-bottom: 15px;
+    }
+    .right .right-box .boxdownload .sreencontentdownload .imges-block-you-see,
+    .right .right-box .boxdownload .sreencontentdownload .imges-block-you-see img{
+        width: 115px;
+    }
+    .right .right-box .boxdownload .sreencontentdownload .link-block-you-see p{
+        margin: 0; font-size: 14px;
+    }
+
+    /*=========================
+     * News page
+    =========================*/
+    .view_post_on_page .nav,
+    .view_post_on_category .nav {
+        margin: 30px 10px 10px 15px;
+    }
+    .view_post_on_page .left .allboxsp1 .allboxsp1,
+    .view_post_on_category .left .allboxsp1 .allboxsp1 {
+        padding: 0 15px;
+    }
+    .cactinkhac2 h3.h3-news-related {
+        border-left: 3px solid #000080; font-weight: 600;
+    }
+    .cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet a {
+        font-size: 15px;
+    }
+
+    /*=========================
+     * News detail
+     =========================*/
+    .news.index .nav {
+        margin: 30px 0px 10px;
+    }
+    .news.index .left .allboxsp1 {
+        padding: 0 15px;
+    }
+    .cactinkhac2,
+    .cactinkhac2 .main-news-related{
+        width: 100%;
+    }
+    .main-news-social span.time-update-news {
+        float: left;
+        height: 20px;
+        line-height: 20px;
+        font-size: 14px;
+        font-style: italic;
+        color: #797979;
+        margin-top: 10px;
+    }
+    .cactinkhac2-large .main-news-related .sreentieude a.img-news-related {
+        width: 100%;
+        height: auto;
+    }
+    .cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet {
+        width: auto;
+        float: left;
+    }
+    .cactinkhac2 .main-news-related .sreentieude{
+        margin-right: 0px;
+    }
+    .cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet a {
+        margin: 5px 0;
+    }
+    .cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet p.des-news-related {
+        height: auto;
+        display: none;
+    }
+    .sreentieude .sreentinkhacchitiet .des-news-related {
+        display: none;
+    }
+
+    .ttincongghe .sreentieude .tieude .h1-title-detail {
+        color: #111111;
+        font-size: 28px;
+        font-weight: bold;
+        text-transform: initial;
+    }
+
+    /*=========================
+     * Contact page
+    ==========================*/
+    .contact-form .contact-tbl-title {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .nav.nav-contact {
+        margin: 30px 10px 10px 15px;
+    }
+    .contact-form .ttincongghe .sreentieude {
+
+    }
+    #form_contact .contact-text-field {
+        width: 100%;
+        height: 35px;
+        line-height: 35px;
+    }
+    #form_contact textarea#message {
+        width: 100%;
+    }
+
+    /*=========================
+     * Warranty page
+    =========================*/
+    .allboxsp1.warranty {
+        padding: 0 15px;
+    }
+    .allboxsp1.warranty > .col-md-12 {
+        margin: 0 -15px; width: auto;
+    }
+    .time-warranty-note {
+        width: 100%; float: left; font-size: 14px;
+    }
+    .timeWarrantyBody {
+        width: 100%; margin-top: 30px; margin-bottom: 30px; text-align: left;
+    }
+    .timeWarrantyBody p {
+        font-size: 14px; margin-bottom: 8px;
+    }
+    .timeWarrantyBody .table {
+        padding: 0 15px; width: 100%; margin: 20px 0 0 0;
+    }
+    form.timeWarranty input{
+        height: 30px; line-height: 30px; width: 100%; padding-left: 10px; margin: 0 auto; font-size: 14px; margin-right: 10px; float: left; margin-bottom: 10px;
+    }
+    form.timeWarranty input {
+        border: 1px solid #cccccc;
+    }
+    form.timeWarranty button{
+        height: 32px; width: 100px; border: none; cursor: pointer; text-transform: uppercase; font-size: 15px; background-color: #000080; color: #ffffff; display: table; margin: auto;
+    }
+    .timeWarrantyBody>p.message {
+        color: #000080; font-weight: 600;
+    }
+
+    /*=========================
+     * Footer
+     =========================*/
+    .foter {
+        width: 100%; background: #ffffff; border-top: 1px solid #fff;
+    }
+    .foter .add {
+        width: 100%;
+    }
+    .foter .add .footer-menu li {
+        height: 20px; line-height: 20px;
+    }
+
+    .foter .footer-right {
+        height: auto; width: 100%; float: none;
+    }
+
+    .footer-address p {
+        font-size:14px; line-height: 20px;
+    }
+    .footer-address p:first-child {
+        font-size:18px; font-weight:bold; color:#000080; padding: 10px 0 5px;
+    }
+    .foter .add .footer-menu li{
+        border-right: none;
+    }
+    .footer-right-01 p,
+    .footer-address p {
+        margin-bottom: 10px;
+    }
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width : 480px) {
+    
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+    .noidungthitruongchitiet img {
+        width: auto !important;
+        height: auto !important;
+    }
+    .noidungthitruongchitiet iframe {
+        width: auto !important;
+        height: auto !important;
+    }
+
+    .nav {
+        margin: 20px 0px 20px 15px;
+    }
+    .nav a, .nav span {
+        padding: 0 15px 0 0;
+    }
+    .nav a {
+        background: url(../images/icon4.png) no-repeat right 0px center;
+        background-size: 7px;
+    }
+    .nav a:hover {
+        background: url(../images/icon4.png) no-repeat right 0px center;
+        background-size: 7px;
+        color: #000000;
+        text-decoration: underline;
+    }
+    .nav span {
+        background: none;
+        color: #000000;
+    }
+
+    .ttincongghe.col-md-12 {
+        margin: 0; width: 100%;
+    }
+    .allboxsp1.warranty > .col-md-12 {
+        margin: 0; width: 100%;
+    }
+    
+    /*=========================
+     * Top header
+     *=========================*/
+    .top-header {
+        height: 46px; border-bottom: 2px solid #cccccc; margin: 0px;
+    }
+    .top-header .col-md-8, .top-header .col-md-4 {
+        padding: 0;
+    }
+    .top-header .top-header-left {
+        padding: 0; float: none; width: auto; border-bottom: 0;
+    }
+    .top-header .top-header-left-01 {
+        width: auto; float: left;
+    }
+    .top-header .top-header-left-02 {
+        padding-top: 8px;
+    }
+    .top-header .top-header-left .top-header-left-03 {
+        width: auto; margin-top: 0;
+    }
+    .top-header .col-md-4 {
+        display: block;
+    }
+    .top-header .top-header-left-01 span.top-span {
+        display: inline-block; color: #000000;
+    }
+
+    .top-header-left {
+        float: left; height: 44px;
+    }
+    .top-header-left-01 {
+        padding: 8px 0; float: left; margin-right: 10px;
+    }
+    .top-header-left-01 img{
+        vertical-align: middle;
+    }
+    .top-header-left-01 span{
+        font-size: 15px; font-weight: 600; vertical-align: middle; padding: 5px 0;
+    }
+    .top-header-left-01 span:first-child {
+        color: #252525; margin-left: 5px;
+    }
+    .top-span {
+        margin-left: 5px;
+    }
+    .top-header-left-01 span:last-child {
+        color: #f85f32; margin-left: 8px;
+    }
+
+    .top-header-left-02 {
+        padding: 10px 0;
+    }
+
+    .top-header-right {
+        height: 44px; float: right;
+    }
+    .top-header-right ul li {
+        float: left; font-size: 14px; padding: 11px 10px;  border-right: 1px dotted #cccccc;
+    }
+    .top-header-right ul li:last-child {
+        border-right: none;
+    }
+    .top-header-right ul li a {
+        color: #000000;
+    }
+    .top-header-right ul li a:hover {
+        color: #4089b7;
+    }
+
+    .logo {
+        height: 129px; margin-left: 0px;
+    }
+
+    .head-search {
+        position: relative; float: right; margin-top: 40px;
+    }
+    .head-search .input-search{
+        position: absolute; right: 75px; border: 1px solid #cccccc; height: 23px; width: 360px; padding: 5px 0 5px 40px;
+        background: url("../images/icon-search.png") no-repeat 5px 10px;
+    }
+    .head-search .input-search input {
+        height: 25px; line-height: 25px; border: none; width: 100%;
+    }
+    .head-search button {
+        position: absolute; right: 0px; width: 70px; height: 35px; background-color: #656565; border: none; color: #ffffff; line-height: 35px; font-size: 14px; cursor: pointer;
+    }
+
+
+    /*=========================
+     * Menu
+     =========================*/
+    .headter-top {
+         width: 100%;
+    }
+    .navbar-nav li {
+        position: relative;
+    }
+    .navbar-nav li .dropdown-menu {
+        display: none; position: absolute; z-index: 100; top: 38px; border-radius: 0;
+    }
+    .navbar .dropdown-menu.product-menu {
+        min-width: 430px;
+    }
+    .navbar-nav li:hover .dropdown-menu {
+        display: block;
+    }
+    .navbar-nav li .dropdown-menu p {
+        text-transform: uppercase; color: #262626; line-height: 30px; border-bottom: 1px solid #cccccc;
+        margin-top: 5px; height: 30px; margin-bottom: 10px; margin-left: 15px; font-size: 13px;
+    }
+    .navbar-nav li .dropdown-menu li ul {
+        float: left; margin-right: 20px;
+    }
+    .navbar-nav li .dropdown-menu li ul:last-child {
+        margin-right: 0px; width: 195px;
+    }
+    .navbar .dropdown-menu .dropdown-item {
+        margin-left: 10px;
+    }
+    .navbar {
+        padding: 0px; height: 40px; background-color: #000080;
+    }
+    .nav-link {
+        padding: 0.7rem 1.2rem;
+    }
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding: 0.7rem 1.2rem;
+    }
+    .navbar-expand-lg .navbar-nav .nav-link.home {
+        padding: 0.5rem 1.5rem;
+    }
+    .navbar-expand-lg .navbar-nav .nav-link.active {
+        border-bottom: 2px solid #f85f32; background-color: #0602b7; height: 40px;
+    }
+    .navbar .dropdown-menu .dropdown-item a {
+        font-weight: 600;
+    }
+
+    .navbar .dropdown-menu {
+        padding: 10px 0px;
+    }
+    .navbar-nav li.dropdown .drop-down {
+        display: none;
+    }
+
+    /*=========================
+     * Slider
+     =========================*/
+    .main-slider {
+        display: block; width: 625px;
+    }
+    .banner {
+        float: right; clear: none; width: 345px;
+    }
+    .sreenbaner {
+        height: 290px; margin-bottom: 10px;
+    }
+    .banner .row .col-md-6.ml,
+    .banner .row .col-md-6.mr {
+        margin-bottom: 8px;
+    }
+
+    /*=========================
+     * Homepage
+    =========================*/
+    .main .left .sreensphot.home-accessories {
+        width: 643px; height: 240px; margin-bottom: 10px;
+    }
+    .main .left {
+        float: none; width: 100%;
+    }
+    .allboxsp2 {
+        float: left; padding-top: 1px; margin-bottom: 10px;
+    }
+    .left .allboxsp2 .spbanchay {
+        width: 100%;
+    }
+    .main .sreensphot {
+        width: 675px; height: 210px; float: left; margin-bottom: 40px;
+    }
+    .left .allboxsp2 .spbanchay .grid, .left .allboxsp2 .spbanchay .grid .col-01 {
+        margin: 0;
+    }
+
+    .main .left .sreennew.home-technology {
+        display: none;
+    }
+
+    .sreennew.home-technology {
+        display: block; width: 980px; margin-top: 1px; float: left;
+    }
+    .sreennew.home-technology .boxnew {
+        width: 980px; float: left;
+    }
+    .sreennew.home-technology .boxnew .sreennew1{
+        width:980px; float:left; margin-bottom:12px;
+    }
+    .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew {
+        float:left; margin-left:10px; width:320px; height: 90px;
+    }
+    .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew .sreenchitiet {
+        float:right; width:60px; height:20px;
+    }
+    .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew .noidung,
+    .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew .sreenchitiet {
+        display: block;
+    }
+
+    .home-technology .boxnew .new1,
+    .home-technology .boxnew .new2 {
+        width: 485px;
+    }
+    .home-technology .new1 .hinhnew,
+    .home-technology .new2 .hinhnew {
+        margin-left: 0; width: 150px; height: 100px; margin-top: 0px;
+    }
+    .home-technology .new1 .hinhnew img,
+    .home-technology .new2 .hinhnew img {
+        width: 150px; height: 100px;
+    }
+    .home-technology .line2 {
+        width: 485px; margin: 12px 0 0;
+    }
+
+    .home-service,
+    .left .home-accessories {
+        display: block;
+    }
+
+    /*=========================
+     * Product listing page
+    =========================*/
+    .product-page .nav {
+        margin: 10px 0px 20px;
+    }
+    .product-list-page .title .title1 {
+        background-color:#cccccc; width:980px; height:2px; margin-bottom:20px; float:left;
+    }
+    .product-list-page .spbanchay .sreensp1 {
+        width: 100%; margin-left: 0;
+    }
+    .product-list-page .spbanchay .sreensp1 .boxsp {
+        width: 100%; margin: 0 0 0 0;
+    }
+    .product-list-page .spbanchay .sreensp1 .boxsp .titlesp p,
+    .product-list-page .spbanchay .sreensp1 .boxsp .pricespnew {
+        font-size: 13px; margin-bottom: 0;
+    }
+    .main-product .product-list-page .boxsp .sp3 {
+        width: 92px;
+    }
+    .main-product .product-list-page .boxsp .sp3 img {
+        width: 90px;
+    }
+    
+
+    /* Update CSS at 10032018 */
+    .main-product .product-list-page.phu-kien .boxsp .sp3,
+    .main-product .product-list-page.san-pham .boxsp .sp3 {
+        width: 102px;
+        margin-right: 5px;
+    }
+    .main-product .product-list-page.phu-kien .boxsp .sp3 img,
+    .main-product .product-list-page.san-pham .boxsp .sp3 img {
+        width: 100px;
+    }
+    .main-product .product-list-page.phu-kien .boxsp .titlesp,
+    .main-product .product-list-page.san-pham .boxsp .titlesp,
+    .main-product .product-list-page.phu-kien .boxsp .pricespnew,
+    .main-product .product-list-page.san-pham .boxsp .pricespnew,
+    .main-product .product-list-page.phu-kien .boxsp .boxsale,
+    .main-product .product-list-page.san-pham .boxsp .boxsale,
+    .main-product .product-list-page.phu-kien .boxsp .pricespold,
+    .main-product .product-list-page.san-pham .boxsp .pricespold {
+        width: 52%;
+    }
+
+    /*=========================
+     * Product detail page
+    =========================*/
+    .main-product .ttinsanpham .leftthongtin,
+    .main-product .ttinsanpham .leftthongtin .boxhinhlonsp {
+        width: 460px;
+    }
+    .main-product .ttinsanpham .leftthongtin .box-chung-toi-cam-ket {
+        width: 460px;
+    }
+    .main-product .ttinsanpham .leftthongtin .boxhinhlonsp img {
+        width: 50%;
+    }
+
+    .main-product .ttinsanpham .rightthongtin {
+        width: 505px; float: right;
+    }
+
+    .box-chung-toi-cam-ket {
+        display: none;
+    }
+    .main-product .ttinsanpham .leftthongtin .box-chung-toi-cam-ket {
+        display: block;
+    }
+
+    .sreenthongso {
+        width: 100%;
+    }
+    .main-product .ttinsanpham .main-product-detail .thongso a, .main-product .ttinsanpham .main-product-detail .gioithieusp a {
+        font-size: 18px; font-weight: 400; color: #000000; text-transform: none;
+    }
+    .main-product .ttinsanpham .main-product-detail .thongso a p, .main-product .ttinsanpham .main-product-detail .gioithieusp a p {
+        margin-bottom: 0;
+    }
+    .main-product .ttinsanpham .main-product-detail .pd-10 {
+        float:left; font-size: 16px; margin: 3px 5px 0 8px;
+    }
+    .main-product .line7 {
+        margin: 5px auto 15px;
+    }
+
+    .main-product .product-detail .ttinsanpham .rightthongtin {
+        width: 530px;
+    }
+
+    .container.sreenttinchitiet {
+        max-width: 670px; margin: 0;
+    }
+    .product-col-right {
+        margin-top: 0px;
+    }
+    .main-product .ttinsanpham .rightthongtin .thongtincoban .p-title,
+    .main-product .ttinsanpham .rightthongtin .thongtincanluuy .p-title {
+        text-transform: none; font-size: 16px;
+    }
+    .thongtincoban > hr, .thongtincanluuy > hr {
+        margin: 3px 0 8px;
+    }
+    .main-product .ttinsanpham .rightthongtin .thongtincoban .main-thongtincoban p,
+    .main-product .ttinsanpham .rightthongtin .thongtincanluuy .main-thongtincanluuy p {
+        text-transform: none; font-size: 14px; line-height: 18px; margin-bottom: 5px;
+    }
+    .info-qua-khuyen-mai p {
+        margin-bottom: 5px;
+    }
+
+    /*=========================
+     * Phu kien detail page
+    =========================*/
+    .phu-kien .main-product-detail {
+        width: 100%;
+    }
+    .main-product .phu-kien .ttinsanpham .rightthongtin {
+        width: 505px;
+    }
+    .phu-kien .main-product-detail 	.sreenthongso {
+        float:left; width:650px; margin-top: 19px; max-width: 650px;
+    }
+    .main-product .left .phu-kien.allboxsp1 .title {
+        position: relative; float: left; margin: 5px 0px 30px;
+    }
+    .main-product .left .phu-kien.allboxsp1 .title .title1 {
+        background-color:#cccccc; width:630px; height:2px; margin-bottom:0px; float:left; display: block;
+    }
+    .main-product .left .phu-kien.allboxsp1 .title h1 {
+        position: absolute;
+    }
+    .main-product .phu-kien .ttinsanpham {
+        width: 100%;
+    }
+    .main-product .phu-kien .ttinsanpham .main-product-detail .sreenthongso {
+        display: block;
+    }
+    ul.accessories {
+        width: 630px;
+    }
+    ul.accessories li {
+        margin-right: 0;
+    }
+    ul.accessories li a.name {
+        padding: 0 5px; height: 42px;
+    }
+
+    /*=========================
+     * Service page
+    =========================*/
+    .ttincongghe {
+        width: 660px;
+    }
+    .ttincongghe .sreentieude {
+        width:660px; margin-left: 0px;
+    }
+    .ttincongghe .sreentieude .tieude {
+        font-size:17px; font-weight:bold; padding: 3px 0 12px;
+    }
+    .ttincongghe .sreentieude .tieude .h1-title-detail {
+        font-size: 27px;
+        font-weight: bold;
+        color: #111111;
+        text-transform: none;
+    }
+    .ttincongghe .noidungthitruongchitiet {
+        width: 660px; margin-top: 5px; font-size: 17px; line-height: 1.6;
+    }
+
+    .box-service .img-server {
+        width: 250px; height: 165px;
+    }
+    .box-service .img-server img {
+        width: 100%; height: 165px;
+    }
+    .box-service .right-box-service {
+        width: 430px;
+    }
+    .company_introduce .nav {
+        margin: 15px 0px 10px 15px;
+    }
+    .company_introduce .nav {
+        margin-top: 20px;
+    }
+    .company_introduce .allboxsp1 {
+        padding: 0;
+    }
+    .company_introduce.index .ttincongghe .noidungthitruongchitiet {
+        width: 660px;
+    }
+    .company_introduce.index .right .right-box {
+        margin-top: 20px;
+    }
+
+    .servicesCat .allboxsp1,
+    .servicesDetail .allboxsp1 {
+        padding: 0;
+    }
+    .servicesCat .allboxsp1 .box-service .right-box-service {
+        width: 655px; float: none;
+    }
+    .servicesCat .server-information {
+        margin-top: 35px;
+    }
+    .servicesCat .sub-category-service {
+        margin: 20px 0 15px;
+    }
+    .servicesCat .right .sreenonline.right-box {
+        margin-top: 20px;
+    }
+
+    .box-service .right-box-service .des-service {
+        margin-top: 10px;
+        display: block;
+    }
+    .box-service .right-box-service .des-service p {
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+    .box-service .right-box-service .des-service p.product-price-text {
+        float: none;
+    }
+    .box-service .right-box-service .des-service p.product-price-text span {
+        color: #ff0000;
+        font-weight: 600;
+    }
+
+    .sreentieude .sreentinkhacchitiet .des-news-related {
+        display: block;
+        margin-top: 30px;
+    }
+    .sreentieude .sreentinkhacchitiet .des-news-related p {
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+    .sreentieude .sreentinkhacchitiet .des-news-related p.product-price-text {
+        float: none;
+    }
+    .sreentieude .sreentinkhacchitiet .des-news-related p.product-price-text span {
+        color: #ff0000;
+        font-weight: 600;
+    }
+
+    /*=========================
+     * Service detail page
+    =========================*/
+    .servicesDetail .nav {
+        margin: 20px 0px;
+    }
+    .noidungthitruongchitiet {
+        width: 675px; margin-top: 5px; font-size: 17px; line-height: 1.7;
+    }
+    .price-detail {
+        font-size: 23px; color: #ff0000; float: left; width: 100%; margin: 8px 0;
+    }
+    .icon-price-rate {
+        margin: 3px 5px 0px 5px; font-size: 18px;
+    }
+    .product-price-text {
+        float: left; display: inline-block;
+    }
+    span.ngan-cach {
+        display: block;
+    }
+    span.hotline-tu-van span{
+        color: #000000;font-size:16px ;padding: 0 3px;
+    }
+    .service-view-map {
+        font-size: 12px; font-style: italic; color: #000080;
+    }
+
+    .servicesDetail .allboxsp1 {
+        float: none;
+    }
+    .servicesDetail .server-information {
+        margin-top: 0;
+    }
+    .servicesDetail .noidungthitruongchitiet {
+        width: auto;
+    }
+    .servicesDetail .main-service-detail .server-information .server-information-left .row {
+        display: block; margin-bottom: 20px;
+    }
+    .servicesDetail .main-service-detail .server-information .server-information-left img {
+        width: auto !important;
+    }
+    .servicesDetail .main-service-detail .server-information .server-information-left .noidungthitruongchitiet a.read-more {
+        display: inline-block; margin: 10px 0px; color: #000080; text-decoration: underline; font-weight: 600;
+    }
+    .servicesDetail .price-detail .product-price-text {
+        float: left;
+    }
+
+    .servicesDetail .main-service-detail .server-information-detail .server-information-left {
+        float: left;
+    }
+    .servicesDetail .main-service-detail .server-information-detail .server-information-right {
+        float: right;
+    }
+    .servicesDetail .cactinkhac2 {
+        margin: 0 -15px;
+    }
+    .servicesDetail .cactinkhac2 .main-news-related .sreentieude {
+        margin-right: 0;
+    }
+    .servicesDetail .noidungthitruongchitiet {
+        margin: 3px -15px; border-top: 2px solid #555555; width: 640px;
+    }
+    .server-information-detail .server-information-left {
+        margin-top: 20px;
+    }
+
+    .server-information-detail .cactinkhac2 .main-news-related {
+        width: 640px;
+    }
+    .server-information-detail .cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet {
+        width: 385px;
+    }
+    .servicesDetail .main-service-detail .server-information-right {
+        width: 560px;
+    }
+
+    .cactinkhac2-large.cactinkhac2-dichvu .main-news-related .sreentieude a.img-news-related {
+        width: 250px;
+        height: 165px;
+    }
+
+    /*=========================
+     * News page
+    =========================*/
+    .view_post_on_page .nav,
+    .view_post_on_category .nav {
+        margin: 20px 0px 10px 15px;
+    }
+    .view_post_on_page .left .allboxsp1 .allboxsp1,
+    .view_post_on_category .left .allboxsp1 .allboxsp1 {
+        padding: 0 15px;
+    }
+    .view_post_on_page .box-service .right-box-service,
+    .view_post_on_category .box-service .right-box-service {
+        width: 660px; float: none;
+    }
+    .row.main.news.view_post_on_page .ttincongghe {
+        width: 660px;
+    }
+    .row.main.news.view_post_on_page .right .right-box {
+        margin-top: 0px;
+    }
+
+    /*=========================
+     * News detail page
+     =========================*/
+    .news.index .nav {
+        margin: 20px 0px 10px 15px;
+    }
+    .news.index .left .allboxsp1 {
+        padding: 0;
+    }
+    .news.index .left .ttincongghe,
+    .news.index .left .ttincongghe .sreentieude,
+    .news.index .left .ttincongghe .noidungthitruongchitiet {
+        width: 655px;
+    }
+    .main-news-social span.time-update-news {
+        float: right; height: 20px; line-height: 20px; font-size: 13px; font-style: italic; color: #797979; margin-top: 0px;
+    }
+    .main-news-social .social {
+        width: auto;
+    }
+    .cactinkhac2 .main-news-related {
+
+    }
+    .cactinkhac2 .main-news-related{
+        width: 660px;
+    }
+    .cactinkhac2-large .main-news-related .sreentieude a.img-news-related {
+        width: 200px;
+        height: 132px;
+    }
+    .cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet {
+        width: 460px;
+        float: right;
+    }
+    .main-service-detail .server-information-detail .cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet {
+        width: 420px;
+    }
+    .cactinkhac2 .main-news-related .sreentieude{
+        margin-right: 0px;
+    }
+    .cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet a {
+        margin: 0; display: block; width: 100%;
+    }
+    .cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet p.des-news-related {
+        height: 90px;
+        display: block;
+    }
+    .cactinkhac2-large .main-news-related .sreentieude .sreentinkhacchitiet {
+        width: 440px; height: 115px; overflow: hidden;;
+    }
+    .news.index .right .right-box {
+        margin-top: 20px;
+    }
+
+    /*=========================
+     * Contact page
+    ==========================*/
+    .nav.nav-contact {
+        margin: 20px 0px 10px 15px;
+    }
+    .contact-form .ttincongghe {
+        width: 660px;
+    }
+    .contact-form .ttincongghe .sreentieude {
+        width: 675px;
+        margin-left: 0;	
+    }
+    .contact-form .ttincongghe .sreentieude .contact-tbl-title {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .contact-form .ttincongghe .noidungchitiet {
+        width: 675px;
+        margin-top: 5px;
+    }
+    .contact-form .ttincongghe .noidungchitiet .noidunggioithieu {
+        width: 543px;
+        margin-bottom: 10px;
+    }
+    .contact-form .ttincongghe .noidungchitiet .noidunggioithieu .contact-tbl-row label {
+        font-weight: bold;
+    }
+    .contact-form .ttincongghe .noidungchitiet .gui {
+        width: 200px;
+        height: 30px;
+        float: left;
+    }
+    .contact-form .contact-tbl-title {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    #form_contact .contact-tbl-row {
+        margin-bottom: 8px;
+    }
+    #form_contact .contact-text-field {
+        width: 350px;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 5px;
+        border: 1px solid #cccccc;
+    }
+
+    .contact .right .right-box {
+        margin-top: 0px;
+    }
+
+    /*=========================
+     * Warranty page
+    =========================*/
+    .allboxsp1.warranty {
+        padding: 0;
+    }
+    .time-warranty-note {
+        width: 660px; float: left; font-size: 14px;
+    }
+    .timeWarrantyBody {
+        width: 660px; margin-top: 50px; float: left; margin-bottom: 30px;
+    }
+    .timeWarrantyBody p {
+        margin-bottom: 5px;
+    }
+    .timeWarrantyBody .table {
+        padding: 0 15px; margin: 20px 0 0 0;
+    }
+    .timeWarrantyBody .table .row{
+        margin: 0;
+    }
+    form.timeWarranty {
+        margin: 0 auto; width: 430px;
+    }
+    form.timeWarranty input{
+        height: 30px; line-height: 30px; width: 300px; padding-left: 10px; margin: 0 auto; font-size: 14px; margin-right: 10px; float: left;
+    }
+    form.timeWarranty button{
+        height: 32px; width: 100px; float: right; border: none; cursor: pointer; text-transform: uppercase;     font-size: 15px; background-color: #000080; color: #ffffff;
+    }
+    .timeWarrantyBody>p.msg {
+        font-size: 14px;
+    }
+    .timeWarrantyBody>p.message {
+        color: #000080; font-weight: 600;
+    }
+    .table {
+        width: 100%;
+        padding: 0 3%;
+        border: 1px solid #cccccc;
+        float: left;
+    }
+    .table .row {
+        width: 100%;
+        float: left;
+        border-bottom: 1px solid #cccccc;
+        padding: 10px 0;
+    }
+    .table .row:last-child {
+        border-bottom: none;
+    }
+    .table .row .cell {
+        float: left;
+        width: 33.33%;
+    }
+    .table .row .cell p {
+        line-height: 20px;
+    }
+    .table .row .cell b {
+        width: 85px;
+        display: inline-block;
+    }
+
+    /*=========================
+     * Footer
+     =========================*/
+    .foter {
+        border-top: 1px solid #cccccc;
+        padding: 10px 15px;
+    }
+    .foter .add {
+        width:550px; float:left;
+    }
+    .footer-address {
+        border-top: 1px solid #9c9c9c;
+        width: 550px;
+        margin-top: 20px;
+    }
+    .footer-address p {
+        margin-bottom: 5px;
+    }
+    .footer-right-01 p {
+        margin-bottom: 5px;
+    }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+}
+
+/*==========  Non-Mobile First Method  ==========*/
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+    .main .left .sreennew.home-technology h1.h1-title {
+        margin-top: 20px;
+    }
+    .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew .contentnew a {
+        font-weight: normal;
+    }
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (max-width : 320px) {
+    h1.h1-title {
+        font-size: 18px;
+    }
+
+    .top-header .top-header-left-01 span {
+        font-size: 12px;
+    }
+
+    .main .left .sreennew.home-technology h1.h1-title {
+        margin-top: 20px;
+    }
+
+    .main .left .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew {
+        width: 165px;
+    }
+    .sreennew.home-technology .boxnew .sreennew1 .sreentitlenew .contentnew a {
+        font-weight: normal;
+    }
+}

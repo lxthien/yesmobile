@@ -1,0 +1,19 @@
+.ui-dialog {
+    z-index: 10;
+}
+
+.form-horizontal .radio,
+.form-horizontal .checkbox {
+    display: inline-block;
+}
+
+.form-horizontal .radio input.form-control,
+.form-horizontal .checkbox input.form-control {
+    display: inline-block;
+    width: 62%;
+}
+
+tr.expired, tr.expired a, tr.expired p {
+    background: red !important;
+    color: #ffffff !important;
+}
