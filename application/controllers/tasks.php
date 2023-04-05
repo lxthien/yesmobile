@@ -98,6 +98,7 @@
             }
             
             $task->phoneType = '';
+            $task->phoneTypeCategory = '';
             $task->phoneImei = '';
             $task->notePrivate = '';
             $task->phonePass = '';
@@ -151,6 +152,7 @@
                 $task['taskType'] = $this->input->post('taskType');
                 $task['customer_id'] = $this->input->post('customer_id');
                 $task['phoneType'] = $this->input->post('phoneType');
+                $task['phoneTypeCategory'] = $this->input->post('phoneTypeCategory');
                 $task['phoneImei'] = $this->input->post('phoneImei');
                 $task['notePrivate'] = $this->input->post('notePrivate');
                 $task['phonePass'] = $this->input->post('phonePass');

@@ -55,6 +55,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label col-lg-4">&nbsp;</label>
+                                    <div class="col-lg-8">
+                                        <div class="checkbox">
+                                            <label><input class="uniform" type="radio" name="phoneTypeCategory" value="1" <?php echo $task->phoneTypeCategory == 1 ? 'checked=""' : ''; ?>><span style="color: red;">&nbsp; Sửa Laptop</span></label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label><input class="uniform" type="radio" name="phoneTypeCategory" value="2" <?php echo $task->phoneTypeCategory == 2 ? 'checked=""' : ''; ?>><span style="color: red;">&nbsp; Mua xác</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="pass1" class="control-label col-lg-4" style="color: red;">Mật khẩu</label>
                                     <div class="col-lg-8">
                                         <input name="phonePass" class="form-control" type="text" placeholder="Mật khẩu (nếu có)" value="<?php echo $task->phonePass; ?>"/>
@@ -67,15 +78,22 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass1" class="control-label col-lg-4">Đặc điểm</label>
+                                    <label for="pass1" class="control-label col-lg-4">Phụ kiện, Sim <br/><span style="color: red; font-size: 13px;">(Sim, Thẻ nhớ, ốp lưng, Sạc, Cáp...)</span></label>
                                     <div class="col-lg-8">
-                                        <input name="features" class="form-control" type="text" placeholder="Đặc điểm" value="<?php echo $task->features; ?>"/>
+                                        <input name="phoneSim" class="form-control" type="text" placeholder="Sim, thẻ nhớ, ốp lưng, bộ sạc, cáp..." value="<?php echo $task->phoneSim; ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass1" class="control-label col-lg-4">Tình trạng <br/><span style="color: red; font-size: 13px;">(Máy treo logo, treo phần mềm... Tư vấn trước: "CÓ THỂ" không trả lại được tình trạng ban đầu.)</span></label>
+                                    <label for="pass1" class="control-label col-lg-4">Đặc điểm</label>
+                                    <div class="col-lg-8">
+                                        <input name="features" class="form-control" type="text" placeholder="Không kiểm tra được chức năng, đã từng sửa ở cửa hàng khác, máy trầy, cấn móp, hư chức năng..." value="<?php echo $task->features; ?>"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pass1" class="control-label col-lg-4">Tình trạng</label>
                                     <div class="col-lg-8">
                                         <input name="phoneStatus" class="form-control" type="text" placeholder="Tình trạng" value="<?php echo $task->phoneStatus; ?>"/>
+                                        <span style="color: red; font-size: 13px; font-weight: bold;">(Máy treo logo, treo phần mềm... Tư vấn trước: "CÓ THỂ" không trả lại được tình trạng ban đầu.)</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -85,9 +103,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass1" class="control-label col-lg-4">Ghi chú <br/><span style="color: red; font-size: 13px;">(Không kiểm tra được chức năng, máy rớt, cấn móp, hư chức năng...)</span></label>
+                                    <label for="pass1" class="control-label col-lg-4">Ghi chú</label>
                                     <div class="col-lg-8">
-                                        <textarea class="form-control" placeholder="Không kiểm tra được chức năng, Khách mượn máy, máy trầy, cấn móp, hư chức năng..." name="notePrivate"><?php echo $task->notePrivate; ?></textarea>
+                                        <textarea class="form-control" name="notePrivate"><?php echo $task->notePrivate; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group dat-linh-kien">
@@ -113,12 +131,6 @@
                                                 <input class="uniform" type="checkbox" name="khachMuonMay" value="1" <?php echo $task->khachMuonMay == 1 ? 'checked=""' : ''; ?>><span style="color:red; font-weight: bold;">Khách mượn máy cửa hàng</span>
                                             </label>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="pass1" class="control-label col-lg-4">Phụ kiện, Sim <br/><span style="color: red; font-size: 13px;">(Sim, Thẻ nhớ, ốp lưng, Sạc, Cáp...)</span></label>
-                                    <div class="col-lg-8">
-                                        <input name="phoneSim" class="form-control" type="text" placeholder="Sim, thẻ nhớ, ốp lưng, bộ sạc, cáp..." value="<?php echo $task->phoneSim; ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
