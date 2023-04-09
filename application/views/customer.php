@@ -230,8 +230,7 @@
                     '</table>';
                 }
                 
-                $("div.toolbar").html('<a class="task-add" href="<?php echo base_url('tasks/add'); ?>">Nhập máy sửa chữa mới</a><a class="customer-add" href="<?php echo base_url('customers/add'); ?>">Thêm khách hàng mới</a>');
-
+                //$("div.toolbar").html('<a class="task-add" href="<?php echo base_url('tasks/add'); ?>">Nhập máy sửa chữa mới</a><a class="customer-add" href="<?php echo base_url('customers/add'); ?>">Thêm khách hàng mới</a>');
 
                 var tableTask = $('#dataTableTask1').DataTable({
                     "lengthMenu": [[100, -1], [100, "All"]],
@@ -319,6 +318,92 @@
                     ],
                     "ordering": false
                 });
+                var tableTask = $('#dataTableTask11').DataTable({
+                    "lengthMenu": [[100, -1], [100, "All"]],
+                    "order": [],
+                    "oLanguage": {
+                        "sSearch": "<span>Search:</span>"
+                    },
+                    "dom": '<"toolbar">frtip',
+                    draggable: false,
+                    "columns": [
+                        {
+                            "className": 'details-control',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        { "data": "taks1" },
+                        { "data": "taks2" },
+                        { "data": "taks3" },
+                        { "data": "taks4" },
+                        { "data": "taks5" },
+                        { "data": "taks6" },
+                        { "data": "taks7" },
+                        { "data": "taks8" },
+                        { "data": "taks9" },
+                        { "data": "taks10" },
+                        { "data": "taks11" },
+                        { "data": "taks12" },
+                        { "data": "taks13" },
+                        { "data": "taks14" },
+                        { "data": "taks15" }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [ 14 ],
+                            "visible": false
+                        },
+                        {
+                            "targets": [ 15 ],
+                            "visible": false
+                        }
+                    ],
+                    "ordering": false
+                });
+                var tableTaskLS = $('#dataTableTask11_LS').DataTable({
+                    "lengthMenu": [[100, -1], [100, "All"]],
+                    "order": [],
+                    "oLanguage": {
+                        "sSearch": "<span>Search:</span>"
+                    },
+                    "dom": '<"toolbar">frtip',
+                    draggable: false,
+                    "columns": [
+                        {
+                            "className": 'details-control',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        { "data": "taks1" },
+                        { "data": "taks2" },
+                        { "data": "taks3" },
+                        { "data": "taks4" },
+                        { "data": "taks5" },
+                        { "data": "taks6" },
+                        { "data": "taks7" },
+                        { "data": "taks8" },
+                        { "data": "taks9" },
+                        { "data": "taks10" },
+                        { "data": "taks11" },
+                        { "data": "taks12" },
+                        { "data": "taks13" },
+                        { "data": "taks14" },
+                        { "data": "taks15" }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [ 14 ],
+                            "visible": false
+                        },
+                        {
+                            "targets": [ 15 ],
+                            "visible": false
+                        }
+                    ],
+                    "ordering": false
+                });
 
                 $('#dataTableTask1 tbody').on('click', 'td.details-control', function () {
                     var tr = $(this).closest('tr');
@@ -334,6 +419,32 @@
                     }
                 } );
                 $('#dataTableTask1_LS tbody').on('click', 'td.details-control', function () {
+                    var tr = $(this).closest('tr');
+                    var row = tableTaskLS.row( tr );
+                
+                    if ( row.child.isShown() ) {
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    }
+                    else {
+                        row.child( format(row.data()) ).show();
+                        tr.addClass('shown');
+                    }
+                } );
+                $('#dataTableTask11 tbody').on('click', 'td.details-control', function () {
+                    var tr = $(this).closest('tr');
+                    var row = tableTask.row( tr );
+                
+                    if ( row.child.isShown() ) {
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    }
+                    else {
+                        row.child( format(row.data()) ).show();
+                        tr.addClass('shown');
+                    }
+                } );
+                $('#dataTableTask11_LS tbody').on('click', 'td.details-control', function () {
                     var tr = $(this).closest('tr');
                     var row = tableTaskLS.row( tr );
                 

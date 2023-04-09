@@ -78,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass1" class="control-label col-lg-4">Phụ kiện, Sim <br/><span style="color: red; font-size: 13px;">(Sim, Thẻ nhớ, ốp lưng, Sạc, Cáp...)</span></label>
+                                    <label for="pass1" class="control-label col-lg-4">Phụ kiện, Sim</label>
                                     <div class="col-lg-8">
                                         <input name="phoneSim" class="form-control" type="text" placeholder="Sim, thẻ nhớ, ốp lưng, bộ sạc, cáp..." value="<?php echo $task->phoneSim; ?>"/>
                                     </div>
@@ -134,9 +134,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass1" class="control-label col-lg-4">Báo giá <br/><span style="color: red; font-size: 13px;">(Nếu máy Bảo Hành thì nhập “Bảo hành không tính phí”. <br/> Máy kiểm tra, báo giá thì để trống ô này.)</span></label>
+                                    <label for="pass1" class="control-label col-lg-4">Báo giá</label>
                                     <div class="col-lg-8">
                                         <input name="phonePrice" class="form-control" type="text" placeholder="Báo giá" value="<?php echo $task->phonePrice; ?>"/>
+                                        <span style="color: red; font-size: 13px; font-weight: bold;">(Nếu máy Bảo Hành thì nhập “Bảo hành không tính phí”. Máy kiểm tra, báo giá thì để trống ô này.)</span>
                                     </div>
                                 </div>
                                 <div class="form-group">

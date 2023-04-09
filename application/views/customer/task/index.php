@@ -3,7 +3,7 @@
         <div class="inner bg-light lter">
             <!--Begin Datatables-->
             <div class="row">
-                  <div class="col-lg-12">
+                <div class="col-lg-12">
                     <div class="box">
                         <header>
                             <meta http-equiv="refresh" content="600">
@@ -35,6 +35,90 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach ($tasks as $row): ?>
+                                        <?php if($row->useAccessories == 1) {$cssBgAccessories = 'background: #5b8e4b; color: #ffffff;';} else {$cssBgAccessories = '';} ?>
+                                        <?php if($row->quickStatus == 1) {$cssBg = 'background: #b51b1b; color: #ffffff;';} else {$cssBg = '';} ?>
+                                        <?php if($row->isCustomerVip == 1) {$cssBgVip = 'background: #5cb85c; color: #ffffff;';} else {$cssBgVip = '';} ?>
+                                        <tr style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo isTaskNotifyCustomerEnd($row->id) ? 'expired' : ''; ?>">
+                                            <td><?php echo $row->id; ?></td>
+                                            <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
+                                            <td>
+                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:#000080;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a>
+                                                </br>
+                                                <?php echo getCustomerPhone($row->customer_id); ?>
+                                            </td>
+                                            <td><a style="<?php echo $cssBg.$cssBgVip; ?>color:#000080;font-weight:bold;" data-url="<?php echo base_url().'tasks/histories/'.$row->id; ?>" href="javascript:void(0)" class="task-history"><?php echo $row->phoneType; ?></a></td>
+                                            <td><?php echo $row->phoneStatus; ?></td>
+                                            <td><span style="color:red;"><?php echo $row->phonePass; ?></span></td>
+                                            <td><?php echo $row->phoneImei; ?></td>
+                                            <td><?php echo $row->phoneSim; ?></td>
+                                            <td>
+                                                <?php echo $row->notePrivate; ?>
+                                                <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
+                                                <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#FF8C00;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                <?php echo $row->phieu == 1 ? '<br><p style="display:block;color:#FF8C00;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
+                                                <?php echo $row->khachMuonMay == 1 ? '<br><p style="display:block;color:#FF8C00;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
+                                            </td>
+                                            <?php if ($row->technicalFinish == 2) { ?>
+                                                <td><span style="color:red;">Không sửa được</span></td>
+                                            <?php } elseif ($row->technicalFinish == 3) { ?>
+                                                <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                            <?php } else { ?>
+                                                <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "Kiểm tra, báo giá trước khi sửa chữa" : $row->phonePrice); ?></span></td>
+                                            <?php } ?>
+                                            <td><?php echo formatTime($row->created, true); ?></td>
+                                            <td><b><?php echo formatTime($row->warrantyPeriodEnd); ?></b></td>
+                                            <td>
+                                                <a style="<?php echo $cssBg.$cssBgVip; ?>" href="<?php echo base_url().'tasks/edit/'.$row->id; ?>" title="Chỉnh sửa"><i class="fa fa-edit"></i></a>
+                                            </td>
+                                            <td>
+                                                <a style="<?php echo $cssBg.$cssBgVip; ?>" href="<?php echo base_url().'tasks/printTask/'.$row->id; ?>" title="In hóa đơn"><i class="fa fa-print"></i></a>
+                                            </td>
+                                            <td><?php echo $row->createdBy != 0 ? $this->ion_auth->user($row->createdBy)->row()->first_name.' '.$this->ion_auth->user($row->createdBy)->row()->last_name : 'Không xác định'; ?></td>
+                                            <td><?php echo $row->note; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                            <?php else: ?>
+                            <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
+                                <p class="center">Không có yêu cầu nào đang sửa chữa</p>
+                            </table>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="box">
+                        <header>
+                            <meta http-equiv="refresh" content="600">
+                            <div class="icons"><i class="fa fa-table"></i></div>
+                            <h5>[SỬA LAPTOP] MÁY ĐANG SỬA CHỬA</h5>
+                        </header>
+                        <div id="collapse4" class="body">
+                            <?php if(count($tasksPC) > 0) : ?>
+                            <table id="dataTableTask11" class="table table-bordered table-condensed">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Mã số</th>
+                                    <th>Tên/</br>SĐT</th>
+                                    <th>Tên máy</th>
+                                    <th>Tình trạng</th>
+                                    <th>Pass</th>
+                                    <th>Imei</th>
+                                    <th>Phụ kiện</th>
+                                    <th>Ghi chú</th>
+                                    <th>Báo giá</th>
+                                    <th>TG nhận máy</th>
+                                    <th>TG hẹn khách</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($tasksPC as $row): ?>
                                         <?php if($row->useAccessories == 1) {$cssBgAccessories = 'background: #5b8e4b; color: #ffffff;';} else {$cssBgAccessories = '';} ?>
                                         <?php if($row->quickStatus == 1) {$cssBg = 'background: #b51b1b; color: #ffffff;';} else {$cssBg = '';} ?>
                                         <?php if($row->isCustomerVip == 1) {$cssBgVip = 'background: #5cb85c; color: #ffffff;';} else {$cssBgVip = '';} ?>
