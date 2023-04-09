@@ -134,6 +134,23 @@ function formatTime($time, $created = false, $sub = false) {
     return $date->format('d/m/Y H:i:s');
 }
 
+function formatTimeLineBreak($time, $created = false, $sub = false) {
+    if ($time == "" || $time == "0000-00-00 00:00:00")
+        return "";
+    
+    $date = new DateTime($time, new DateTimeZone('Asia/Ho_Chi_Minh'));
+    
+    if ($created && date_default_timezone_get() == "Asia/Ho_Chi_Minh") {
+        $date->add(new DateInterval("PT420M"));
+    }
+
+    if ($sub == true) {
+        $date->sub(new DateInterval("PT420M"));
+    }
+
+    return nl2br($date->format('d/m/Y<\b\r/>H:i:s'), false);
+}
+
 function formatDate($time) {
     if($time == "" || $time == "0000-00-00 00:00:00") return "";
     $date = new DateTime($time);

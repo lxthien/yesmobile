@@ -1020,9 +1020,9 @@
                     $hrefId = $(this).find('a').attr('href');
 
                     if ($hrefId.indexOf('chls') > 0) {
-                        $('[href="#chls1"], [href="#chls2"], [href="#chls3"], [href="#chls4"], [href="#chls5"]').tab('show');
+                        $('[href="#chls1"], [href="#chls11"], [href="#chls2"], [href="#chls3"], [href="#chls4"], [href="#chls5"]').tab('show');
                     } else {
-                        $('[href="#chvt1"], [href="#chvt2"], [href="#chvt3"], [href="#chvt4"], [href="#chvt5"]').tab('show');
+                        $('[href="#chvt1"], [href="#chvt11"], [href="#chvt2"], [href="#chvt3"], [href="#chvt4"], [href="#chvt5"]').tab('show');
                     }
                 })
             });
