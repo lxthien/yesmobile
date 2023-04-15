@@ -55,13 +55,13 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -70,7 +70,7 @@
                                                 <?php } elseif ($row->technicalFinish == 3) { ?>
                                                     <td><span style="color:red;">Tư vấn không sửa</span></td>
                                                 <?php } else { ?>
-                                                    <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                    <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <?php } ?>
                                                 <td><?php echo formatTimeLineBreak($row->created, true); ?></td>
                                                 <td><b><?php echo formatTimeLineBreak($row->warrantyPeriodEnd); ?></b></td>
@@ -133,13 +133,13 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -148,7 +148,7 @@
                                                 <?php } elseif ($row->technicalFinish == 3) { ?>
                                                     <td><span style="color:red;">Tư vấn không sửa</span></td>
                                                 <?php } else { ?>
-                                                    <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                    <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <?php } ?>
                                                 <td><?php echo formatTimeLineBreak($row->created, true); ?></td>
                                                 <td><b><?php echo formatTimeLineBreak($row->warrantyPeriodEnd); ?></b></td>
@@ -177,7 +177,7 @@
                     <div class="box">
                         <header>
                             <div class="icons"><i class="fa fa-table"></i></div>
-                            <h5>[SỬA LAPTOP] MÁY ĐANG SỬA CHỬA</h5>
+                            <h5>[SỬA LAPTOP, PC] MÁY ĐANG SỬA CHỬA</h5>
                             <ul class="nav nav-tabs pull-left">
                                 <li class="active"><a href="#chvt11" data-toggle="tab" aria-expanded="true">VŨNG TÀU</a></li>
                                 <li class=""><a href="#chls11" data-toggle="tab" aria-expanded="false">LONG SƠN</a> </li>
@@ -225,13 +225,13 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -240,7 +240,7 @@
                                                 <?php } elseif ($row->technicalFinish == 3) { ?>
                                                     <td><span style="color:red;">Tư vấn không sửa</span></td>
                                                 <?php } else { ?>
-                                                    <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                    <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <?php } ?>
                                                 <td><?php echo formatTimeLineBreak($row->created, true); ?></td>
                                                 <td><b><?php echo formatTimeLineBreak($row->warrantyPeriodEnd); ?></b></td>
@@ -303,13 +303,13 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -318,7 +318,7 @@
                                                 <?php } elseif ($row->technicalFinish == 3) { ?>
                                                     <td><span style="color:red;">Tư vấn không sửa</span></td>
                                                 <?php } else { ?>
-                                                    <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                    <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <?php } ?>
                                                 <td><?php echo formatTimeLineBreak($row->created, true); ?></td>
                                                 <td><b><?php echo formatTimeLineBreak($row->warrantyPeriodEnd); ?></b></td>
@@ -394,13 +394,13 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -409,7 +409,7 @@
                                                 <?php } elseif ($row->technicalFinish == 3) { ?>
                                                     <td><span style="color:red;">Tư vấn không sửa</span></td>
                                                 <?php } else { ?>
-                                                    <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                    <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <?php } ?>
                                                 <td><?php echo formatTimeLineBreak($row->created, true); ?></td>
                                                 <td><b><?php echo formatTimeLineBreak($row->warrantyPeriodEnd); ?></b></td>
@@ -471,13 +471,13 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -486,7 +486,7 @@
                                                 <?php } elseif ($row->technicalFinish == 3) { ?>
                                                     <td><span style="color:red;">Tư vấn không sửa</span></td>
                                                 <?php } else { ?>
-                                                    <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                    <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <?php } ?>
                                                 <td><?php echo formatTimeLineBreak($row->created, true); ?></td>
                                                 <td><b><?php echo formatTimeLineBreak($row->warrantyPeriodEnd); ?></b></td>
@@ -562,13 +562,13 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -577,7 +577,7 @@
                                                 <?php } elseif ($row->technicalFinish == 3) { ?>
                                                     <td><span style="color:red;">Tư vấn không sửa</span></td>
                                                 <?php } else { ?>
-                                                    <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                    <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <?php } ?>
                                                 <td><?php echo formatTimeLineBreak($row->created, true); ?></td>
                                                 <td><?php echo $row->timeNotificationCustomer != "0000-00-00 00:00:00" ? formatTimeLineBreak($row->timeNotificationCustomer, true, true) : 'Không xác định'; ?></td>
@@ -639,13 +639,13 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? '<br><p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -654,7 +654,7 @@
                                                 <?php } elseif ($row->technicalFinish == 3) { ?>
                                                     <td><span style="color:red;">Tư vấn không sửa</span></td>
                                                 <?php } else { ?>
-                                                    <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                    <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <?php } ?>
                                                 <td><?php echo formatTimeLineBreak($row->created, true); ?></td>
                                                 <td><?php echo $row->timeNotificationCustomer != "0000-00-00 00:00:00" ? formatTimeLineBreak($row->timeNotificationCustomer, true, true) : 'Không xác định'; ?></td>
@@ -731,20 +731,20 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                 </td>
                                                 <?php if ($row->technicalFinish == 2) { ?>
                                                     <td><span style="color:red;">Không sửa được</span></td>
                                                 <?php } elseif ($row->technicalFinish == 3) { ?>
                                                     <td><span style="color:red;">Tư vấn không sửa</span></td>
                                                 <?php } else { ?>
-                                                    <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                    <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <?php } ?>
                                                 <td><?php echo formatTimeLineBreak($row->timeClosedTask, false, true); ?></td>
                                                 <td><?php echo formatTimeLineBreak($row->warrantyPeriod); ?></td>
@@ -807,15 +807,15 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                 </td>
-                                                <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <td><?php echo formatTimeLineBreak($row->timeClosedTask); ?></td>
                                                 <td><?php echo formatTimeLineBreak($row->warrantyPeriod); ?></td>
                                                 <td>
@@ -890,15 +890,15 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                 </td>
-                                                <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <td><?php echo formatTimeLineBreak($row->timeClosedTask); ?></td>
                                                 <td><?php echo formatTimeLineBreak($row->warrantyPeriod); ?></td>
                                                 <td>
@@ -959,15 +959,15 @@
                                                     <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                                 </td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080;"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? '<br><br><b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">Linh kiện/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? '<br><br><p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                 </td>
-                                                <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                                 <td><?php echo formatTimeLineBreak($row->timeClosedTask); ?></td>
                                                 <td><?php echo formatTimeLineBreak($row->warrantyPeriod); ?></td>
                                                 <td>

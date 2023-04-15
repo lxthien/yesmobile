@@ -32,6 +32,7 @@
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
+            $this->db->where('phoneTypeCategory', 0);
             $this->db->where('technicalFinish', 0);
             $this->db->where('notificationCustomer', 0);
             if ($shop == 1) {
@@ -71,6 +72,7 @@
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
+            $this->db->where('phoneTypeCategory', 0);
             $this->db->where('technicalFinish', 0);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(0, 1));
@@ -100,6 +102,7 @@
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
+            $this->db->where('phoneTypeCategory', 0);
             $this->db->where('technicalFinish', 0);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(2));
