@@ -30,7 +30,7 @@
                 if (empty($timeBack) || $timeBack < 1) {
                     $data[] = array(
                             "id" => $r->id,
-                            "customer1" => $r->name . '(<a href="' . base_url().'tasks/add/customer/'.$r->id . '" title="Tạo yêu cầu cho khách hàng này"><i class="fa fa-plus" aria-hidden="true"></i> Tasks</a>)',
+                            "customer1" => $r->name,
                             "customer2" => $r->phone,
                             "customer3" => lastDoing($r->id),
                             "customer4" => customerRequestImei($r->id),
@@ -39,10 +39,12 @@
                             "customer7" => customerRequestTimeWarranty($r->id),
                             "customer8" => customerRequestNote($r->id),
                             "customer9" => customerRequest($r->id),
-                            "customer10" => number_format(countPriceCustomerRequest($r->id)),
+                            "customer10" => '<span style="color:red;font-weight:bold;">' . number_format(countPriceCustomerRequest($r->id)) . '</span>',
                             "customer11" => '<a href="' . base_url().'customers/edit/'.$r->id . '" title="Chỉnh sửa"><i class="fa fa-edit"></i></a>' . '&nbsp;&nbsp;&nbsp;' .
                             '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank"><i class="fa fa-history"></i></a>',
-                            "customer12" => $r->shop != 2 ? 'Vũng tàu' : 'Long Sơn'
+                            "customer12" => $r->shop != 2 ? 'Vũng tàu' : 'Long Sơn',
+                            "customer13" => '<a href="' . base_url().'tasks/add/customer/'.$r->id . '" title="Thêm máy sửa" target="_blank">+ Thêm máy sửa</a>',
+                            "customer14" => '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank">Xem lịch sử</a>'
                     );
                 } else {
                     $takskOfCustomerAfterTime = $this->task_model->getTaskCustomerAfterTime($r->id, $timeBack);
@@ -50,7 +52,7 @@
                         $customerHasTaskAfterTime++;
                         $data[] = array(
                             "id" => $r->id,
-                            "customer1" => $r->name . '(<a href="' . base_url().'tasks/add/customer/'.$r->id . '" title="Tạo yêu cầu cho khách hàng này"><i class="fa fa-plus" aria-hidden="true"></i> Tasks</a>)',
+                            "customer1" => $r->name,
                             "customer2" => $r->phone,
                             "customer3" => lastDoing($r->id),
                             "customer4" => customerRequestImei($r->id),
@@ -59,10 +61,12 @@
                             "customer7" => customerRequestTimeWarranty($r->id),
                             "customer8" => customerRequestNote($r->id),
                             "customer9" => customerRequest($r->id),
-                            "customer10" => number_format(countPriceCustomerRequest($r->id)),
+                            "customer10" => '<span style="color:red;font-weight:bold;">' . number_format(countPriceCustomerRequest($r->id)) . '</span>',
                             "customer11" => '<a href="' . base_url().'customers/edit/'.$r->id . '" title="Chỉnh sửa"><i class="fa fa-edit"></i></a>' . '&nbsp;&nbsp;&nbsp;' .
                             '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank"><i class="fa fa-history"></i></a>',
-                            "customer12" => $r->shop != 2 ? 'Vũng tàu' : 'Long Sơn'
+                            "customer12" => $r->shop != 2 ? 'Vũng tàu' : 'Long Sơn',
+                            "customer13" => '<a href="' . base_url().'tasks/add/customer/'.$r->id . '" title="Thêm máy sửa" target="_blank">+ Thêm máy sửa</a>',
+                            "customer14" => '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank">Xem lịch sử</a>'
                         );
                     }
                 }

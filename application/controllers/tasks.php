@@ -29,6 +29,7 @@
             if ($shop != 0) {
                 $data['tasks'] = $this->task_model->readListDoing($shop);
                 $data['tasksPC'] = $this->task_model->readListPCDoing($shop);
+                $data['tasksXac'] = $this->task_model->readListXacDoing($shop);
                 $data['tasksFinish'] = $this->task_model->readListFinish($shop);
                 $data['tasksNotifiedCustomer'] = $this->task_model->readListNotifiedCustomer($shop);
                 $data['tasksCustomerReceived'] = $this->task_model->readListCustomerReceived($shop);
@@ -41,6 +42,8 @@
                 $data['tasksLS'] = $this->task_model->readListLSDoing();
                 $data['tasksPCVT'] = $this->task_model->readListPCVTDoing();
                 $data['tasksPCLS'] = $this->task_model->readListPCLSDoing();
+                $data['tasksXacVT'] = $this->task_model->readListXacVTDoing();
+                $data['tasksXacLS'] = $this->task_model->readListXacLSDoing();
                 $data['tasksFinishVT'] = $this->task_model->readListVTFinish();
                 $data['tasksFinishLS'] = $this->task_model->readListLSFinish();
                 $data['tasksNotifiedCustomerVT'] = $this->task_model->readListVTNotifiedCustomer();

@@ -30,9 +30,11 @@
                                         <th></th>
                                         <th>Tên</th>
                                         <th>Số Điện Thoại</th>
+                                        <th>Thêm máy sửa mới</th>
+                                        <th>Lịch sử đã sửa</th>
+                                        <th>Tổng máy sửa</th>
+                                        <th>Tổng chi phí</th>
                                         <th>Cửa Hàng Sửa</th>
-                                        <th>SLYC</th>
-                                        <th>TotalPrices</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>

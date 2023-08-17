@@ -176,9 +176,11 @@
                         },
                         { "data": "customer1" },
                         { "data": "customer2" },
-                        { "data": "customer12" },
+                        { "data": "customer13" },
+                        { "data": "customer14" },
                         { "data": "customer9" },
                         { "data": "customer10" },
+                        { "data": "customer12" },
                         { "data": "customer11" }
                     ]
                 });
@@ -795,6 +797,90 @@
                     ],
                     "ordering": false
                 });
+                var tableTask41 = $('#dataTableTask41').DataTable({
+                    "lengthMenu": [[50, -1], [50, "All"]],
+                    "order": [],
+                    "oLanguage": {
+                        "sSearch": "<span>Search:</span>"
+                    },
+                    draggable: false,
+                    "columns": [
+                        {
+                            "className": 'details-control',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        { "data": "taks1" },
+                        { "data": "taks2" },
+                        { "data": "taks3" },
+                        { "data": "taks4" },
+                        { "data": "taks5" },
+                        { "data": "taks6" },
+                        { "data": "taks7" },
+                        { "data": "taks8" },
+                        { "data": "taks9" },
+                        { "data": "taks10" },
+                        { "data": "taks11" },
+                        { "data": "taks12" },
+                        { "data": "taks13" },
+                        { "data": "taks14" },
+                        { "data": "taks15" }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [ 14 ],
+                            "visible": false
+                        },
+                        {
+                            "targets": [ 15 ],
+                            "visible": false
+                        }
+                    ],
+                    "ordering": false
+                });
+                var tableTask41_LS = $('#dataTableTask41_LS').DataTable({
+                    "lengthMenu": [[50, -1], [50, "All"]],
+                    "order": [],
+                    "oLanguage": {
+                        "sSearch": "<span>Search:</span>"
+                    },
+                    draggable: false,
+                    "columns": [
+                        {
+                            "className": 'details-control',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        { "data": "taks1" },
+                        { "data": "taks2" },
+                        { "data": "taks3" },
+                        { "data": "taks4" },
+                        { "data": "taks5" },
+                        { "data": "taks6" },
+                        { "data": "taks7" },
+                        { "data": "taks8" },
+                        { "data": "taks9" },
+                        { "data": "taks10" },
+                        { "data": "taks11" },
+                        { "data": "taks12" },
+                        { "data": "taks13" },
+                        { "data": "taks14" },
+                        { "data": "taks14" }
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [ 14 ],
+                            "visible": false
+                        },
+                        {
+                            "targets": [ 15 ],
+                            "visible": false
+                        }
+                    ],
+                    "ordering": false
+                });
 
                 $('#dataTableTask4 tbody').on('click', 'td.details-control', function () {
                     var tr = $(this).closest('tr');
@@ -811,7 +897,33 @@
                 } );
                 $('#dataTableTask4_LS tbody').on('click', 'td.details-control', function () {
                     var tr = $(this).closest('tr');
-                    var row = tableTask4_LS.row( tr );
+                    var row = tableTask41_LS.row( tr );
+                
+                    if ( row.child.isShown() ) {
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    }
+                    else {
+                        row.child( format4(row.data()) ).show();
+                        tr.addClass('shown');
+                    }
+                } );
+                $('#dataTableTask41 tbody').on('click', 'td.details-control', function () {
+                    var tr = $(this).closest('tr');
+                    var row = tableTask41.row( tr );
+                
+                    if ( row.child.isShown() ) {
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    }
+                    else {
+                        row.child( format4(row.data()) ).show();
+                        tr.addClass('shown');
+                    }
+                } );
+                $('#dataTableTask41_LS tbody').on('click', 'td.details-control', function () {
+                    var tr = $(this).closest('tr');
+                    var row = tableTask41_LS.row( tr );
                 
                     if ( row.child.isShown() ) {
                         row.child.hide();

@@ -52,7 +52,27 @@
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
-            $this->db->where_in('phoneTypeCategory', array(1,2));
+            $this->db->where_in('phoneTypeCategory', array(1));
+            $this->db->where('technicalFinish', 0);
+            $this->db->where('notificationCustomer', 0);
+            if ($shop == 1) {
+                $this->db->where_in('shop', array(0, 1));
+            } else if ($shop == 2) {
+                $this->db->where('shop', 2);
+            } else if ($shop == 0) {
+                $this->db->where_in('shop', array(0, 1, 2));
+            }
+            $this->db->order_by("warrantyPeriodEnd", "asc");
+            $query = $this->db->get();
+            return $query->result();
+        }
+
+        public function readListXacDoing($shop = null) {
+            $this->db->select('*');
+            $this->db->from($this->primary_table);
+            $this->db->where('taskType', 1);
+            $this->db->where('taskStatus', 0);
+            $this->db->where_in('phoneTypeCategory', array(2));
             $this->db->where('technicalFinish', 0);
             $this->db->where('notificationCustomer', 0);
             if ($shop == 1) {
@@ -87,7 +107,22 @@
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
-            $this->db->where_in('phoneTypeCategory', array(1,2));
+            $this->db->where('phoneTypeCategory', 1);
+            $this->db->where('technicalFinish', 0);
+            $this->db->where('notificationCustomer', 0);
+            $this->db->where_in('shop', array(0, 1));
+            $this->db->order_by("warrantyPeriodEnd", "asc");
+            
+            $query = $this->db->get();
+            return $query->result();
+        }
+
+        public function readListXacVTDoing() {
+            $this->db->select('*');
+            $this->db->from($this->primary_table);
+            $this->db->where('taskType', 1);
+            $this->db->where('taskStatus', 0);
+            $this->db->where('phoneTypeCategory', 2);
             $this->db->where('technicalFinish', 0);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(0, 1));
@@ -117,7 +152,22 @@
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
-            $this->db->where_in('phoneTypeCategory', array(1,2));
+            $this->db->where('phoneTypeCategory', 1);
+            $this->db->where('technicalFinish', 0);
+            $this->db->where('notificationCustomer', 0);
+            $this->db->where_in('shop', array(2));
+            $this->db->order_by("warrantyPeriodEnd", "asc");
+            
+            $query = $this->db->get();
+            return $query->result();
+        }
+
+        public function readListXacLSDoing() {
+            $this->db->select('*');
+            $this->db->from($this->primary_table);
+            $this->db->where('taskType', 1);
+            $this->db->where('taskStatus', 0);
+            $this->db->where('phoneTypeCategory', 2);
             $this->db->where('technicalFinish', 0);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(2));
