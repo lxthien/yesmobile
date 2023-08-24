@@ -897,7 +897,7 @@
                 } );
                 $('#dataTableTask4_LS tbody').on('click', 'td.details-control', function () {
                     var tr = $(this).closest('tr');
-                    var row = tableTask41_LS.row( tr );
+                    var row = tableTask4_LS.row( tr );
                 
                     if ( row.child.isShown() ) {
                         row.child.hide();
@@ -1121,7 +1121,11 @@
                     e.preventDefault();
                     
                     if ( $(this).find('input[name="taskStatus"]:checked').val() == 1 ) {
-                        $('#confirmDialog').dialog('open');
+                        if ($(this).find('input[name="technicalFinish"]:checked').val() == 2 || $(this).find('input[name="technicalFinish"]:checked').val() == 3 || $(this).find('input[name="timeWarranty"]').val() != 0) {
+                            e.currentTarget.submit();
+                        } else {
+                            $('#confirmDialog').dialog('open');
+                        }
                     } else {
                         e.currentTarget.submit();
                     }
