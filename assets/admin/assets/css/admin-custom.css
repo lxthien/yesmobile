@@ -31,6 +31,45 @@ tr[style*="background"] .task-customer-count {
     padding-left: 10px;
 }
 
+/* Bảng dữ liệu (id bắt đầu bằng dataTable hoặc class table-data: listTask, listToday, danh sách khách, lịch sử sửa chữa):
+   tiêu đề gọn, có nền, căn giữa theo chiều dọc, 1 dòng */
+table[id^="dataTable"] > thead > tr > th,
+table.table-data > thead > tr > th {
+    background-color: #eef1f6;
+    color: #34495e;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    vertical-align: middle !important;
+    padding: 8px 6px !important;
+    border-bottom: 2px solid #2c3e7a !important;
+}
+/* Cột còn bấm để sắp xếp: chừa chỗ bên phải cho mũi tên */
+table[id^="dataTable"] > thead > tr > th.sorting,
+table[id^="dataTable"] > thead > tr > th.sorting_asc,
+table[id^="dataTable"] > thead > tr > th.sorting_desc {
+    padding-right: 24px !important;
+}
+table[id^="dataTable"] > thead > tr > th br,
+table.table-data > thead > tr > th br {
+    display: none; /* VD "Tên/</br>SĐT" hiển thị 1 dòng */
+}
+table[id^="dataTable"] > tbody > tr > td,
+table.table-data > tbody > tr > td {
+    vertical-align: top;
+}
+/* Doanh thu theo ngày: cột Ngày không bị ngắt dòng */
+table.table-data > tbody > tr > td:first-child {
+    white-space: nowrap;
+}
+/* Cột nút (+) xem chi tiết (trang danh sách phiếu, danh sách khách): giữ đủ rộng cho icon */
+table[id^="dataTableTask"] > thead > tr > th:first-child,
+#dataTableCustomer > thead > tr > th:first-child,
+table[id^="dataTable"] > tbody > tr > td.details-control {
+    width: 32px;
+    min-width: 32px;
+}
+
 /* Lịch sử sửa chữa: link Xem/Ẩn không hiện khung focus khi bấm chuột */
 a.history-toggle:focus {
     outline: none;

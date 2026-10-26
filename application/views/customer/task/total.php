@@ -24,7 +24,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <table class="table table-bordered table-condensed table-striped no-footer">
+                                <table class="table table-bordered table-condensed table-striped no-footer table-data">
                                     <thead>
                                         <tr>
                                             <th>Ngày</th>
