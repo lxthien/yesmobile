@@ -1172,14 +1172,15 @@
                     }
                 });
 
+                // Trang danh sách: chọn VŨNG TÀU / LONG SƠN ở 1 box thì mọi box đổi theo.
+                // Lấy tất cả tab #chvt* / #chls* (không liệt kê cứng, để box mới không bị sót)
                 $('.nav-tabs').on('click', 'li', function() {
-                    console.log($(this).find('a').attr('href'));
-                    $hrefId = $(this).find('a').attr('href');
+                    var hrefId = $(this).find('a').attr('href') || '';
 
-                    if ($hrefId.indexOf('chls') > 0) {
-                        $('[href="#chls1"], [href="#chls11"], [href="#chls2"], [href="#chls3"], [href="#chls4"], [href="#chls5"]').tab('show');
-                    } else {
-                        $('[href="#chvt1"], [href="#chvt11"], [href="#chvt2"], [href="#chvt3"], [href="#chvt4"], [href="#chvt5"]').tab('show');
+                    if (hrefId.indexOf('#chls') === 0) {
+                        $('.nav-tabs a[href^="#chls"]').tab('show');
+                    } else if (hrefId.indexOf('#chvt') === 0) {
+                        $('.nav-tabs a[href^="#chvt"]').tab('show');
                     }
                 })
             });

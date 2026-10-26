@@ -18,9 +18,12 @@ tr.expired, tr.expired a, tr.expired p {
     color: #ffffff !important;
 }
 
-/* Cột Cập nhật (chữ đỏ): trên dòng có nền màu thì chuyển chữ trắng để đọc được */
+/* Chữ đỏ trên trang danh sách (cột Cập nhật, số phiếu cạnh tên khách):
+   trên dòng có nền màu (quá hạn, gấp, VIP) thì chuyển chữ trắng để đọc được */
 tr.expired .task-update,
-tr[style*="background"] .task-update {
+tr[style*="background"] .task-update,
+tr.expired .task-customer-count,
+tr[style*="background"] .task-customer-count {
     color: #ffffff !important;
 }
 
