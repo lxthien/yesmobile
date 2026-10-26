@@ -53,7 +53,7 @@
                                                 <?php echo $row->useAccessories == 1 ? '<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b><br><br>' : ''; ?>
                                                 <?php echo $row->useAccessories == 2 ? '<p style="display:block;color:#FF8C00;"><b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                             </td>
-                                            <td><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "Kiểm tra, báo giá trước khi sửa chữa" : $row->phonePrice); ?></td>
+                                            <td><?php echo taskNoRepairLabel($row->technicalFinish) != '' ? '<span style="color:red;">'.taskNoRepairLabel($row->technicalFinish).'</span>' : (is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "Kiểm tra, báo giá trước khi sửa chữa" : $row->phonePrice)); ?><?php echo taskPaymentHtml($row); ?></td>
                                             <td><?php echo $row->shop == 2 ? 'Long Sơn' : 'Vũng Tàu'; ?></td>
                                         </tr>
                                         <?php endforeach; ?>

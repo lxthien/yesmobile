@@ -1,13 +1,3 @@
-<?php
-    // Ngày giờ dạng d/m/Y H:i cho cột Cập nhật
-    if (!function_exists('historyDateTime')) {
-        function historyDateTime($time) {
-            if ($time == '' || strpos($time, '0000-00-00') === 0) return '';
-            $date = new DateTime($time);
-            return $date->format('d/m/Y H:i');
-        }
-    }
-?>
 <div id="content">
     <div class="outer">
         <div class="inner bg-light lter">
@@ -53,14 +43,14 @@
                                         <td><span style="color:red;font-weight:bold;"><?php echo $row->phonePass; ?></span></td>
                                         <td><?php echo $row->phoneImei; ?></td>
                                         <td><span style="font-weight:bold;"><?php echo $row->phoneStatus; ?></span></td>
-                                        <?php if ($row->technicalFinish != 2) { ?>
+                                        <?php if (taskNoRepairLabel($row->technicalFinish) == '') { ?>
                                             <td><span style="color:red;font-weight:bold;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "Kiểm tra, báo giá trước khi sửa chữa" : $row->phonePrice); ?></span></td>
                                         <?php } else { ?>
-                                            <td><span style="color:red;font-weight:bold;">Không sửa được</span></td>
+                                            <td><span style="color:red;font-weight:bold;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                         <?php }  ?>
                                         <td><?php echo $row->taskStatus == 1 ? formatDate($row->warrantyPeriod) : 'Chưa có'; ?></td>
                                         <td><?php echo $row->features; ?></td>
-                                        <td><?php echo historyDateTime($row->updated); ?></td>
+                                        <td><?php echo taskUpdateHtml($row); ?></td>
                                         <td><?php if (trim(strip_tags($row->note)) != '') { ?><a href="#" class="history-toggle">Xem</a><div class="history-more" style="display:none;"><?php echo $row->note; ?></div><?php } ?></td>
                                         <td style="width: 100px;"><?php if ($lkContent != '') { ?><a href="#" class="history-toggle">Xem</a><div class="history-more" style="display:none;"><?php echo $lkContent; ?></div><?php } ?></td>
                                         <td><?php echo formatDate($row->created); ?></td>

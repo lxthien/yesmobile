@@ -83,8 +83,9 @@
                             <?php if (array_key_exists('technicalFinish', $tracks)) { ?>
                             <tr>
                                 <th>Tình hình kỹ thuật</th>
-                                <th><?php echo $tracks->technicalFinish->from == 1 ? 'Đã xong' : 'Chưa xong'; ?></th>
-                                <th><?php echo $tracks->technicalFinish->to == 0 ? 'Chưa xong' : 'Đã xong'; ?></th>
+                                <?php $technicalLabels = array(0 => 'Chưa xong', 1 => 'Đã xong') + taskNoRepairStatuses(); ?>
+                                <th><?php echo isset($technicalLabels[(int) $tracks->technicalFinish->from]) ? $technicalLabels[(int) $tracks->technicalFinish->from] : 'Chưa xong'; ?></th>
+                                <th><?php echo isset($technicalLabels[(int) $tracks->technicalFinish->to]) ? $technicalLabels[(int) $tracks->technicalFinish->to] : 'Chưa xong'; ?></th>
                             </tr>
                             <?php } ?>
                             <?php if (array_key_exists('notificationCustomer', $tracks)) { ?>
@@ -116,6 +117,21 @@
                                 <th>Lưu ý nội bộ</th>
                                 <th><?php echo $tracks->note->from; ?></th>
                                 <th><?php echo $tracks->note->to; ?></th>
+                            </tr>
+                            <?php } ?>
+                            <?php if (isset($tracks->updateNote) || isset($tracks->updateFlags)) { ?>
+                            <tr>
+                                <th>Cập nhật</th>
+                                <th><?php echo taskUpdateHtml((object) array('updateNote' => isset($tracks->updateNote) ? $tracks->updateNote->from : '', 'updateFlags' => isset($tracks->updateFlags) ? $tracks->updateFlags->from : '')); ?></th>
+                                <th><?php echo taskUpdateHtml((object) array('updateNote' => isset($tracks->updateNote) ? $tracks->updateNote->to : '', 'updateFlags' => isset($tracks->updateFlags) ? $tracks->updateFlags->to : '')); ?></th>
+                            </tr>
+                            <?php } ?>
+                            <?php if (isset($tracks->paymentMethod)) { ?>
+                            <?php $paymentOptions = taskPaymentOptions(); ?>
+                            <tr>
+                                <th>Thanh toán</th>
+                                <th><?php echo isset($paymentOptions[$tracks->paymentMethod->from]) ? $paymentOptions[$tracks->paymentMethod->from] : ''; ?></th>
+                                <th><?php echo isset($paymentOptions[$tracks->paymentMethod->to]) ? $paymentOptions[$tracks->paymentMethod->to] : ''; ?></th>
                             </tr>
                             <?php } ?>
                         </tbody>

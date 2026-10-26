@@ -248,3 +248,80 @@ function isTaskNotifyCustomerEnd($taskID) {
 
     return false;
 }
+
+/* ------------------------------------------------------------------
+ * Phiếu sửa chữa: tình trạng "không sửa", mục Cập nhật, thanh toán
+ * ------------------------------------------------------------------ */
+
+/** Các tình trạng kỹ thuật mà máy không được sửa (technicalFinish) */
+function taskNoRepairStatuses() {
+    return array(
+        2 => 'Không sửa được',
+        3 => 'Tư vấn không sửa',
+        4 => 'Không có linh kiện',
+        5 => 'Khách đổi ý, không sửa',
+    );
+}
+
+/** Chữ hiển thị thay cho chi phí khi máy không sửa; '' nếu máy có sửa */
+function taskNoRepairLabel($technicalFinish) {
+    $statuses = taskNoRepairStatuses();
+    return isset($statuses[(int) $technicalFinish]) ? $statuses[(int) $technicalFinish] : '';
+}
+
+/** Các ô tick của mục Cập nhật (lưu trong tasks.updateFlags) */
+function taskUpdateFlagOptions() {
+    return array(
+        'cho_bao_lai' => 'Chờ Khách báo lại',
+        'goi_kbm' => 'Gọi 2 lần KBM',
+        'goi_klld' => 'Gọi 2 lần KLLĐ',
+    );
+}
+
+/** Danh sách mã ô tick đã chọn của một phiếu */
+function taskUpdateFlags($task) {
+    if (!isset($task->updateFlags) || trim($task->updateFlags) == '') {
+        return array();
+    }
+    return array_values(array_intersect(explode(',', $task->updateFlags), array_keys(taskUpdateFlagOptions())));
+}
+
+/** Nội dung cột Cập nhật: chữ tự nhập + các ô đã tick, chữ đỏ in đậm */
+function taskUpdateHtml($task) {
+    $lines = array();
+    if (isset($task->updateNote) && trim($task->updateNote) != '') {
+        $lines[] = nl2br(htmlspecialchars($task->updateNote, ENT_QUOTES, 'UTF-8'));
+    }
+    $options = taskUpdateFlagOptions();
+    foreach (taskUpdateFlags($task) as $code) {
+        $lines[] = $options[$code];
+    }
+    if (count($lines) == 0) {
+        return '';
+    }
+    // class task-update: dòng có nền màu (quá hạn, gấp, VIP) đổi sang chữ trắng, xem admin-custom.css
+    return '<span class="task-update" style="color:red;font-weight:bold;">' . implode('<br>', $lines) . '</span>';
+}
+
+/** Hình thức thanh toán khi giao máy (lưu trong tasks.paymentMethod) */
+function taskPaymentOptions() {
+    return array(
+        'chuyen_khoan' => 'Chuyển khoản',
+        'tien_mat' => 'Tiền mặt',
+    );
+}
+
+/** Chữ hình thức thanh toán của phiếu đã giao máy; '' nếu chưa có */
+function taskPaymentLabel($task) {
+    $options = taskPaymentOptions();
+    if (!isset($task->paymentMethod) || !isset($options[$task->paymentMethod]) || $task->taskStatus != 1) {
+        return '';
+    }
+    return $options[$task->paymentMethod];
+}
+
+/** Hình thức thanh toán hiển thị dưới số tiền ở cột Báo giá (box Máy đã giao, Doanh thu theo ngày) */
+function taskPaymentHtml($task, $prefix = '<br>') {
+    $label = taskPaymentLabel($task);
+    return $label == '' ? '' : $prefix . '<b style="color:#007802;">' . $label . '</b>';
+}

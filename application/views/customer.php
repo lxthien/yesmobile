@@ -255,6 +255,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -270,11 +271,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -298,6 +299,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -313,11 +315,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -341,6 +343,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -356,11 +359,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -384,6 +387,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -399,11 +403,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -494,6 +498,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -509,11 +514,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -536,6 +541,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -551,11 +557,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -607,6 +613,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -622,11 +629,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -649,6 +656,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -664,11 +672,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -733,6 +741,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -748,11 +757,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -775,6 +784,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -786,15 +796,15 @@
                         { "data": "taks12" },
                         { "data": "taks13" },
                         { "data": "taks14" },
-                        { "data": "taks14" }
+                        { "data": "taks15" }
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -817,6 +827,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -832,11 +843,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -859,6 +870,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -870,15 +882,15 @@
                         { "data": "taks12" },
                         { "data": "taks13" },
                         { "data": "taks14" },
-                        { "data": "taks14" }
+                        { "data": "taks15" }
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -970,6 +982,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -985,11 +998,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -1012,6 +1025,7 @@
                         { "data": "taks1" },
                         { "data": "taks2" },
                         { "data": "taks3" },
+                        { "data": "taksUpdate" },
                         { "data": "taks4" },
                         { "data": "taks5" },
                         { "data": "taks6" },
@@ -1027,11 +1041,11 @@
                     ],
                     "columnDefs": [
                         {
-                            "targets": [ 14 ],
+                            "targets": [ 15 ],
                             "visible": false
                         },
                         {
-                            "targets": [ 15 ],
+                            "targets": [ 16 ],
                             "visible": false
                         }
                     ],
@@ -1120,11 +1134,35 @@
                     }
                 });
 
+                // Radio có thể bỏ chọn khi bấm lại (Sửa Laptop/Mua xác, hình thức thanh toán)
+                $('input.radio-uncheckable:checked').data('wasChecked', true);
+                $(document).on('click', 'input.radio-uncheckable', function () {
+                    var wasChecked = $(this).data('wasChecked');
+                    $('input.radio-uncheckable[name="' + this.name + '"]').data('wasChecked', false);
+                    if (wasChecked) {
+                        this.checked = false;
+                    } else {
+                        $(this).data('wasChecked', true);
+                    }
+                });
+
                 $('#taskForm').submit(function (e) {
                     e.preventDefault();
-                    
+
+                    // 4 tình trạng máy không sửa: Không sửa được, Tư vấn không sửa, Không có linh kiện, Khách đổi ý
+                    var technicalFinish = $(this).find('input[name="technicalFinish"]:checked').val();
+                    var isNoRepair = ['2', '3', '4', '5'].indexOf(technicalFinish) >= 0;
+
+                    // Đã giao máy (trừ 4 tình trạng không sửa): bắt buộc chọn 1 hình thức thanh toán
+                    if ( $(this).find('input[name="taskStatus"]:checked').val() == 1
+                        && !isNoRepair
+                        && $(this).find('input[name="paymentMethod"]:checked').length == 0 ) {
+                        alert('Vui lòng chọn hình thức thanh toán: Chuyển khoản hoặc Tiền mặt.');
+                        return;
+                    }
+
                     if ( $(this).find('input[name="taskStatus"]:checked').val() == 1 ) {
-                        if ($(this).find('input[name="technicalFinish"]:checked').val() == 2 || $(this).find('input[name="technicalFinish"]:checked').val() == 3 || $(this).find('input[name="timeWarranty"]').val() != 0) {
+                        if (isNoRepair || $(this).find('input[name="timeWarranty"]').val() != 0) {
                             e.currentTarget.submit();
                         } else {
                             $('#confirmDialog').dialog('open');

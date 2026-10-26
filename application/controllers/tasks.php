@@ -147,6 +147,9 @@
             $task->features = '';
             $task->phieu = '';
             $task->khachMuonMay = '';
+            $task->updateNote = '';
+            $task->updateFlags = '';
+            $task->paymentMethod = '';
             $data['task'] = $task;
             $data['view'] = 'customer/task/add';
             $data['customers'] = $this->customer_model->read_all();
@@ -198,6 +201,30 @@
                 $task['features'] = $this->input->post('features');
                 $task['phieu'] = $this->input->post('phieu');
                 $task['khachMuonMay'] = $this->input->post('khachMuonMay');
+
+                // Mục Cập nhật: chữ tự nhập + các ô tick (chỉ nhận mã hợp lệ)
+                $task['updateNote'] = (string) $this->input->post('updateNote');
+                $updateFlags = $this->input->post('updateFlags');
+                $updateFlags = is_array($updateFlags) ? array_intersect(array_keys(taskUpdateFlagOptions()), $updateFlags) : array();
+                $task['updateFlags'] = implode(',', $updateFlags);
+
+                // Hình thức thanh toán khi giao máy (chỉ 1)
+                $paymentMethod = (string) $this->input->post('paymentMethod');
+                $task['paymentMethod'] = array_key_exists($paymentMethod, taskPaymentOptions()) ? $paymentMethod : '';
+
+                // Đã giao máy (trừ 4 tình trạng không sửa) thì bắt buộc có hình thức thanh toán.
+                // Form đã chặn bằng JS; đây là chốt chặn cuối nếu JS không chạy.
+                if ($task['taskStatus'] == 1 && taskNoRepairLabel($task['technicalFinish']) == '' && $task['paymentMethod'] == '') {
+                    // Không dùng show_error(): dự án thiếu thư mục application/errors nên trang lỗi sẽ trắng
+                    set_status_header(400);
+                    echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Thiếu hình thức thanh toán</title></head>'
+                        . '<body style="font-family:Arial,sans-serif;padding:30px;">'
+                        . '<h3 style="color:red;">Phiếu CHƯA được lưu</h3>'
+                        . '<p>Phiếu đã giao máy phải chọn hình thức thanh toán: <b>Chuyển khoản</b> hoặc <b>Tiền mặt</b>.</p>'
+                        . '<p><a href="javascript:history.back()">&laquo; Quay lại form</a></p>'
+                        . '</body></html>';
+                    exit;
+                }
 
                 if ($this->input->post('warrantyPeriodEnd') != '') {
                     $dateAndTime = $this->input->post('warrantyPeriodEnd').' '.$this->input->post('warrantyPeriodTimeEnd');
@@ -275,6 +302,12 @@
                     }
                     if ($currentTask->note != $task['note']) {
                         $tracks['manufactory'] = array('from'=>$currentTask->manufactory, 'to'=>$task['manufactory']);
+                    }
+                    foreach (array('updateNote', 'updateFlags', 'paymentMethod') as $newField) {
+                        $oldValue = isset($currentTask->$newField) ? (string) $currentTask->$newField : '';
+                        if ($oldValue != $task[$newField]) {
+                            $tracks[$newField] = array('from'=>$oldValue, 'to'=>$task[$newField]);
+                        }
                     }
                     if (sizeof($tracks) > 0) {
                         $tasks_histories['tracks'] = json_encode($tracks);

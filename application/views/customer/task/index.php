@@ -18,6 +18,7 @@
                                     <th>Mã số</th>
                                     <th>Tên/</br>SĐT</th>
                                     <th>Tên máy</th>
+                                    <th>Cập nhật</th>
                                     <th>Đặc điểm</th>
                                     <th>Pass</th>
                                     <th>Imei</th>
@@ -49,6 +50,7 @@
                                                 <a style="<?php echo $cssBg.$cssBgVip; ?>color:#000080;font-weight:bold;" data-url="<?php echo base_url().'tasks/histories/'.$row->id; ?>" href="javascript:void(0)" class="task-history"><?php echo $row->phoneType; ?></a>
                                                 <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                             </td>
+                                            <td><?php echo taskUpdateHtml($row); ?></td>
                                             <td><?php echo $row->features; ?></td>
                                             <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                             <td><?php echo $row->phoneImei; ?></td>
@@ -64,6 +66,8 @@
                                                 <td><span style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
                                                 <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                            <?php } elseif ($row->technicalFinish == 4 || $row->technicalFinish == 5) { ?>
+                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
                                                 <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                             <?php } ?>
@@ -104,6 +108,7 @@
                                     <th>Mã số</th>
                                     <th>Tên/</br>SĐT</th>
                                     <th>Tên máy</th>
+                                    <th>Cập nhật</th>
                                     <th>Đặc điểm</th>
                                     <th>Pass</th>
                                     <th>Imei</th>
@@ -135,6 +140,7 @@
                                                 <a style="<?php echo $cssBg.$cssBgVip; ?>color:#000080;font-weight:bold;" data-url="<?php echo base_url().'tasks/histories/'.$row->id; ?>" href="javascript:void(0)" class="task-history"><?php echo $row->phoneType; ?></a>
                                                 <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                             </td>
+                                            <td><?php echo taskUpdateHtml($row); ?></td>
                                             <td><?php echo $row->features; ?></td>
                                             <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                             <td><?php echo $row->phoneImei; ?></td>
@@ -150,6 +156,8 @@
                                                 <td><span style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
                                                 <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                            <?php } elseif ($row->technicalFinish == 4 || $row->technicalFinish == 5) { ?>
+                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
                                                 <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                             <?php } ?>
@@ -190,6 +198,7 @@
                                     <th>Mã số</th>
                                     <th>Tên/</br>SĐT</th>
                                     <th>Tên máy</th>
+                                    <th>Cập nhật</th>
                                     <th>Đặc điểm</th>
                                     <th>Pass</th>
                                     <th>Imei</th>
@@ -221,6 +230,7 @@
                                                 <a style="<?php echo $cssBg.$cssBgVip; ?>color:#000080;font-weight:bold;" data-url="<?php echo base_url().'tasks/histories/'.$row->id; ?>" href="javascript:void(0)" class="task-history"><?php echo $row->phoneType; ?></a>
                                                 <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                             </td>
+                                            <td><?php echo taskUpdateHtml($row); ?></td>
                                             <td><?php echo $row->features; ?></td>
                                             <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
                                             <td><?php echo $row->phoneImei; ?></td>
@@ -236,6 +246,8 @@
                                                 <td><span style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
                                                 <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                            <?php } elseif ($row->technicalFinish == 4 || $row->technicalFinish == 5) { ?>
+                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
                                                 <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                             <?php } ?>
@@ -276,6 +288,7 @@
                                     <th>Mã số</th>
                                     <th>Tên/</br>SĐT</th>
                                     <th>Tên máy</th>
+                                    <th>Cập nhật</th>
                                     <th>Đặc điểm</th>
                                     <th>Pass</th>
                                     <th>Imei</th>
@@ -306,8 +319,9 @@
                                                 <a style="<?php echo $cssBg.$cssBgVip; ?>color:#000080;font-weight:bold;" data-url="<?php echo base_url().'tasks/histories/'.$row->id; ?>" href="javascript:void(0)" class="task-history"><?php echo $row->phoneType; ?></a>
                                                 <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                             </td>
+                                            <td><?php echo taskUpdateHtml($row); ?></td>
                                             <td><?php echo $row->features; ?></td>
-                                            <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
+                                            <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
                                             <td><?php echo $row->phoneImei; ?></td>
                                             <td><?php echo $row->phoneSim; ?></td>
                                             <td>
@@ -321,8 +335,10 @@
                                                 <td><span style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
                                                 <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                            <?php } elseif ($row->technicalFinish == 4 || $row->technicalFinish == 5) { ?>
+                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
-                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                             <?php } ?>
                                             <td><?php echo formatTimeLineBreak($row->created, true); ?></td>
                                             <td><b><?php echo formatTimeLineBreak($row->warrantyPeriodEnd); ?></b></td>
@@ -361,6 +377,7 @@
                                     <th>Mã số</th>
                                     <th>Tên/</br>SĐT</th>
                                     <th>Tên máy</th>
+                                    <th>Cập nhật</th>
                                     <th>Đặc điểm</th>
                                     <th>Pass</th>
                                     <th>Imei</th>
@@ -391,8 +408,9 @@
                                                 <a style="<?php echo $cssBg.$cssBgVip; ?>color:#000080;font-weight:bold;" data-url="<?php echo base_url().'tasks/histories/'.$row->id; ?>" href="javascript:void(0)" class="task-history"><?php echo $row->phoneType; ?></a>
                                                 <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                             </td>
+                                            <td><?php echo taskUpdateHtml($row); ?></td>
                                             <td><?php echo $row->features; ?></td>
-                                            <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
+                                            <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
                                             <td><?php echo $row->phoneImei; ?></td>
                                             <td><?php echo $row->phoneSim; ?></td>
                                             <td>
@@ -406,8 +424,10 @@
                                                 <td><span style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
                                                 <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                            <?php } elseif ($row->technicalFinish == 4 || $row->technicalFinish == 5) { ?>
+                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
-                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                             <?php } ?>
                                             <td><?php echo formatTimeLineBreak($row->created, true); ?></td>
                                             <td><?php echo $row->timeNotificationCustomer != "0000-00-00 00:00:00" ? formatTimeLineBreak($row->timeNotificationCustomer, true, true) : 'Không xác định'; ?></td>
@@ -447,6 +467,7 @@
                                     <th>Mã số</th>
                                     <th>Tên/</br>SĐT</th>
                                     <th>Tên máy</th>
+                                    <th>Cập nhật</th>
                                     <th>Đặc điểm</th>
                                     <th>Pass</th>
                                     <th>Imei</th>
@@ -477,8 +498,9 @@
                                                 <a style="<?php echo $cssBg.$cssBgVip; ?>color:#000080;font-weight:bold;" data-url="<?php echo base_url().'tasks/histories/'.$row->id; ?>" href="javascript:void(0)" class="task-history"><?php echo $row->phoneType; ?></a>
                                                 <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                             </td>
+                                            <td><?php echo taskUpdateHtml($row); ?></td>
                                             <td><?php echo $row->features; ?></td>
-                                            <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
+                                            <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
                                             <td><?php echo $row->phoneImei; ?></td>
                                             <td><?php echo $row->phoneSim; ?></td>
                                             <td>
@@ -492,8 +514,10 @@
                                                 <td><span style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
                                                 <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                            <?php } elseif ($row->technicalFinish == 4 || $row->technicalFinish == 5) { ?>
+                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
-                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span><?php echo taskPaymentHtml($row); ?></td>
                                             <?php } ?>
                                             <td><?php echo formatTimeLineBreak($row->timeClosedTask, false, false); ?></td>
                                             <td><?php echo formatTimeLineBreak($row->warrantyPeriod); ?></td>
@@ -533,6 +557,7 @@
                                     <th>Mã số</th>
                                     <th>Tên/</br>SĐT</th>
                                     <th>Tên máy</th>
+                                    <th>Cập nhật</th>
                                     <th>Đặc điểm</th>
                                     <th>Pass</th>
                                     <th>Imei</th>
@@ -563,8 +588,9 @@
                                                 <a style="<?php echo $cssBg.$cssBgVip; ?>color:#000080;font-weight:bold;" data-url="<?php echo base_url().'tasks/histories/'.$row->id; ?>" href="javascript:void(0)" class="task-history"><?php echo $row->phoneType; ?></a>
                                                 <?php echo $row->phoneStatus != '' ? '<br><span>'.$row->phoneStatus.'</span>' : ''; ?>
                                             </td>
+                                            <td><?php echo taskUpdateHtml($row); ?></td>
                                             <td><?php echo $row->features; ?></td>
-                                            <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
+                                            <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
                                             <td><?php echo $row->phoneImei; ?></td>
                                             <td><?php echo $row->phoneSim; ?></td>
                                             <td>
@@ -578,8 +604,10 @@
                                                 <td><span style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
                                                 <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                            <?php } elseif ($row->technicalFinish == 4 || $row->technicalFinish == 5) { ?>
+                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
-                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
+                                                <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span><?php echo taskPaymentHtml($row); ?></td>
                                             <?php } ?>
                                             <td><?php echo formatTimeLineBreak($row->timeClosedTask); ?></td>
                                             <td><?php echo formatTimeLineBreak($row->warrantyPeriod); ?></td>

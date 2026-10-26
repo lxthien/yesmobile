@@ -57,11 +57,13 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">&nbsp;</label>
                                     <div class="col-lg-8">
+                                        <!-- Bỏ chọn cả 2 ô = điện thoại (0) -->
+                                        <input type="hidden" name="phoneTypeCategory" value="0">
                                         <div class="checkbox">
-                                            <label><input class="uniform" type="radio" name="phoneTypeCategory" value="1" <?php echo $task->phoneTypeCategory == 1 ? 'checked=""' : ''; ?>><span style="color: red;">&nbsp; Sửa Laptop</span></label>
+                                            <label><input class="uniform radio-uncheckable" type="radio" name="phoneTypeCategory" value="1" <?php echo $task->phoneTypeCategory == 1 ? 'checked=""' : ''; ?>><span style="color: red;">&nbsp; Sửa Laptop</span></label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input class="uniform" type="radio" name="phoneTypeCategory" value="2" <?php echo $task->phoneTypeCategory == 2 ? 'checked=""' : ''; ?>><span style="color: red;">&nbsp; Mua xác</span></label>
+                                            <label><input class="uniform radio-uncheckable" type="radio" name="phoneTypeCategory" value="2" <?php echo $task->phoneTypeCategory == 2 ? 'checked=""' : ''; ?>><span style="color: red;">&nbsp; Mua xác</span></label>
                                         </div>
                                     </div>
                                 </div>
@@ -94,6 +96,18 @@
                                     <div class="col-lg-8">
                                         <input name="phoneStatus" class="form-control" type="text" placeholder="Tình trạng" value="<?php echo $task->phoneStatus; ?>"/>
                                         <span style="color: red; font-size: 13px; font-weight: bold;">(Máy treo logo, treo phần mềm... Tư vấn trước: "CÓ THỂ" không trả lại được tình trạng ban đầu.)</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4"><span style="color: red;">Cập nhật</span></label>
+                                    <div class="col-lg-8">
+                                        <input name="updateNote" class="form-control" type="text" placeholder="Đã báo khách lỗi trên main, hư CPU..." value="<?php echo isset($task->updateNote) ? htmlspecialchars($task->updateNote, ENT_QUOTES, 'UTF-8') : ''; ?>"/>
+                                        <?php $selectedUpdateFlags = taskUpdateFlags($task); ?>
+                                        <?php foreach (taskUpdateFlagOptions() as $flagCode => $flagLabel) { ?>
+                                        <label class="checkbox-inline update-flag">
+                                            <input type="checkbox" name="updateFlags[]" value="<?php echo $flagCode; ?>" <?php echo in_array($flagCode, $selectedUpdateFlags) ? 'checked=""' : ''; ?>> <?php echo $flagLabel; ?>
+                                        </label>
+                                        <?php } ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -170,6 +184,12 @@
                                         <div class="checkbox">
                                             <label><input class="uniform" type="radio" name="technicalFinish" value="3" <?php echo $task->technicalFinish == 3 ? 'checked=""' : ''; ?>>&nbsp; Tư vấn không sửa</label>
                                         </div>
+                                        <div class="checkbox">
+                                            <label><input class="uniform" type="radio" name="technicalFinish" value="4" <?php echo $task->technicalFinish == 4 ? 'checked=""' : ''; ?>>&nbsp; Không có linh kiện</label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label><input class="uniform" type="radio" name="technicalFinish" value="5" <?php echo $task->technicalFinish == 5 ? 'checked=""' : ''; ?>>&nbsp; Khách đổi ý, không sửa</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -191,6 +211,15 @@
                                         </div>
                                         <div class="checkbox">
                                             <label><input class="uniform" type="radio" name="taskStatus" value="0" <?php echo $task->taskStatus == 0 ? 'checked=""' : ''; ?>>&nbsp; Chưa giao máy</label>
+                                        </div>
+                                        <!-- Hình thức thanh toán: chọn 1, bấm lại để bỏ chọn. Bắt buộc khi Đã giao máy (trừ 4 tình trạng không sửa) -->
+                                        <input type="hidden" name="paymentMethod" value="">
+                                        <div class="payment-methods">
+                                            <?php foreach (taskPaymentOptions() as $paymentCode => $paymentLabel) { ?>
+                                            <label class="checkbox-inline">
+                                                <input class="radio-uncheckable" type="radio" name="paymentMethod" value="<?php echo $paymentCode; ?>" <?php echo isset($task->paymentMethod) && $task->paymentMethod == $paymentCode ? 'checked=""' : ''; ?>> <?php echo $paymentLabel; ?>
+                                            </label>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>

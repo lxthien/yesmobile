@@ -226,7 +226,7 @@
                                               </div>
                                               <div class="row-table">
                                                 <div class="col-table">Lưu ý</div>
-                                                <div class="col-table col-table-2"><?php echo $task->notePrivate; ?></div>
+                                                <div class="col-table col-table-2"><?php echo $task->notePrivate; ?><?php echo $task->khachMuonMay == 1 ? ($task->notePrivate != '' ? '<br>' : '').'<strong>Khách mượn máy của Cửa hàng</strong>' : ''; ?></div>
                                               </div>
                                               <div class="row-table">
                                                 <div class="col-table">Chi phí sửa chữa</div>
