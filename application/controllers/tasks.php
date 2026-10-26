@@ -35,7 +35,8 @@
                 $data['tasksCustomerReceived'] = $this->task_model->readListCustomerReceived($shop);
                 $data['tasksCustomerReceivedWithPrice'] = $this->task_model->readListCustomerReceivedWithPrice($shop);
                 $data['view'] = 'customer/task/index';
-                
+
+                $this->_prefetchCustomerRequest($data);
                 $this->load->view('customer', $data);
             } else {
                 $data['tasksVT'] = $this->task_model->readListVTDoing();
@@ -54,8 +55,28 @@
                 $data['tasksCustomerReceivedWithPriceLS'] = $this->task_model->readListLSCustomerReceivedWithPrice();
 
                 $data['view'] = 'customer/task/indexAdmin';
+                $this->_prefetchCustomerRequest($data);
                 $this->load->view('customer', $data);
             }
+        }
+
+        /**
+         * View gọi customerRequest() (số máy đã sửa) cho từng dòng phiếu.
+         * Đếm trước cho tất cả khách trên trang bằng 1 query để tránh mỗi dòng 1 query.
+         */
+        private function _prefetchCustomerRequest($data) {
+            $customerIDs = array();
+            foreach ($data as $rows) {
+                if (!is_array($rows)) {
+                    continue;
+                }
+                foreach ($rows as $row) {
+                    if (is_object($row) && isset($row->customer_id)) {
+                        $customerIDs[] = $row->customer_id;
+                    }
+                }
+            }
+            $this->task_model->prefetchCountRequest($customerIDs);
         }
 
         function listToday() {

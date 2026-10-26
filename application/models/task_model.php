@@ -422,12 +422,39 @@
             $this->delete($options);
         }
 
+        /**
+         * Bộ đệm số phiếu theo khách, chỉ có dữ liệu khi trang gọi prefetchCountRequest()
+         * (hiện chỉ dùng ở tasks/listTask). Các trang khác: countRequest() query như cũ.
+         */
+        private $countRequestCache = array();
+
+        /** Đếm số phiếu của nhiều khách bằng 1 query, lưu vào bộ đệm cho countRequest() */
+        public function prefetchCountRequest($customerIDs) {
+            $customerIDs = array_values(array_unique($customerIDs));
+            if (count($customerIDs) == 0) {
+                return;
+            }
+            foreach ($customerIDs as $id) {
+                $this->countRequestCache[(string) $id] = 0;
+            }
+            $this->db->select('customer_id, COUNT(*) AS total', FALSE);
+            $this->db->from($this->primary_table);
+            $this->db->where_in('customer_id', $customerIDs);
+            $this->db->group_by('customer_id');
+            foreach ($this->db->get()->result() as $row) {
+                $this->countRequestCache[(string) $row->customer_id] = (int) $row->total;
+            }
+        }
+
         public function countRequest($customerID) {
-            $this->db->select('*');
+            if (isset($this->countRequestCache[(string) $customerID])) {
+                return $this->countRequestCache[(string) $customerID];
+            }
+
+            // Đếm bằng COUNT(*) trong MySQL thay vì tải toàn bộ phiếu về PHP rồi num_rows()
             $this->db->from($this->primary_table);
             $this->db->where(array('customer_id'=>$customerID));
-            $query = $this->db->get();
-            return $query->num_rows();
+            return $this->db->count_all_results();
         }
 
         public function countPriceCustomerRequest ($customerID) {

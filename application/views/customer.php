@@ -320,7 +320,7 @@
                     ],
                     "ordering": false
                 });
-                var tableTask = $('#dataTableTask11').DataTable({
+                var tableTask11 = $('#dataTableTask11').DataTable({
                     "lengthMenu": [[100, -1], [100, "All"]],
                     "order": [],
                     "oLanguage": {
@@ -363,7 +363,7 @@
                     ],
                     "ordering": false
                 });
-                var tableTaskLS = $('#dataTableTask11_LS').DataTable({
+                var tableTask11LS = $('#dataTableTask11_LS').DataTable({
                     "lengthMenu": [[100, -1], [100, "All"]],
                     "order": [],
                     "oLanguage": {
@@ -435,7 +435,7 @@
                 } );
                 $('#dataTableTask11 tbody').on('click', 'td.details-control', function () {
                     var tr = $(this).closest('tr');
-                    var row = tableTask.row( tr );
+                    var row = tableTask11.row( tr );
                 
                     if ( row.child.isShown() ) {
                         row.child.hide();
@@ -448,7 +448,7 @@
                 } );
                 $('#dataTableTask11_LS tbody').on('click', 'td.details-control', function () {
                     var tr = $(this).closest('tr');
-                    var row = tableTaskLS.row( tr );
+                    var row = tableTask11LS.row( tr );
                 
                     if ( row.child.isShown() ) {
                         row.child.hide();
