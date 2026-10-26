@@ -41,7 +41,7 @@
                                             <td><?php echo $row->id; ?></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
-                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a>
+                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a> <span style="color:red;font-weight:bold;">(<?php echo customerRequest($row->customer_id); ?>)</span>
                                                 </br>
                                                 <?php echo getCustomerPhone($row->customer_id); ?>
                                             </td>
@@ -127,7 +127,7 @@
                                             <td><?php echo $row->id; ?></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
-                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a>
+                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a> <span style="color:red;font-weight:bold;">(<?php echo customerRequest($row->customer_id); ?>)</span>
                                                 </br>
                                                 <?php echo getCustomerPhone($row->customer_id); ?>
                                             </td>
@@ -213,7 +213,7 @@
                                             <td><?php echo $row->id; ?></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
-                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a>
+                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a>  <span style="color:red;font-weight:bold;">(<?php echo customerRequest($row->customer_id); ?>)</span>
                                                 </br>
                                                 <?php echo getCustomerPhone($row->customer_id); ?>
                                             </td>
@@ -298,7 +298,7 @@
                                             <td></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
-                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a>
+                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a> <span style="color:red;font-weight:bold;">(<?php echo customerRequest($row->customer_id); ?>)</span>
                                                 </br>
                                                 <?php echo getCustomerPhone($row->customer_id); ?>
                                             </td>
@@ -383,7 +383,7 @@
                                             <td></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
-                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a>
+                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a> <span style="color:red;font-weight:bold;">(<?php echo customerRequest($row->customer_id); ?>)</span>
                                                 </br>
                                                 <?php echo getCustomerPhone($row->customer_id); ?>
                                             </td>
@@ -469,7 +469,7 @@
                                             <td></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
-                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a>
+                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a> <span style="color:red;font-weight:bold;">(<?php echo customerRequest($row->customer_id); ?>)</span>
                                                 </br>
                                                 <?php echo getCustomerPhone($row->customer_id); ?>
                                             </td>
@@ -555,7 +555,7 @@
                                             <td></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
-                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a>
+                                                <a style="<?php echo $cssBg.$cssBgVip; ?>color:red;font-weight:bold;" href="<?php echo base_url().'customers/histories/'.$row->customer_id; ?>" target="_blank" class="customer-name"><?php echo getCustomerName($row->customer_id); ?></a> <span style="color:red;font-weight:bold;">(<?php echo customerRequest($row->customer_id); ?>)</span>
                                                 </br>
                                                 <?php echo getCustomerPhone($row->customer_id); ?>
                                             </td>

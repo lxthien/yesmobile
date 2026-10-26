@@ -20,67 +20,76 @@
             $length = intval($this->input->get("iDisplayLength"));
             $timeBack = intval($this->input->get("customer_back"));
             $search = $this->input->get("sSearch");
-            $customerHasTaskAfterTime = 0;
 
-            $customers = $this->customer_model->read_list($search, $start, $length);
-            $customersCount = empty($search) ? $this->customer_model->get_all_customers() : count($customers);
+            // "Khách hàng chưa quay lại": không có phiếu nào tạo trong 1 năm / 2 năm gần đây
+            $inactiveSince = null;
+            if (!empty($timeBack) && $timeBack >= 1) {
+                $datetime = new DateTime(date('Y-m-d H:i:s', time()));
+                $datetime->sub(new DateInterval($timeBack == 1 ? 'P1Y' : 'P2Y'));
+                $inactiveSince = $datetime->format('Y-m-d H:i:s');
+            }
+
+            // Lọc, đếm và phân trang đều làm trong SQL; length = -1 là lựa chọn "All"
+            $customers = $this->customer_model->readListForPage($search, $inactiveSince, $start, $length);
+            $customersCount = $this->customer_model->countListForPage($search, $inactiveSince);
+
+            // Lấy dữ liệu phiếu cho cả trang bằng 2 query thay vì 8 query mỗi khách
+            $customerIDs = array();
+            foreach ($customers as $r) {
+                $customerIDs[] = $r->id;
+            }
+            $latestTasks = $this->task_model->latestByCustomers($customerIDs);
+            $summaries = $this->task_model->summaryByCustomers($customerIDs);
+
             $data = array();
-
-            foreach($customers as $r) {
-                if (empty($timeBack) || $timeBack < 1) {
-                    $data[] = array(
-                            "id" => $r->id,
-                            "customer1" => $r->name,
-                            "customer2" => $r->phone,
-                            "customer3" => lastDoing($r->id),
-                            "customer4" => customerRequestImei($r->id),
-                            "customer5" => customerRequestTimeReceive($r->id),
-                            "customer6" => customerRequestPrice($r->id),
-                            "customer7" => customerRequestTimeWarranty($r->id),
-                            "customer8" => customerRequestNote($r->id),
-                            "customer9" => customerRequest($r->id),
-                            "customer10" => '<span style="color:red;font-weight:bold;">' . number_format(countPriceCustomerRequest($r->id)) . '</span>',
-                            "customer11" => '<a href="' . base_url().'customers/edit/'.$r->id . '" title="Chỉnh sửa"><i class="fa fa-edit"></i></a>' . '&nbsp;&nbsp;&nbsp;' .
-                            '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank"><i class="fa fa-history"></i></a>',
-                            "customer12" => $r->shop != 2 ? 'Vũng tàu' : 'Long Sơn',
-                            "customer13" => '<a href="' . base_url().'tasks/add/customer/'.$r->id . '" title="Thêm máy sửa" target="_blank">+ Thêm máy sửa</a>',
-                            "customer14" => '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank">Xem lịch sử</a>'
-                    );
-                } else {
-                    $takskOfCustomerAfterTime = $this->task_model->getTaskCustomerAfterTime($r->id, $timeBack);
-                    if ($takskOfCustomerAfterTime <= 0) {
-                        $customerHasTaskAfterTime++;
-                        $data[] = array(
-                            "id" => $r->id,
-                            "customer1" => $r->name,
-                            "customer2" => $r->phone,
-                            "customer3" => lastDoing($r->id),
-                            "customer4" => customerRequestImei($r->id),
-                            "customer5" => customerRequestTimeReceive($r->id),
-                            "customer6" => customerRequestPrice($r->id),
-                            "customer7" => customerRequestTimeWarranty($r->id),
-                            "customer8" => customerRequestNote($r->id),
-                            "customer9" => customerRequest($r->id),
-                            "customer10" => '<span style="color:red;font-weight:bold;">' . number_format(countPriceCustomerRequest($r->id)) . '</span>',
-                            "customer11" => '<a href="' . base_url().'customers/edit/'.$r->id . '" title="Chỉnh sửa"><i class="fa fa-edit"></i></a>' . '&nbsp;&nbsp;&nbsp;' .
-                            '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank"><i class="fa fa-history"></i></a>',
-                            "customer12" => $r->shop != 2 ? 'Vũng tàu' : 'Long Sơn',
-                            "customer13" => '<a href="' . base_url().'tasks/add/customer/'.$r->id . '" title="Thêm máy sửa" target="_blank">+ Thêm máy sửa</a>',
-                            "customer14" => '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank">Xem lịch sử</a>'
-                        );
-                    }
-                }
+            foreach ($customers as $r) {
+                $last = isset($latestTasks[$r->id]) ? $latestTasks[$r->id] : null;
+                $summary = isset($summaries[$r->id]) ? $summaries[$r->id] : null;
+                $data[] = $this->_customerRow($r, $last, $summary);
             }
 
             $output = array(
                 "draw" => $draw,
-                "recordsTotal" => $customerHasTaskAfterTime > 0 ? $customerHasTaskAfterTime : $customersCount,
-                "recordsFiltered" => $customerHasTaskAfterTime > 0 ? $customerHasTaskAfterTime : $customersCount,
+                "recordsTotal" => $customersCount,
+                "recordsFiltered" => $customersCount,
                 "data" => $data
             );
-           
+
             echo json_encode($output);
             exit();
+        }
+
+        /**
+         * Một dòng của bảng khách hàng. Giá trị từng cột giống hệt các helper cũ
+         * (lastDoing, customerRequestImei, customerRequestPrice, ...), chỉ khác là
+         * dùng dữ liệu đã lấy sẵn thay vì query lại.
+         */
+        private function _customerRow($r, $last, $summary) {
+            $price = '';
+            $timeWarranty = '';
+            if ($last) {
+                $price = is_numeric($last->phonePrice) ? number_format($last->phonePrice) : ($last->phonePrice == '' ? 'Kiểm tra, báo giá trước khi sửa chữa' : $last->phonePrice);
+                $timeWarranty = $last->taskStatus == 1 ? formatTime($last->warrantyPeriod) : 'Không có';
+            }
+
+            return array(
+                "id" => $r->id,
+                "customer1" => $r->name,
+                "customer2" => $r->phone,
+                "customer3" => $last ? $last->phoneType : "",
+                "customer4" => $last ? $last->phoneImei : "",
+                "customer5" => $last ? formatTime($last->timeClosedTask) : "",
+                "customer6" => $price,
+                "customer7" => $timeWarranty,
+                "customer8" => $last ? $last->note : "",
+                "customer9" => $summary ? (int) $summary->total : 0,
+                "customer10" => '<span style="color:red;font-weight:bold;">' . number_format($summary ? $summary->price : 0) . '</span>',
+                "customer11" => '<a href="' . base_url().'customers/edit/'.$r->id . '" title="Chỉnh sửa"><i class="fa fa-edit"></i></a>' . '&nbsp;&nbsp;&nbsp;' .
+                '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank"><i class="fa fa-history"></i></a>',
+                "customer12" => $r->shop != 2 ? 'Vũng tàu' : 'Long Sơn',
+                "customer13" => '<a href="' . base_url().'tasks/add/customer/'.$r->id . '" title="Thêm máy sửa" target="_blank">+ Thêm máy sửa</a>',
+                "customer14" => '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank">Xem lịch sử</a>'
+            );
         }
 
         public function add() {

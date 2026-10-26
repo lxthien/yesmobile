@@ -247,7 +247,7 @@
             $this->db->where('taskStatus', 0);
             $this->db->where('notificationCustomer', 1);
             $this->db->where_in('shop', array(0, 1));
-            $this->db->order_by("created", "asc");
+            $this->db->order_by("timeNotificationCustomer", "asc");
             $query = $this->db->get();
             return $query->result();
         }
@@ -482,5 +482,50 @@
             $this->db->from($this->primary_table);
             $query = $this->db->get();
             return $query->num_rows();
+        }
+
+        /**
+         * Số phiếu và tổng tiền của nhiều khách trong 1 query
+         * (thay cho countRequest() + countPriceCustomerRequest() gọi từng khách).
+         * Trả về array(customer_id => object{total, price})
+         */
+        public function summaryByCustomers($customerIDs) {
+            $result = array();
+            if (count($customerIDs) == 0) {
+                return $result;
+            }
+            $this->db->select('customer_id, COUNT(*) AS total, SUM(phonePrice) AS price', FALSE);
+            $this->db->from($this->primary_table);
+            $this->db->where_in('customer_id', $customerIDs);
+            $this->db->group_by('customer_id');
+            foreach ($this->db->get()->result() as $row) {
+                $result[$row->customer_id] = $row;
+            }
+            return $result;
+        }
+
+        /**
+         * Phiếu mới nhất (theo created) của nhiều khách trong 1 query
+         * (thay cho customerRequestOne() gọi từng khách).
+         * Trả về array(customer_id => row phiếu)
+         */
+        public function latestByCustomers($customerIDs) {
+            $result = array();
+            if (count($customerIDs) == 0) {
+                return $result;
+            }
+            $ids = implode(',', array_map('intval', $customerIDs));
+            $sql = "SELECT t.* FROM tasks t
+                    JOIN (SELECT customer_id, MAX(created) AS maxCreated FROM tasks
+                          WHERE customer_id IN ({$ids}) GROUP BY customer_id) m
+                      ON m.customer_id = t.customer_id AND m.maxCreated = t.created
+                    ORDER BY t.id ASC";
+            foreach ($this->db->query($sql)->result() as $row) {
+                // Trùng created thì giữ phiếu id nhỏ nhất
+                if (!isset($result[$row->customer_id])) {
+                    $result[$row->customer_id] = $row;
+                }
+            }
+            return $result;
         }
     }

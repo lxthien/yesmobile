@@ -63,5 +63,41 @@
             $query = $this->db->get();
             return $query->result();
         }
+
+        /**
+         * Danh sách khách cho trang customers/index (DataTables).
+         * $inactiveSince: nếu có, chỉ lấy khách KHÔNG có phiếu nào tạo từ thời điểm này.
+         * $length <= 0: lấy tất cả (lựa chọn "All").
+         */
+        public function readListForPage($search, $inactiveSince, $start, $length) {
+            $this->db->select('*');
+            $this->_applyListFilters($search, $inactiveSince);
+            $this->db->order_by('id', 'asc');
+            if ($length > 0) {
+                $this->db->limit($length, $start);
+            }
+            return $this->db->get()->result();
+        }
+
+        /** Tổng số khách theo cùng điều kiện với readListForPage() */
+        public function countListForPage($search, $inactiveSince) {
+            $this->_applyListFilters($search, $inactiveSince);
+            return $this->db->count_all_results();
+        }
+
+        private function _applyListFilters($search, $inactiveSince) {
+            $this->db->from($this->primary_table);
+
+            if ($search) {
+                // Giống read_list(): tên hoặc SĐT chứa chuỗi tìm kiếm
+                $like = $this->db->escape_like_str($search);
+                $this->db->where("(name LIKE '%{$like}%' OR phone LIKE '%{$like}%')", NULL, FALSE);
+            }
+
+            if ($inactiveSince) {
+                $since = $this->db->escape($inactiveSince);
+                $this->db->where("NOT EXISTS (SELECT 1 FROM tasks t WHERE t.customer_id = customers.id AND t.created >= {$since})", NULL, FALSE);
+            }
+        }
     }
 ?>

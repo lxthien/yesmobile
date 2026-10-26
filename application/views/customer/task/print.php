@@ -10,7 +10,7 @@
                                 clear: both;
                             }
                             .cls2 {
-                                width: 600px; padding: 10px 5px; margin: 0 auto; font-size: 13px; border: 0px solid #cccccc; margin-top: 20px; font-family: "Roboto";
+                                width: 600px; padding: 10px 5px; margin: 0 auto; font-size: 12px; border: 0px solid #cccccc; margin-top: 8px; font-family: "Roboto";
                             }
                             .cls2 .header {
                                 padding: 10px 0;
@@ -55,7 +55,7 @@
                                 width: 100%; text-align: center; padding: 10px 0 10px;
                             }
                             .cls2 .black p{
-                                text-transform: uppercase; font-size: 16px; font-weight: 600;
+                                text-transform: uppercase; font-size: 12px; font-weight: 600;
                             }
                             .cls2 .wrapper-print {
                                 width: 100%; text-align: center;
@@ -79,7 +79,7 @@
                                 width: 100%; height: auto; display: inline-block;
                             }
                             section.table .row-table .col-table {
-                                width: 40%; float: left; font-size: 12px; line-height: 20px;
+                                width: 40%; float: left; font-size: 12px; line-height: 18px;
                             }
                             section.table .row-table .col-table-2 {
                                 width: 60%;
@@ -93,7 +93,7 @@
                                             clear: both;
                                         }
                                         .cls2 {
-                                            width: 600px; padding: 10px 5px; margin: 0 auto; font-size: 14px; border: 0px solid #cccccc; margin-top: 20px; font-family: "Roboto";
+                                            width: 600px; padding: 10px 5px; margin: 0 auto; font-size: 12px; border: 0px solid #cccccc; margin-top: 8px; font-family: "Be Vietnam Pro";
                                         }
                                         .cls2 .header {
                                             padding: 10px 0;
@@ -138,7 +138,7 @@
                                             width: 100%; text-align: center; padding: 10px 0 10px;
                                         }
                                         .cls2 .black p{
-                                            text-transform: uppercase; font-size: 16px; font-weight: 600;
+                                            text-transform: uppercase; font-size: 12px; font-weight: 600;
                                         }
                                         .cls2 .wrapper-print {
                                             width: 100%; text-align: center;
@@ -162,7 +162,7 @@
                                             width: 100%; height: auto; display: inline-block;
                                         }
                                         section.table .row-table .col-table {
-                                            width: 40%; float: left; font-size: 12px; line-height: 20px;
+                                            width: 40%; float: left; font-size: 12px; line-height: 18px;
                                         }
                                         section.table .row-table .col-table-2 {
                                             width: 60%;
@@ -173,25 +173,25 @@
                                     <div class="header">
                                         <div class="logo">
                                             <img src="https://yesmobile.com.vn/assets/images/logo-print.png">
-                                            <p>Sửa Điện Thoại, Laptop, PC</p>
+                                            <p>Sửa Điện Thoại, Laptop</p>                                         
                                         </div>
                                         <div class="address">
-                                            <p class="company"><strong>YES MOBILE | SỬA CHỮA ĐIỆN THOẠI, LAPTOP, PC </strong></p>
-                                            <p><strong>CH 1</strong>: 438 Trương Công Định, Phường 8, TP.Vũng Tàu</p>
-                                            <p><strong>CH 2</strong>: Đường 28/4, Thôn 6, Xã Long Sơn, TP.Vũng Tàu</p>
-                                            <p><strong>Tel</strong>: (0254) 6 557 999 – <strong>Email</strong>: yesmobile.vn@gmail.com</p>
-                                            <p><strong>Web</strong>: www.yesmobile.vn – <strong>FB</strong>: www.fb.com/yesmobile.vn</p>
-                                            <p><strong>Kiểm tra tình trạng máy sửa chữa: 0847 72 72 72</strong></p>
+                                            <p class="company"><strong>YES MOBILE | SINCE 2010 | SỬA ĐIỆN THOẠI, LAPTOP</strong></p>
+                                            <p><strong>Địa chỉ</strong>: 438 Trương Công Định, Phường 8, TP.Vũng Tàu</p>
+                                            <p><strong>Tel</strong>: (0254) 6 557999 I <strong>Email</strong>: yesmobile.vn@gmail.com</p>
+                                            <p><strong>Web</strong>: www.yesmobile.vn I <strong>FB</strong>: www.fb.com/yesmobile.vn</p>
+                                            <p><strong>STK Vietcombank</strong>: 10240 99999 I Nguyễn Văn Thành</p>
+                                            <p><strong>Kiểm tra tình trạng máy đang sửa chữa</strong>: <strong>0847 727272</strong></p>
                                         </div>
                                     </div>
                                     <div class="cl"></div>
-                                    <p class="title">PHIẾU BIÊN NHẬN SỬA CHỮA</p>
+                                  <p class="title">PHIẾU BIÊN NHẬN SỬA CHỮA</p>        
                                     <div class="cl"></div>
                                     <div class="pers">
                                         <div class="left">
                                         <section class="table table-bordered table-condensed table-hover table-striped">
                                               <div class="row-table">
-                                                <div class="col-table">Khách hàng</div>
+                                                <div class="col-table">Quý Khách Hàng</div>
                                                 <div class="col-table col-table-2"><strong><?php echo getCustomerName($task->customer_id); ?></strong></div>
                                               </div>
                                               <div class="row-table">
@@ -233,24 +233,23 @@
                                                 <div class="col-table col-table-2"><strong><?php echo is_numeric($task->phonePrice) ? number_format($task->phonePrice).' VND' : ($task->phonePrice == '' ? "Kiểm tra, báo giá trước khi sửa chữa" : $task->phonePrice); ?></strong></div>
                                               </div>
                                               <div class="row-table">
-                                                <div class="col-table">Mã số dịch vụ</div>
-                                                <div class="col-table col-table-2"><?php echo $task->code; ?></div>
-                                              </div>
-                                              <div class="row-table">
                                                 <div class="col-table">Thời gian nhận máy</div>
                                                 <div class="col-table col-table-2"><?php echo formatTime($task->created, true); ?></div>
                                               </div>
                                               <div class="row-table">
                                                 <div class="col-table">Dự kiến sửa xong</div>
                                                 <div class="col-table col-table-2"><strong><?php echo formatTime($task->warrantyPeriodEnd); ?></strong></div>
+                                              <div class="row-table">
+                                                <div class="col-table">Mã số dịch vụ</div>
+                                                <div class="col-table col-table-2"><?php echo $task->code; ?></div>
                                               </div>
+                                          </div>
                                         </section>
                                         </div>
                                         <div class="right">
                                             <p><b>Lưu ý:</b></p>
-                                            <p>- Nếu bị mất phiếu, vui lòng gọi ngay: <strong>0847.727272</strong>.</p>
-                                            <p>- Trường hợp máy treo logo, lên logo tắt, khi trả lại máy, có thể không trả lại được tình trạng ban đầu.</p>
-                                            <p>- Biên nhận có giá trị nhận lại máy trong thời gian <strong>45 ngày.</strong></p>
+                                            <p>- Phiếu này có giá trị nhận lại máy trong thời gian <strong>45 ngày</strong>. Nếu bị mất phiếu, vui lòng gọi ngay: <strong>0847.727272</strong></p>
+                                            <p>- Trường hợp máy treo logo, lên logo tắt, khi trả lại máy, có thể không trả lại được tình trạng ban đầu.</p
                                             <p><b>Các trường hợp từ chối bảo hành:</b></p>
                                             <p>- Các chức năng Yes Mobile <b>không sửa chữa.</b></p>
                                             <p>- Tem bảo hành bị tẩy xóa, chỉnh sửa.</p>
@@ -261,7 +260,7 @@
                                         </div>
                                     </div>
                                     <div class="cl"></div>
-                                <strong>Trân trọng cám ơn Quý khách hàng đã tin tưởng và sử dụng dịch vụ của Yes Mobile!</strong>
+                                 Nếu chuyển khoản, vui lòng ghi nội dung chuyển khoản là:<strong> <?php echo $task->code; ?></strong></br><strong>Trân trọng cám ơn Quý Khách Hàng đã tin tưởng và sử dụng dịch vụ của Yes Mobile!</strong>
                                 </div>
                                 <div class="wrapper-print">
                                     <input id="btnSubmit" type="submit" value="Print" onclick="divPrint();" />

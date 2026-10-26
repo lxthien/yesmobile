@@ -13,6 +13,7 @@
                 <a href="<?php echo base_url(); ?>" class="navbar-brand"><img src="<?php echo base_url().'assets/admin'; ?>/assets/img/logo.png" alt=""></a>
             </header>
             <div class="topnav">
+                <!--
                 <div class="btn-group">
                     <a data-placement="bottom" data-original-title="Fullscreen" data-toggle="tooltip"
                        class="btn btn-default btn-sm" id="toggleFullScreen">
@@ -20,22 +21,13 @@
                     </a>
                 </div>
                 <div class="btn-group">
-                    <!--<a data-placement="bottom" data-original-title="E-mail" data-toggle="tooltip"
-                       class="btn btn-default btn-sm">
-                        <i class="fa fa-envelope"></i>
-                        <span class="label label-warning">5</span>
-                    </a>-->
                     <a data-placement="bottom" data-original-title="Messages" href="#" data-toggle="tooltip"
                        class="btn btn-default btn-sm">
                         <i class="fa fa-comments"></i>
                         <span class="label label-danger">0</span>
                     </a>
-                    <!--<a data-toggle="modal" data-original-title="Help" data-placement="bottom"
-                       class="btn btn-default btn-sm"
-                       href="#helpModal">
-                        <i class="fa fa-question"></i>
-                    </a>-->
                 </div>
+                -->
                 <div class="btn-group">
                     <a href="<?php echo base_url('panel/logout'); ?>" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
                        class="btn btn-metis-1 btn-sm">
