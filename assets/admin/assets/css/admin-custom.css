@@ -73,15 +73,25 @@ table[id^="dataTable"] > tbody > tr > td.details-control {
 /* Trang danh sách phiếu: bỏ thanh "Show … entries" và ô Search của từng box cho gọn
    (đã có ô Tìm kiếm Khách hàng ở đầu trang) */
 .list-task-page .dataTables_length,
-.list-task-page .dataTables_filter {
-    display: none;
+.list-task-page .dataTables_filter,
+.list-task-page .dataTables_wrapper > .toolbar {
+    /* .toolbar: chỗ chèn nút cũ (đã bỏ), rỗng nhưng vẫn chiếm 1 dòng.
+       !important vì view có CSS riêng theo id (#dataTableTask1_wrapper .toolbar) */
+    display: none !important;
+}
+/* Bỏ khoảng trắng thừa phía trên bảng (thanh công cụ đã ẩn) */
+.list-task-page .box > .body {
+    padding-top: 4px;
+}
+.list-task-page table.dataTable {
+    margin-top: 0 !important;
 }
 
 /* Ô tìm nhanh khách hàng ở trang danh sách phiếu */
 .customer-quick-search {
     display: flex;
     align-items: center;
-    padding: 12px 15px 4px;
+    padding: 10px 15px 2px;
 }
 .customer-quick-search label {
     margin: 0 10px 0 0;
@@ -132,6 +142,11 @@ table[id^="dataTable"] > tbody > tr > td.details-control {
 .customer-quick-search-results .cqs-empty {
     padding: 8px 10px;
     color: #888;
+}
+.customer-quick-search-results .cqs-add {
+    margin-left: 12px;
+    white-space: nowrap;
+    font-weight: bold;
 }
 @media (max-width: 767px) {
     .customer-quick-search {
@@ -191,17 +206,9 @@ a.history-toggle:focus-visible {
     padding: 15px 10px;
     color: #9d9d9d;
 }
-#top .top-user-greeting a {
-    display: inline;
-    padding: 0;
+#top .top-user-greeting .top-user-name {
     color: #fff;
     font-weight: 600;
-}
-#top .top-user-greeting a:hover,
-#top .top-user-greeting a:focus {
-    color: #fff;
-    text-decoration: underline;
-    background: none;
 }
 #top .navbar-nav > li.top-user-logout > a.btn {
     margin: 10px 0 10px 5px;

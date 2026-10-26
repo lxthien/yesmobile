@@ -95,8 +95,9 @@
         public function add() {
             $customer = new stdClass();
             $customer->id = '';
-            $customer->name = '';
-            $customer->phone = '';
+            // Điền sẵn từ ô "Tìm kiếm Khách hàng" khi không tìm thấy: customers/add?phone=... hoặc ?name=...
+            $customer->name = trim((string) $this->input->get('name'));
+            $customer->phone = preg_replace('/[^0-9+]/', '', (string) $this->input->get('phone'));
             $data['customer'] = $customer;
             $data['view'] = 'customer/information/add';
             $this->load->view('customer', $data);

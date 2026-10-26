@@ -79,6 +79,7 @@ $route['auths/(:any)']              = 'auths/$1';
 $route['customers']                 = 'customers/$1';
 $route['customers/customersPage(:any)']   = 'customers/customersPage/$1';
 $route['customers/quickSearch(:any)']     = 'customers/quickSearch/$1';
+$route['customers/add(:any)']             = 'customers/add/$1';
 $route['customers/(:any)']          = 'customers/$1';
 $route['customers/(:any)/(:any)']   = 'customers/$1/$2';
 

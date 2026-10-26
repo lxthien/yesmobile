@@ -11,6 +11,7 @@
     var input = document.getElementById('customerQuickSearch');
     var box = document.getElementById('customerQuickSearchResults');
     var url = '<?php echo base_url('customers/quickSearch'); ?>';
+    var addCustomerUrl = '<?php echo base_url('customers/add'); ?>';
     var timer = null, lastQuery = '', request = null;
 
     function el(tag, className, text) {
@@ -23,7 +24,14 @@
     function show(customers, query) {
         box.innerHTML = '';
         if (!customers.length) {
-            box.appendChild(el('div', 'cqs-empty', 'Không tìm thấy khách hàng "' + query + '"'));
+            // Không tìm thấy: cho thêm khách mới, điền sẵn SĐT (nếu gõ số) hoặc tên (nếu gõ chữ)
+            var empty = el('div', 'cqs-row cqs-empty');
+            empty.appendChild(el('span', '', 'Không tìm thấy khách hàng "' + query + '"'));
+            var isPhone = /^[0-9+\s.\-]+$/.test(query);
+            var add = el('a', 'cqs-add', '+ Thêm Khách hàng mới');
+            add.href = addCustomerUrl + '?' + (isPhone ? 'phone=' + encodeURIComponent(query.replace(/[^0-9+]/g, '')) : 'name=' + encodeURIComponent(query));
+            empty.appendChild(add);
+            box.appendChild(empty);
         }
         customers.forEach(function (c) {
             var row = el('div', 'cqs-row');

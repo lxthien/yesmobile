@@ -46,7 +46,7 @@
                 <ul class="nav navbar-nav navbar-right top-user">
                     <li class="top-user-greeting">
                         <span>Chào</span>
-                        <a href="<?php echo base_url('panel/change-password'); ?>" title="Đổi mật khẩu"><?php echo $currentUser ? $currentUser->first_name.' '.$currentUser->last_name : ''; ?></a>
+                        <b class="top-user-name"><?php echo $currentUser ? $currentUser->first_name.' '.$currentUser->last_name : ''; ?></b>
                     </li>
                     <li class="top-user-logout">
                         <a href="<?php echo base_url('panel/logout'); ?>" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"

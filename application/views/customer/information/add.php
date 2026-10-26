@@ -28,13 +28,18 @@
                                 <div class="form-group">
                                     <label for="text1" class="control-label col-lg-4">Tên</label>
                                     <div class="col-lg-8">
-                                        <input name="name" type="text" id="text1" placeholder="Tên" class="form-control" value="<?php echo $customer->name; ?>" <?php echo $shop == 0 ? "" : "readonly"; ?>>
+                                        <?php
+                                            // Thêm mới: đặt con trỏ vào ô còn trống (ô kia có thể đã điền sẵn từ ô Tìm kiếm Khách hàng)
+                                            $autofocusName = $customer->id == '' && $customer->name == '' ? 'autofocus' : '';
+                                            $autofocusPhone = $customer->id == '' && $customer->name != '' && $customer->phone == '' ? 'autofocus' : '';
+                                        ?>
+                                        <input name="name" type="text" id="text1" placeholder="Tên" class="form-control" value="<?php echo htmlspecialchars($customer->name, ENT_QUOTES, 'UTF-8'); ?>" <?php echo $shop == 0 ? "" : "readonly"; ?> <?php echo $autofocusName; ?>>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="pass1" class="control-label col-lg-4">Điện thoại</label>
                                     <div class="col-lg-8">
-                                        <input name="phone" class="form-control" type="text" id="pass1" placeholder="Điện thoại" value="<?php echo $customer->phone; ?>" <?php echo $shop == 0 ? "" : "readonly"; ?> />
+                                        <input name="phone" class="form-control" type="text" id="pass1" placeholder="Điện thoại" value="<?php echo htmlspecialchars($customer->phone, ENT_QUOTES, 'UTF-8'); ?>" <?php echo $shop == 0 ? "" : "readonly"; ?> <?php echo $autofocusPhone; ?> />
                                     </div>
                                 </div>
                                 <div class="form-group">
