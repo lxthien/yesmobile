@@ -42,6 +42,13 @@ class Auth extends CI_Controller {
 
     //log the user in
     function login() {
+        $this->load->helper('myhelper');
+
+        // Đã đăng nhập sẵn (phiên cũ còn hạn) mà mở lại trang đăng nhập: chia hướng theo nhóm như khi đăng nhập bằng form
+        if ($this->ion_auth->logged_in() && $this->input->post('identity') === false) {
+            redirect(isShopUser() ? base_url('tasks/index') : base_url('panel/dashboard'), 'refresh');
+        }
+
         $this->data['title'] = "Thanh Tuan System Login";
         //validate form input
         $this->form_validation->set_rules('identity', 'Identity', 'required');
@@ -57,8 +64,7 @@ class Auth extends CI_Controller {
                 //redirect them back to the home page
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
 
-                $groupShop = array('admin_shop', 'members_shopA', 'members_shopB');
-                if ($this->ion_auth->in_group($groupShop)) {
+                if ($this->ion_auth->in_group(shopUserGroups())) {
                     $referal = base_url('tasks/index');
                     redirect($referal, 'refresh');
                 } else {

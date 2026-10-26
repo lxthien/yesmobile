@@ -87,6 +87,36 @@ table[id^="dataTable"] > tbody > tr > td.details-control {
     margin-top: 0 !important;
 }
 
+/* Trang lịch sử sửa chữa của khách: bỏ "Show … entries" và ô Search, tiêu đề gọn */
+.customer-history-page .dataTables_length,
+.customer-history-page .dataTables_filter,
+.customer-history-page .dataTables_info {
+    display: none;
+}
+.customer-history-page table.dataTable {
+    margin-top: 0 !important;
+}
+.customer-history-page .history-title {
+    font-weight: 600;
+}
+.customer-history-page .history-customer-name {
+    margin-left: 15px;
+    color: red;
+    font-weight: bold;
+}
+.customer-history-page .history-customer-phone {
+    color: #000;
+    font-weight: bold;
+}
+.customer-history-page .history-add-task {
+    color: #000080;
+    font-weight: bold;
+}
+.customer-history-page .history-number {
+    color: red;
+    font-weight: bold;
+}
+
 /* Ô tìm nhanh khách hàng ở trang danh sách phiếu */
 .customer-quick-search {
     display: flex;

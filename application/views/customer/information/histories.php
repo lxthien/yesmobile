@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content" class="customer-history-page">
     <div class="outer">
         <div class="inner bg-light lter">
             <!--Begin Datatables-->
@@ -7,7 +7,14 @@
                     <div class="box">
                         <header>
                             <div class="icons"><i class="fa fa-table"></i></div>
-                            <h5>Lịch sử sửa chữa - Tổng giao dịch <span style="color: red; font-weight: bold;"><?php echo $totalPrice > 0 ? number_format($totalPrice) : 0; ?></span> <span style="color: red; font-weight: bold; margin-left: 50px;"><?php echo $customer->name; ?></span> - <a style="color:#000080" target="_blank" href="<?php echo base_url().'tasks/add/customer/'.$customer->id; ?>">Thêm máy sửa chữa</a></h5>
+                            <h5 class="history-title">
+                                Lịch sử sửa chữa
+                                <span class="history-customer-name"><?php echo $customer->name; ?></span>
+                                - <span class="history-customer-phone"><?php echo $customer->phone; ?></span>
+                                - <a class="history-add-task" target="_blank" href="<?php echo base_url().'tasks/add/customer/'.$customer->id; ?>">Thêm máy sửa chữa</a>
+                                - Tổng giao dịch: <span class="history-number"><?php echo $totalPrice > 0 ? number_format($totalPrice) : 0; ?></span>
+                                - Tổng máy sửa: <span class="history-number"><?php echo count($tasks); ?></span>
+                            </h5>
                         </header>
                         <div id="collapse4" class="body">
                             <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">

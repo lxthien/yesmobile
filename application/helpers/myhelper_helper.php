@@ -325,3 +325,18 @@ function taskPaymentHtml($task, $prefix = '<br>') {
     $label = taskPaymentLabel($task);
     return $label == '' ? '' : $prefix . '<b style="color:#007802;">' . $label . '</b>';
 }
+
+/* ------------------------------------------------------------------
+ * Đăng nhập: chia hướng theo nhóm user
+ * ------------------------------------------------------------------ */
+
+/** Các nhóm dùng phần mềm sửa chữa (phiếu, khách hàng) thay vì panel quản lý nội dung */
+function shopUserGroups() {
+    return array('admin_shop', 'members_shopA', 'members_shopB');
+}
+
+/** User đang đăng nhập thuộc nhóm phần mềm sửa chữa? */
+function isShopUser() {
+    $ci = & get_instance();
+    return $ci->ion_auth->logged_in() && $ci->ion_auth->in_group(shopUserGroups());
+}

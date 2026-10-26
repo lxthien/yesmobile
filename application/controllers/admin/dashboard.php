@@ -23,6 +23,11 @@ class Dashboard extends Admin_controller {
         if(!$this->ion_auth->logged_in()){
             redirect('panel/login');
         } else {
+            // Nhóm phần mềm sửa chữa mở /panel (VD trình duyệt tự mở lại từ lịch sử): chuyển về phần mềm như khi đăng nhập bằng form
+            $this->load->helper('myhelper');
+            if (isShopUser()) {
+                redirect(base_url('tasks/index'), 'refresh');
+            }
             $this->load->helper('cookie');
             $dateOfWeek = date('D', time());
             //get_cookie('isResetNews'); die;
