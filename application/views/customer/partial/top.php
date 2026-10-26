@@ -1,6 +1,20 @@
 <?php
     $currentUser = $this->ion_auth->user()->row();
-    $currentSection = $this->uri->segment(1);
+    // Trang đang mở (controller/method) để in đậm link tương ứng trên menu
+    $currentPage = strtolower($this->router->fetch_class() . '/' . $this->router->fetch_method());
+    $menuGroups = array(
+        array(
+            'tasks/listtask' => array('tasks/listTask', 'Máy đang sửa chữa'),
+            'tasks/add' => array('tasks/add', 'Thêm mới'),
+        ),
+        array(
+            'customers/add' => array('customers/add', 'Thêm mới Khách hàng'),
+            'customers/index' => array('customers/index', 'Danh sách Khách hàng'),
+        ),
+    );
+    if ($this->ion_auth->in_group('admin_shop')) {
+        $menuGroups[] = array('tasks/listtoday' => array('tasks/listToday', 'Doanh thu theo ngày'));
+    }
 ?>
 <div id="top">
     <!-- .navbar -->
@@ -14,32 +28,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="<?php echo base_url(); ?>" class="navbar-brand"><img src="<?php echo base_url().'assets/admin'; ?>/assets/img/logo.png" alt=""></a>
+                <a href="<?php echo base_url('tasks/listTask'); ?>" class="navbar-brand"><img src="<?php echo base_url().'assets/admin'; ?>/assets/img/logo.png" alt=""></a>
             </header>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <!-- Menu chính (trước đây nằm ở cột trái) -->
+                <!-- Menu chính dàn ngang: các nhóm link, trong nhóm cách nhau bởi "|"; trang đang mở in đậm -->
                 <ul class="nav navbar-nav top-menu">
-                    <li class="dropdown<?php echo $currentSection == 'tasks' ? ' active' : ''; ?>">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <i class="fa fa-table"></i>&nbsp; Yêu cầu <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="<?php echo base_url().'tasks/add'; ?>"><i class="fa fa-angle-right"></i>&nbsp; Thêm mới</a></li>
-                            <li><a href="<?php echo base_url().'tasks/listTask'; ?>"><i class="fa fa-angle-right"></i>&nbsp; Máy đang sửa chữa</a></li>
-                            <?php if ($this->ion_auth->in_group('admin_shop')) { ?>
-                            <li><a href="<?php echo base_url().'tasks/listToday'; ?>"><i class="fa fa-angle-right"></i>&nbsp; Danh thu theo ngày</a></li>
-                            <?php } ?>
-                        </ul>
+                    <?php foreach ($menuGroups as $group) { ?>
+                    <li class="top-menu-group">
+                        <?php $first = true; foreach ($group as $pageKey => $link) { ?>
+                            <?php if (!$first) { ?><span class="top-menu-sep">|</span><?php } $first = false; ?>
+                            <a href="<?php echo base_url($link[0]); ?>" class="<?php echo $currentPage == $pageKey ? 'active' : ''; ?>"><?php echo $link[1]; ?></a>
+                        <?php } ?>
                     </li>
-                    <li class="dropdown<?php echo $currentSection == 'customers' ? ' active' : ''; ?>">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <i class="fa fa-users"></i>&nbsp; Khách hàng <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="<?php echo base_url().'customers/index'; ?>"><i class="fa fa-angle-right"></i>&nbsp; Danh sách khách hàng</a></li>
-                            <li><a href="<?php echo base_url().'customers/add'; ?>"><i class="fa fa-angle-right"></i>&nbsp; Thêm mới khách hàng</a></li>
-                        </ul>
-                    </li>
+                    <?php } ?>
                 </ul>
                 <!-- Người dùng + đăng xuất -->
                 <ul class="nav navbar-nav navbar-right top-user">

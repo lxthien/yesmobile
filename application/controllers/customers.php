@@ -174,6 +174,52 @@
             $this->load->view('customer', $data);
         }
 
+        /**
+         * Ô "Tìm kiếm Khách hàng" ở trang danh sách phiếu: tìm theo tên hoặc SĐT, trả JSON tối đa 10 khách
+         * GET customers/quickSearch?keyword=...
+         * (không dùng tên tham số "q": một số cấu hình nginx dùng ?q= để chuyển đường dẫn vào index.php)
+         */
+        public function quickSearch() {
+            $q = trim((string) $this->input->get('keyword'));
+            $result = array();
+
+            $qLength = function_exists('mb_strlen') ? mb_strlen($q, 'UTF-8') : strlen($q);
+            if ($qLength >= 2) {
+                // MySQL so khớp không phân biệt dấu (ư = u), nên lấy rộng rồi đưa khách khớp đúng dấu lên trước
+                $customers = $this->customer_model->readListForPage($q, null, 0, 50, true);
+                $exact = array();
+                $others = array();
+                foreach ($customers as $c) {
+                    $nameMatch = function_exists('mb_stripos') ? mb_stripos($c->name, $q, 0, 'UTF-8') !== false : stripos($c->name, $q) !== false;
+                    if ($nameMatch || strpos($c->phone, $q) !== false) {
+                        $exact[] = $c;
+                    } else {
+                        $others[] = $c;
+                    }
+                }
+                $customers = array_slice(array_merge($exact, $others), 0, 10);
+                $ids = array();
+                foreach ($customers as $c) {
+                    $ids[] = $c->id;
+                }
+                $summaries = $this->task_model->summaryByCustomers($ids);
+                foreach ($customers as $c) {
+                    $result[] = array(
+                        'id' => (int) $c->id,
+                        'name' => $c->name,
+                        'phone' => $c->phone,
+                        'tasks' => isset($summaries[$c->id]) ? (int) $summaries[$c->id]->total : 0,
+                        'historyUrl' => base_url().'customers/histories/'.$c->id,
+                        'addTaskUrl' => base_url().'tasks/add/customer/'.$c->id,
+                    );
+                }
+            }
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($result, defined('JSON_UNESCAPED_UNICODE') ? JSON_UNESCAPED_UNICODE : 0);
+            exit();
+        }
+
         function phoneCheckSignup(){
             $phone = $this->input->post('phone');
             $customer = $this->customer_model->read_by_phone($phone);

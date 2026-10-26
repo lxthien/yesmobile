@@ -239,6 +239,7 @@
 
                 var tableTask = $('#dataTableTask1').DataTable({
                     "lengthMenu": [[100, -1], [100, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -283,6 +284,7 @@
                 });
                 var tableTaskLS = $('#dataTableTask1_LS').DataTable({
                     "lengthMenu": [[100, -1], [100, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -327,6 +329,7 @@
                 });
                 var tableTask11 = $('#dataTableTask11').DataTable({
                     "lengthMenu": [[100, -1], [100, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -371,6 +374,7 @@
                 });
                 var tableTask11LS = $('#dataTableTask11_LS').DataTable({
                     "lengthMenu": [[100, -1], [100, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -483,6 +487,7 @@
 
                 var tableTask2 = $('#dataTableTask2').DataTable({
                     "lengthMenu": [[50, -1], [50, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -526,6 +531,7 @@
                 });
                 var tableTask2_LS = $('#dataTableTask2_LS').DataTable({
                     "lengthMenu": [[50, -1], [50, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -598,6 +604,7 @@
 
                 var tableTask3 = $('#dataTableTask3').DataTable({
                     "lengthMenu": [[50, -1], [50, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -641,6 +648,7 @@
                 });
                 var tableTask3_LS = $('#dataTableTask3_LS').DataTable({
                     "lengthMenu": [[50, -1], [50, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -726,6 +734,7 @@
 
                 var tableTask4 = $('#dataTableTask4').DataTable({
                     "lengthMenu": [[50, -1], [50, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -769,6 +778,7 @@
                 });
                 var tableTask4_LS = $('#dataTableTask4_LS').DataTable({
                     "lengthMenu": [[50, -1], [50, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -812,6 +822,7 @@
                 });
                 var tableTask41 = $('#dataTableTask41').DataTable({
                     "lengthMenu": [[50, -1], [50, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -855,6 +866,7 @@
                 });
                 var tableTask41_LS = $('#dataTableTask41_LS').DataTable({
                     "lengthMenu": [[50, -1], [50, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -967,6 +979,7 @@
 
                 var tableTask5 = $('#dataTableTask5').DataTable({
                     "lengthMenu": [[50, -1], [50, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"
@@ -1010,6 +1023,7 @@
                 });
                 var tableTask5_LS = $('#dataTableTask5_LS').DataTable({
                     "lengthMenu": [[50, -1], [50, "All"]],
+                    "searching": false,
                     "order": [],
                     "oLanguage": {
                         "sSearch": "<span>Search:</span>"

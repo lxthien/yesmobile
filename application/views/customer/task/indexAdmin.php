@@ -1,4 +1,4 @@
-<div id="content" class="content-admin">
+<div id="content" class="content-admin list-task-page">
     <div class="outer">
         <div class="inner bg-light lter">
             <!--Begin Datatables-->
@@ -13,6 +13,7 @@
                                 <li class=""><a href="#chls1" data-toggle="tab" aria-expanded="false">LONG SƠN</a> </li>
                             </ul>
                         </header>
+                        <?php $this->load->view('customer/task/customer_search'); ?>
                         <div id="collapse4" class="body tab-content">
                             <div class="tab-pane fade active in" id="chvt1">
                                 <?php if(count($tasksVT) > 0) : ?>

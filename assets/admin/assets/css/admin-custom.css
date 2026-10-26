@@ -70,6 +70,79 @@ table[id^="dataTable"] > tbody > tr > td.details-control {
     min-width: 32px;
 }
 
+/* Trang danh sách phiếu: bỏ thanh "Show … entries" và ô Search của từng box cho gọn
+   (đã có ô Tìm kiếm Khách hàng ở đầu trang) */
+.list-task-page .dataTables_length,
+.list-task-page .dataTables_filter {
+    display: none;
+}
+
+/* Ô tìm nhanh khách hàng ở trang danh sách phiếu */
+.customer-quick-search {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px 4px;
+}
+.customer-quick-search label {
+    margin: 0 10px 0 0;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.customer-quick-search-box {
+    position: relative;
+    width: 420px;
+    max-width: 100%;
+}
+.customer-quick-search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1060;
+    margin-top: 2px;
+    max-height: 420px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.customer-quick-search-results .cqs-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    border-bottom: 1px solid #eee;
+}
+.customer-quick-search-results .cqs-row:hover {
+    background: #f5f8fc;
+}
+.customer-quick-search-results .cqs-count {
+    color: red;
+    font-weight: bold;
+}
+.customer-quick-search-results .cqs-actions {
+    white-space: nowrap;
+    margin-left: 10px;
+}
+.customer-quick-search-results .cqs-sep {
+    margin: 0 6px;
+    color: #bbb;
+}
+.customer-quick-search-results .cqs-empty {
+    padding: 8px 10px;
+    color: #888;
+}
+@media (max-width: 767px) {
+    .customer-quick-search {
+        display: block;
+    }
+    .customer-quick-search label {
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+
 /* Lịch sử sửa chữa: link Xem/Ẩn không hiện khung focus khi bấm chuột */
 a.history-toggle:focus {
     outline: none;
@@ -80,16 +153,39 @@ a.history-toggle:focus-visible {
     outline-offset: 2px;
 }
 
-/* Menu ngang trên thanh top (thay cho cột trái) */
-#top .top-menu > li > a {
+/* Menu ngang trên thanh top: các nhóm link dàn ngang, trang đang mở in đậm */
+#top .top-menu > li.top-menu-group {
+    padding: 15px 0;
+    margin-left: 30px;
     font-size: 15px;
-    font-weight: 600;
+    color: #9d9d9d;
 }
-#top .top-menu .dropdown-menu {
-    z-index: 1050;
+#top .top-menu > li.top-menu-group > a {
+    display: inline;
+    padding: 0;
+    color: #c8c8c8;
+    font-weight: normal;
+    background: none;
 }
-#top .top-menu .dropdown-menu > li > a {
-    padding: 8px 20px;
+#top .top-menu > li.top-menu-group > a:hover,
+#top .top-menu > li.top-menu-group > a:focus {
+    color: #fff;
+    text-decoration: underline;
+    background: none;
+}
+#top .top-menu > li.top-menu-group > a.active {
+    color: #fff;
+    font-weight: bold;
+}
+#top .top-menu .top-menu-sep {
+    margin: 0 8px;
+    color: #6f6f6f;
+}
+@media (max-width: 767px) {
+    #top .top-menu > li.top-menu-group {
+        margin-left: 15px;
+        padding: 8px 0;
+    }
 }
 #top .top-user-greeting {
     padding: 15px 10px;
@@ -129,4 +225,13 @@ a.history-toggle:focus-visible {
     #top .top-user-greeting {
         padding: 10px 15px;
     }
+}
+
+
+.outer {
+    padding: 0px;
+}
+
+.outer .inner {
+    border: 0px;
 }

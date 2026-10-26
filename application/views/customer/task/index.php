@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content" class="list-task-page">
     <div class="outer">
         <div class="inner bg-light lter">
             <!--Begin Datatables-->
@@ -9,6 +9,7 @@
                             <div class="icons"><i class="fa fa-table"></i></div>
                             <h5>MÁY ĐANG SỬA CHỬA</h5>
                         </header>
+                        <?php $this->load->view('customer/task/customer_search'); ?>
                         <div id="collapse4" class="body">
                             <?php if(count($tasks) > 0) : ?>
                             <table id="dataTableTask1" class="table table-bordered table-condensed">

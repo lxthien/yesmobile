@@ -38,6 +38,18 @@
 |
 */
 
+// API v1 cho bên thứ 3 (chỉ đọc). Phải đứng trước các route bắt-tất-cả bên dưới.
+$route['api/v1/customers'] = 'api/customers/index';
+$route['api/v1/customers/(:num)'] = 'api/customers/show/$1';
+$route['api/v1/customers/(:num)/tasks'] = 'api/customers/tasks/$1';
+$route['api/v1/tasks'] = 'api/tasks/index';
+$route['api/v1/tasks/code/([A-Za-z0-9_-]+)'] = 'api/tasks/by_code/$1';
+$route['api/v1/tasks/(:num)'] = 'api/tasks/show/$1';
+$route['api/v1/tasks/(:num)/histories'] = 'api/tasks/histories/$1';
+$route['api/v1/warranty'] = 'api/warranty/index';
+$route['api'] = 'api/fallback/index';
+$route['api/(.+)'] = 'api/fallback/index';
+
 $route['thong-tin-bao-hanh'] = "welcome";
 $route['thong-tin-bao-hanh/(:num)'] = "welcome";
 $route['searchHistory'] = "welcome/searchHistory";
@@ -66,6 +78,7 @@ $route['auths/(:any)']              = 'auths/$1';
 //For the member
 $route['customers']                 = 'customers/$1';
 $route['customers/customersPage(:any)']   = 'customers/customersPage/$1';
+$route['customers/quickSearch(:any)']     = 'customers/quickSearch/$1';
 $route['customers/(:any)']          = 'customers/$1';
 $route['customers/(:any)/(:any)']   = 'customers/$1/$2';
 

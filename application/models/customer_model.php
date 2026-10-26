@@ -68,11 +68,12 @@
          * Danh sách khách cho trang customers/index (DataTables).
          * $inactiveSince: nếu có, chỉ lấy khách KHÔNG có phiếu nào tạo từ thời điểm này.
          * $length <= 0: lấy tất cả (lựa chọn "All").
+         * $newestFirst: true = khách mới nhất lên trước (ô tìm nhanh ở trang danh sách phiếu)
          */
-        public function readListForPage($search, $inactiveSince, $start, $length) {
+        public function readListForPage($search, $inactiveSince, $start, $length, $newestFirst = false) {
             $this->db->select('*');
             $this->_applyListFilters($search, $inactiveSince);
-            $this->db->order_by('id', 'asc');
+            $this->db->order_by('id', $newestFirst ? 'desc' : 'asc');
             if ($length > 0) {
                 $this->db->limit($length, $start);
             }
