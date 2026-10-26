@@ -47,10 +47,14 @@
             less = {
                 env: "development",
                 relativeUrls: false,
-                rootpath: "/assets/admin/assets/"
+                rootpath: "/assets/admin/assets/",
+                // Màu chủ đề trước đây do style-switcher.js áp khi tải trang (đã bỏ nút đổi màu)
+                modifyVars: {
+                    '@bgColor': '#333',
+                    '@fgColor': '#fff'
+                }
             };
         </script>
-        <link rel="stylesheet" href="<?php echo base_url().'assets/admin'; ?>/assets/css/style-switcher.css">
         <link rel="stylesheet/less" type="text/css" href="<?php echo base_url().'assets/admin'; ?>/assets/less/theme.less">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.js"></script>
 
@@ -60,10 +64,9 @@
 
       </head>
 
-      <body class="sidebar-left-mini">
+      <body>
           <div class="bg-dark dk" id="wrap">
                 <?php $this->load->view('customer/partial/top'); ?>
-                <?php $this->load->view('customer/partial/left'); ?>
                 <?php $this->load->view($view); ?>
           </div>
           <!-- /#wrap -->
@@ -1143,7 +1146,6 @@
                 })
             });
         </script>
-        <script src="<?php echo base_url().'assets/admin'; ?>/assets/js/style-switcher.js"></script>
       </body>
 
 </html>

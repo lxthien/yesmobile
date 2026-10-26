@@ -1,3 +1,13 @@
+<?php
+    // Ngày giờ dạng d/m/Y H:i cho cột Cập nhật
+    if (!function_exists('historyDateTime')) {
+        function historyDateTime($time) {
+            if ($time == '' || strpos($time, '0000-00-00') === 0) return '';
+            $date = new DateTime($time);
+            return $date->format('d/m/Y H:i');
+        }
+    }
+?>
 <div id="content">
     <div class="outer">
         <div class="inner bg-light lter">
@@ -7,46 +17,54 @@
                     <div class="box">
                         <header>
                             <div class="icons"><i class="fa fa-table"></i></div>
-                            <h5>Lịch sử giao dịch - Tổng giao dịch <span style="color: red; font-weight: bold;"><?php echo $totalPrice > 0 ? number_format($totalPrice) : 0; ?></span> <span style="color: red; font-weight: bold; margin-left: 50px;"><?php echo $customer->name; ?></span> - <a style="color:#000080" target="_blank" href="<?php echo base_url().'tasks/add/customer/'.$customer->id; ?>">Thêm máy sửa chữa</a></h5>
+                            <h5>Lịch sử sửa chữa - Tổng giao dịch <span style="color: red; font-weight: bold;"><?php echo $totalPrice > 0 ? number_format($totalPrice) : 0; ?></span> <span style="color: red; font-weight: bold; margin-left: 50px;"><?php echo $customer->name; ?></span> - <a style="color:#000080" target="_blank" href="<?php echo base_url().'tasks/add/customer/'.$customer->id; ?>">Thêm máy sửa chữa</a></h5>
                         </header>
                         <div id="collapse4" class="body">
                             <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Loại máy</th>
-                                    <th>Mật khẩu</th>
-                                    <th>Imei</th>
-                                    <th>Tình trạng</th>
-                                    <th>Đặc điểm</th>
-                                    <th>Hướng xử lý</th>
-                                    <th style="width: 100px;">LK/Sửa Ngoài</th>
-                                    <th>Chi phí</th>
-                                    <th>Tình trạng</th>
-                                    <th>Nhận máy</th>
-                                    <th>Bảo hành đến</th>
+                                    <th data-orderable="false">Thiết bị</th>
+                                    <th data-orderable="false">Mật khẩu</th>
+                                    <th data-orderable="false">Imei</th>
+                                    <th data-orderable="false">Tình trạng</th>
+                                    <th data-orderable="false">Chi phí</th>
+                                    <th data-orderable="false">Bảo hành đến</th>
+                                    <th data-orderable="false">Đặc điểm</th>
+                                    <th data-orderable="false">Cập nhật</th>
+                                    <th data-orderable="false">Hướng xử lý</th>
+                                    <th data-orderable="false">LK/SN</th>
+                                    <th data-orderable="false">Nhận máy</th>
+                                    <th data-orderable="false">Giao máy</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($tasks as $row): ?>
+                                    <?php
+                                        // LK/SN: giữ nguyên nội dung cũ của cột LK/Sửa Ngoài
+                                        $lkContent = '';
+                                        if ($row->useAccessories == 1) {
+                                            $lkContent = '<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>';
+                                        } elseif ($row->useAccessories == 2) {
+                                            $lkContent = '<p style="display:block;color:#007802;margin:0;"><b style="font-weigh:bold;">'.$row->manufactory.'</b></p>';
+                                        }
+                                    ?>
                                     <tr>
                                         <td><span style="color:#000080;font-weight:bold;"><?php echo $row->phoneType; ?></span></td>
-                                        <td><span style="color:red;"><?php echo $row->phonePass; ?></span></td>
+                                        <td><span style="color:red;font-weight:bold;"><?php echo $row->phonePass; ?></span></td>
                                         <td><?php echo $row->phoneImei; ?></td>
                                         <td><span style="font-weight:bold;"><?php echo $row->phoneStatus; ?></span></td>
-                                        <td><?php echo $row->features; ?></td>
-                                        <td><?php echo $row->note; ?></td>
-                                        <td>
-                                            <?php echo $row->useAccessories == 1 ? '<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b><br><br>' : ''; ?>
-                                            <?php echo $row->useAccessories == 2 ? '<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
-                                        </td>
                                         <?php if ($row->technicalFinish != 2) { ?>
                                             <td><span style="color:red;font-weight:bold;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "Kiểm tra, báo giá trước khi sửa chữa" : $row->phonePrice); ?></span></td>
                                         <?php } else { ?>
-                                            <td>Không sửa được</td>
+                                            <td><span style="color:red;font-weight:bold;">Không sửa được</span></td>
                                         <?php }  ?>
-                                        <td><?php echo $row->taskStatus == 1 ? 'Đã xong':'Chưa xong'; ?></td>
-                                        <td><?php echo formatDate($row->created); ?></td>
                                         <td><?php echo $row->taskStatus == 1 ? formatDate($row->warrantyPeriod) : 'Chưa có'; ?></td>
+                                        <td><?php echo $row->features; ?></td>
+                                        <td><?php echo historyDateTime($row->updated); ?></td>
+                                        <td><?php if (trim(strip_tags($row->note)) != '') { ?><a href="#" class="history-toggle">Xem</a><div class="history-more" style="display:none;"><?php echo $row->note; ?></div><?php } ?></td>
+                                        <td style="width: 100px;"><?php if ($lkContent != '') { ?><a href="#" class="history-toggle">Xem</a><div class="history-more" style="display:none;"><?php echo $lkContent; ?></div><?php } ?></td>
+                                        <td><?php echo formatDate($row->created); ?></td>
+                                        <td><?php echo $row->taskStatus == 1 ? formatDate($row->timeClosedTask) : 'Chưa giao'; ?></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -62,3 +80,15 @@
     </div>
     <!-- /.outer -->
 </div>
+<script>
+    // Hướng xử lý, LK/SN: bấm "Xem" để hiện nội dung, bấm "Ẩn" để thu lại
+    document.addEventListener('click', function (e) {
+        var link = e.target.closest ? e.target.closest('a.history-toggle') : null;
+        if (!link) return;
+        e.preventDefault();
+        var content = link.nextElementSibling;
+        var hidden = content.style.display === 'none';
+        content.style.display = hidden ? 'block' : 'none';
+        link.textContent = hidden ? 'Ẩn' : 'Xem';
+    });
+</script>

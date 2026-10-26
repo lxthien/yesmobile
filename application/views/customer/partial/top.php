@@ -1,3 +1,7 @@
+<?php
+    $currentUser = $this->ion_auth->user()->row();
+    $currentSection = $this->uri->segment(1);
+?>
 <div id="top">
     <!-- .navbar -->
     <nav class="navbar navbar-inverse navbar-static-top">
@@ -12,57 +16,47 @@
                 </button>
                 <a href="<?php echo base_url(); ?>" class="navbar-brand"><img src="<?php echo base_url().'assets/admin'; ?>/assets/img/logo.png" alt=""></a>
             </header>
-            <div class="topnav">
-                <!--
-                <div class="btn-group">
-                    <a data-placement="bottom" data-original-title="Fullscreen" data-toggle="tooltip"
-                       class="btn btn-default btn-sm" id="toggleFullScreen">
-                        <i class="glyphicon glyphicon-fullscreen"></i>
-                    </a>
-                </div>
-                <div class="btn-group">
-                    <a data-placement="bottom" data-original-title="Messages" href="#" data-toggle="tooltip"
-                       class="btn btn-default btn-sm">
-                        <i class="fa fa-comments"></i>
-                        <span class="label label-danger">0</span>
-                    </a>
-                </div>
-                -->
-                <div class="btn-group">
-                    <a href="<?php echo base_url('panel/logout'); ?>" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
-                       class="btn btn-metis-1 btn-sm">
-                        <i class="fa fa-power-off"></i>
-                    </a>
-                </div>
-                <div class="btn-group">
-                    <a data-placement="bottom" data-original-title="Ẩn cột trái" data-toggle="tooltip"
-                       class="btn btn-primary btn-sm toggle-left" id="menu-toggle">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <!-- Menu chính (trước đây nằm ở cột trái) -->
+                <ul class="nav navbar-nav top-menu">
+                    <li class="dropdown<?php echo $currentSection == 'tasks' ? ' active' : ''; ?>">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="fa fa-table"></i>&nbsp; Yêu cầu <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="<?php echo base_url().'tasks/add'; ?>"><i class="fa fa-angle-right"></i>&nbsp; Thêm mới</a></li>
+                            <li><a href="<?php echo base_url().'tasks/listTask'; ?>"><i class="fa fa-angle-right"></i>&nbsp; Máy đang sửa chữa</a></li>
+                            <?php if ($this->ion_auth->in_group('admin_shop')) { ?>
+                            <li><a href="<?php echo base_url().'tasks/listToday'; ?>"><i class="fa fa-angle-right"></i>&nbsp; Danh thu theo ngày</a></li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                    <li class="dropdown<?php echo $currentSection == 'customers' ? ' active' : ''; ?>">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="fa fa-users"></i>&nbsp; Khách hàng <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="<?php echo base_url().'customers/index'; ?>"><i class="fa fa-angle-right"></i>&nbsp; Danh sách khách hàng</a></li>
+                            <li><a href="<?php echo base_url().'customers/add'; ?>"><i class="fa fa-angle-right"></i>&nbsp; Thêm mới khách hàng</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- Người dùng + đăng xuất -->
+                <ul class="nav navbar-nav navbar-right top-user">
+                    <li class="top-user-greeting">
+                        <span>Chào</span>
+                        <a href="<?php echo base_url('panel/change-password'); ?>" title="Đổi mật khẩu"><?php echo $currentUser ? $currentUser->first_name.' '.$currentUser->last_name : ''; ?></a>
+                    </li>
+                    <li class="top-user-logout">
+                        <a href="<?php echo base_url('panel/logout'); ?>" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
+                           class="btn btn-metis-1 btn-sm">
+                            <i class="fa fa-power-off"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         <!-- /.container-fluid -->
     </nav>
     <!-- /.navbar -->
-    <header class="head">
-        <!--<div class="search-bar">
-            <form class="main-search" action="">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Live Search ...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary btn-sm text-muted" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                </div>
-            </form>
-        </div>-->
-        <!-- /.search-bar -->
-        <!--<div class="main-bar">
-            <h3><i class="fa fa-table"></i>&nbsp; Table</h3>
-        </div>-->
-        <!-- /.main-bar -->
-    </header>
-    <!-- /.head -->
 </div>
