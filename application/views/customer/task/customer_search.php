@@ -2,7 +2,7 @@
 <div class="customer-quick-search">
     <label for="customerQuickSearch">Tìm kiếm Khách hàng:</label>
     <div class="customer-quick-search-box">
-        <input id="customerQuickSearch" type="text" class="form-control" placeholder="Nhập tên hoặc số điện thoại..." autocomplete="off">
+        <input id="customerQuickSearch" type="text" class="form-control" placeholder="Nhập tên, số điện thoại, tên máy hoặc IMEI..." autocomplete="off">
         <div id="customerQuickSearchResults" class="customer-quick-search-results" style="display:none;"></div>
     </div>
 </div>
@@ -39,6 +39,10 @@
             info.appendChild(el('b', '', c.name));
             info.appendChild(el('span', 'cqs-phone', ' - ' + c.phone));
             info.appendChild(el('span', 'cqs-count', ' (' + c.tasks + ' máy)'));
+            if (c.device) {
+                // Khớp theo tên máy / IMEI (khách đổi số, quên số cũ)
+                info.appendChild(el('div', 'cqs-device', 'Máy: ' + c.device));
+            }
             var actions = el('div', 'cqs-actions');
             var history = el('a', '', 'Lịch sử'); history.href = c.historyUrl; history.target = '_blank';
             var add = el('a', '', '+ Thêm máy sửa'); add.href = c.addTaskUrl; add.target = '_blank';

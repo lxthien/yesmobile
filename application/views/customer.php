@@ -159,7 +159,8 @@
                     "bPaginate": true,
                     "sPaginationType": "full_numbers",
                     "oLanguage": {
-                        "sSearch": "<span>Tìm kiếm:</span>"
+                        "sSearch": "<span>Tìm kiếm:</span>",
+                        "sSearchPlaceholder": "Nhập tên, số điện thoại, tên máy hoặc IMEI..."
                     },
                     draggable: false,
                     <?php if ($this->ion_auth->in_group('admin_shop')) { ?>

@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass1" class="control-label col-lg-4">Loại máy</label>
+                                    <label for="pass1" class="control-label col-lg-4">Tên thiết bị</label>
                                     <div class="col-lg-8">
                                         <input name="phoneType" class="form-control" type="text" placeholder="Loại máy" value="<?php echo $task->phoneType; ?>"/>
                                     </div>

@@ -94,6 +94,27 @@
             return $this->db->get()->result();
         }
 
+        /** Danh sách khách theo nhiều id, giữ đúng thứ tự $ids */
+        public function readByIds($ids) {
+            if (count($ids) == 0) {
+                return array();
+            }
+            $this->db->select('*');
+            $this->db->from($this->primary_table);
+            $this->db->where_in('id', $ids);
+            $byId = array();
+            foreach ($this->db->get()->result() as $row) {
+                $byId[$row->id] = $row;
+            }
+            $result = array();
+            foreach ($ids as $id) {
+                if (isset($byId[$id])) {
+                    $result[] = $byId[$id];
+                }
+            }
+            return $result;
+        }
+
         /** Tổng số khách theo cùng điều kiện với readListForPage() */
         public function countListForPage($search, $inactiveSince) {
             $this->_applyListFilters($search, $inactiveSince);
@@ -111,12 +132,31 @@
             return "(LOWER(name) COLLATE utf8_bin LIKE '%{$like}%' OR phone LIKE '%{$like}%')";
         }
 
+        /**
+         * Khách có phiếu khớp tên máy hoặc IMEI. Dùng "id IN (subquery)" để MySQL quét bảng tasks MỘT lần
+         * (nhanh cả khi chưa có index tasks.customer_id). Cột phoneImei là latin1: chỉ so khi từ khoá thuần ASCII.
+         */
+        private function _deviceCondition($search) {
+            $like = $this->db->escape_like_str($search);
+            $taskConditions = array("phoneType LIKE '%{$like}%'");
+            if (!preg_match('/[^\x20-\x7E]/', $search)) {
+                $taskConditions[] = "phoneImei LIKE '%{$like}%'";
+            }
+            return "customers.id IN (SELECT customer_id FROM tasks WHERE customer_id > 0 AND (" . implode(' OR ', $taskConditions) . "))";
+        }
+
         private function _applyListFilters($search, $inactiveSince) {
             $this->db->from($this->primary_table);
 
             if ($search) {
-                // Tên hoặc SĐT chứa chuỗi tìm kiếm, khớp đúng dấu
-                $this->db->where($this->_searchCondition($search), NULL, FALSE);
+                // Tên hoặc SĐT chứa chuỗi tìm kiếm (khớp đúng dấu),
+                // hoặc từ 3 ký tự: khách có phiếu khớp TÊN MÁY / IMEI (khách đổi số, quên số cũ)
+                $condition = $this->_searchCondition($search);
+                $length = function_exists('mb_strlen') ? mb_strlen($search, 'UTF-8') : strlen($search);
+                if ($length >= 3) {
+                    $condition = '(' . $condition . ' OR ' . $this->_deviceCondition($search) . ')';
+                }
+                $this->db->where($condition, NULL, FALSE);
             }
 
             if ($inactiveSince) {

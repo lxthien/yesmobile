@@ -149,6 +149,12 @@ table[id^="dataTable"] > tbody > tr > td.details-control {
     font-weight: bold;
 }
 
+/* Danh sách khách hàng: ô Tìm kiếm đủ rộng cho placeholder */
+#dataTableCustomer_filter input {
+    width: 340px;
+    max-width: 100%;
+}
+
 /* Ô tìm nhanh khách hàng ở trang danh sách phiếu */
 .customer-quick-search {
     display: flex;
@@ -204,6 +210,11 @@ table[id^="dataTable"] > tbody > tr > td.details-control {
 .customer-quick-search-results .cqs-empty {
     padding: 8px 10px;
     color: #888;
+}
+.customer-quick-search-results .cqs-device {
+    margin-top: 2px;
+    font-size: 12px;
+    color: #000080;
 }
 .customer-quick-search-results .cqs-add {
     margin-left: 12px;

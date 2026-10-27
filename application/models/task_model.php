@@ -424,6 +424,41 @@
         }
 
         /**
+         * Ô "Tìm kiếm Khách hàng": tìm khách theo TÊN MÁY hoặc IMEI của các phiếu (khách đổi số, quên số cũ).
+         * Trả về array(customer_id => phiếu khớp gần nhất), tối đa $limit khách, phiếu mới nhất trước.
+         * $excludeIDs: khách đã tìm thấy theo tên/SĐT, bỏ qua.
+         */
+        public function searchCustomersByDevice($search, $limit = 10, $excludeIDs = array()) {
+            $like = $this->db->escape_like_str($search);
+            $conditions = array("phoneType LIKE '%{$like}%'");
+            // Cột phoneImei là latin1: chỉ so khi từ khoá không có ký tự ngoài ASCII (IMEI chỉ gồm chữ, số)
+            if (!preg_match('/[^\x20-\x7E]/', $search)) {
+                $conditions[] = "phoneImei LIKE '%{$like}%'";
+            }
+
+            $this->db->select('customer_id, phoneType, phoneImei');
+            $this->db->from($this->primary_table);
+            $this->db->where('customer_id >', 0);
+            $this->db->where('(' . implode(' OR ', $conditions) . ')', NULL, FALSE);
+            if (count($excludeIDs) > 0) {
+                $this->db->where_not_in('customer_id', $excludeIDs);
+            }
+            $this->db->order_by('id', 'desc');
+            $this->db->limit(300);
+
+            $result = array();
+            foreach ($this->db->get()->result() as $row) {
+                if (!isset($result[$row->customer_id])) {
+                    $result[$row->customer_id] = $row;
+                    if (count($result) >= $limit) {
+                        break;
+                    }
+                }
+            }
+            return $result;
+        }
+
+        /**
          * Bộ đệm số phiếu theo khách, chỉ có dữ liệu khi trang gọi prefetchCountRequest()
          * (hiện chỉ dùng ở tasks/listTask). Các trang khác: countRequest() query như cũ.
          */

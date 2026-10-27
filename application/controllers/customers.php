@@ -176,7 +176,9 @@
         }
 
         /**
-         * Ô "Tìm kiếm Khách hàng" ở trang danh sách phiếu: tìm theo tên hoặc SĐT, trả JSON tối đa 10 khách
+         * Ô "Tìm kiếm Khách hàng" ở trang danh sách phiếu, trả JSON:
+         *  - tối đa 10 khách khớp tên hoặc SĐT (khớp đúng dấu)
+         *  - thêm tối đa 10 khách có máy khớp TÊN MÁY hoặc IMEI (từ 3 ký tự), kèm máy khớp (field "device")
          * GET customers/quickSearch?keyword=...
          * (không dùng tên tham số "q": một số cấu hình nginx dùng ?q= để chuyển đường dẫn vào index.php)
          */
@@ -192,13 +194,30 @@
                 foreach ($customers as $c) {
                     $ids[] = $c->id;
                 }
+
+                // Khách đổi số / quên số: tìm thêm theo tên máy hoặc IMEI trong các phiếu
+                $devices = array();
+                if ($qLength >= 3) {
+                    $devices = $this->task_model->searchCustomersByDevice($q, 10, $ids);
+                    if (count($devices) > 0) {
+                        $customers = array_merge($customers, $this->customer_model->readByIds(array_keys($devices)));
+                        $ids = array_merge($ids, array_keys($devices));
+                    }
+                }
+
                 $summaries = $this->task_model->summaryByCustomers($ids);
                 foreach ($customers as $c) {
+                    $device = '';
+                    if (isset($devices[$c->id])) {
+                        $d = $devices[$c->id];
+                        $device = trim($d->phoneType) . (trim($d->phoneImei) != '' ? ' · IMEI ' . trim($d->phoneImei) : '');
+                    }
                     $result[] = array(
                         'id' => (int) $c->id,
                         'name' => $c->name,
                         'phone' => $c->phone,
                         'tasks' => isset($summaries[$c->id]) ? (int) $summaries[$c->id]->total : 0,
+                        'device' => $device,
                         'historyUrl' => base_url().'customers/histories/'.$c->id,
                         'addTaskUrl' => base_url().'tasks/add/customer/'.$c->id,
                     );
