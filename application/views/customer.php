@@ -1184,6 +1184,32 @@
                 $('#taskForm').submit(function (e) {
                     e.preventDefault();
 
+                    // Bắt buộc: Khách hàng, Tên thiết bị, Tình trạng (server cũng kiểm tra lại)
+                    var form = $(this), firstError = null;
+                    form.find('.required-error').remove();
+                    form.find('.form-group.has-error').removeClass('has-error');
+                    [
+                        ['customer_id', 'Chưa chọn khách hàng'],
+                        ['phoneType', 'Chưa nhập tên thiết bị'],
+                        ['phoneStatus', 'Chưa nhập tình trạng máy']
+                    ].forEach(function (rule) {
+                        var field = form.find('[name="' + rule[0] + '"]');
+                        var value = $.trim(field.val() || '');
+                        if (value !== '' && value !== '0') return;
+                        field.closest('.form-group').addClass('has-error');
+                        field.closest('.tfi-field, .col-lg-10').first().append('<span class="required-error">' + rule[1] + '</span>');
+                        if (!firstError) firstError = field;
+                    });
+                    if (firstError) {
+                        $('html, body').scrollTop(firstError.closest('.form-group').offset().top - 80);
+                        if (firstError.is('select.chzn-select')) {
+                            firstError.trigger('chosen:activate');
+                        } else {
+                            firstError.focus();
+                        }
+                        return;
+                    }
+
                     // 4 tình trạng máy không sửa: Không sửa được, Tư vấn không sửa, Không có linh kiện, Khách đổi ý
                     var technicalFinish = $(this).find('input[name="technicalFinish"]:checked').val();
                     var isNoRepair = ['2', '3', '4', '5'].indexOf(technicalFinish) >= 0;
@@ -1207,6 +1233,15 @@
                     } else {
                         e.currentTarget.submit();
                     }
+                });
+
+                // Nhập lại ô đang báo thiếu thì bỏ báo lỗi của ô đó
+                $('#taskForm').on('input change', '[name="customer_id"], [name="phoneType"], [name="phoneStatus"]', function () {
+                    if ($.trim($(this).val() || '') === '') return;
+                    var holder = $(this).closest('.tfi-field, .col-lg-10').first();
+                    holder.find('.required-error').remove();
+                    var group = $(this).closest('.form-group');
+                    if (group.find('.required-error').length == 0) group.removeClass('has-error');
                 });
 
                 // Trang danh sách: chọn VŨNG TÀU / LONG SƠN ở 1 box thì mọi box đổi theo.

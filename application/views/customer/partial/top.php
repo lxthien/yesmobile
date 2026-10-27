@@ -12,8 +12,14 @@
             'customers/index' => array('customers/index', 'Danh sách Khách hàng'),
         ),
     );
+    // Báo cáo (chỉ admin_shop): gom vào 1 menu thả xuống cho thanh top gọn 1 hàng
+    $reportLinks = array();
     if ($this->ion_auth->in_group('admin_shop')) {
-        $menuGroups[] = array('tasks/listtoday' => array('tasks/listToday', 'Doanh thu theo ngày'));
+        $reportLinks = array(
+            'tasks/listtoday' => array('tasks/listToday', 'Doanh thu theo ngày'),
+            'tasks/statistics' => array('tasks/statistics', 'Thống kê tháng'),
+            'tasks/categories' => array('tasks/categories', 'Danh mục thống kê'),
+        );
     }
 ?>
 <div id="top">
@@ -39,6 +45,18 @@
                             <?php if (!$first) { ?><span class="top-menu-sep">|</span><?php } $first = false; ?>
                             <a href="<?php echo base_url($link[0]); ?>" class="<?php echo $currentPage == $pageKey ? 'active' : ''; ?>"><?php echo $link[1]; ?></a>
                         <?php } ?>
+                    </li>
+                    <?php } ?>
+                    <?php if ($reportLinks) { ?>
+                    <li class="top-menu-group dropdown">
+                        <a href="#" class="dropdown-toggle<?php echo isset($reportLinks[$currentPage]) ? ' active' : ''; ?>" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <?php echo isset($reportLinks[$currentPage]) ? $reportLinks[$currentPage][1] : 'Báo cáo'; ?> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu top-menu-dropdown" role="menu">
+                            <?php foreach ($reportLinks as $pageKey => $link) { ?>
+                            <li class="<?php echo $currentPage == $pageKey ? 'active' : ''; ?>"><a href="<?php echo base_url($link[0]); ?>"><?php echo $link[1]; ?></a></li>
+                            <?php } ?>
+                        </ul>
                     </li>
                     <?php } ?>
                 </ul>

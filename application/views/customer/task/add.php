@@ -20,7 +20,7 @@
                                         <div class="task-form-inline">
                                             <div class="tfi-field tfi-customer">
                                                 <select class="chzn-select form-control" name="customer_id">
-                                                    <option>Nhập tên hoặc điện thoại để tìm kiếm khách hàng</option>
+                                                    <option value="">Nhập tên hoặc điện thoại để tìm kiếm khách hàng</option>
                                                     <?php foreach ($customers as $row): ?>
                                                     <option value="<?php echo $row->id ?>" <?php echo $row->id == $task->customer_id ? 'selected="selected"' : ''; ?>><?php echo $row->name.' ('.$row->phone.')' ?></option>
                                                     <?php endforeach; ?>
@@ -41,7 +41,15 @@
                                 <div class="form-group">
                                     <label for="pass1" class="control-label col-lg-2">Tên thiết bị</label>
                                     <div class="col-lg-10">
-                                        <input name="phoneType" class="form-control" type="text" placeholder="Tên thiết bị" value="<?php echo $task->phoneType; ?>"/>
+                                        <div class="task-form-inline">
+                                            <div class="tfi-field tfi-device">
+                                                <input name="phoneType" id="taskPhoneType" class="form-control" type="text" placeholder="Tên thiết bị" value="<?php echo $task->phoneType; ?>"/>
+                                            </div>
+                                            <label class="tfi-label">Thương hiệu</label>
+                                            <div class="tfi-field tfi-category">
+                                                <?php $this->load->view('customer/task/category_select', array('selectName' => 'brandId', 'items' => $brands, 'selected' => isset($task->brandId) ? $task->brandId : 0)); ?>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -85,7 +93,15 @@
                                 <div class="form-group">
                                     <label for="pass1" class="control-label col-lg-2">Tình trạng</label>
                                     <div class="col-lg-10">
-                                        <input name="phoneStatus" class="form-control" type="text" placeholder="Tình trạng" value="<?php echo $task->phoneStatus; ?>"/>
+                                        <div class="task-form-inline">
+                                            <div class="tfi-field tfi-device">
+                                                <input name="phoneStatus" id="taskPhoneStatus" class="form-control" type="text" placeholder="Tình trạng" value="<?php echo $task->phoneStatus; ?>"/>
+                                            </div>
+                                            <label class="tfi-label">Hạng mục sửa</label>
+                                            <div class="tfi-field tfi-category">
+                                                <?php $this->load->view('customer/task/category_select', array('selectName' => 'repairCategoryId', 'items' => $repairs, 'selected' => isset($task->repairCategoryId) ? $task->repairCategoryId : 0)); ?>
+                                            </div>
+                                        </div>
                                         <span style="color: red; font-size: 13px; font-weight: bold;">(Máy treo logo, treo phần mềm... Tư vấn trước: "CÓ THỂ" không trả lại được tình trạng ban đầu.)</span>
                                     </div>
                                 </div>
@@ -245,3 +261,89 @@
 <div id="confirmDialog" title="Xác nhận">
     <p><b>96% máy sửa chữa</b> đều có thời gian bảo hành. Bạn đã nhập thời gian bảo hành chưa?</p>
 </div>
+<script>
+// Tự đoán Thương hiệu (từ Tên thiết bị) và Hạng mục sửa (từ Tình trạng, không ra thì Hướng xử lý).
+// Chỉ tự chọn khi ô đang trống hoặc đang là giá trị tự đoán; nhân viên chọn tay thì giữ nguyên.
+// Cách đoán giống hệt Task_category_model::guess() (PHP).
+(function () {
+    var data = <?php echo json_encode($categoryGuess); ?>;
+    var brands, repairs, verbRe;
+    function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&'); }
+    function compile(list) {
+        return list.map(function (item) {
+            return {
+                id: item.id,
+                patterns: item.keywords.map(function (kw) {
+                    return { re: new RegExp('(?<![\\p{L}\\p{N}])' + escapeRe(kw) + '(?!\\p{L})', 'gu'), len: kw.length };
+                })
+            };
+        });
+    }
+    try {
+        brands = compile(data.brand);
+        repairs = compile(data.repair);
+        verbRe = new RegExp('(?:^|[^\\p{L}\\p{N}])(?:thay|sửa|fix|repair|replace)\\s+$', 'u');
+    } catch (e) {
+        return; // trình duyệt quá cũ: bỏ qua, server vẫn tự đoán khi lưu
+    }
+    function normalize(t) { return (t || '').toLowerCase().replace(/\s+/g, ' ').trim(); }
+    function better(c, cur) {
+        if (!cur) return true;
+        if (c.pos !== cur.pos) return c.pos < cur.pos;
+        return c.len > cur.len;
+    }
+    function guess(items, text, preferAfterVerb) {
+        text = normalize(text);
+        if (!text) return 0;
+        var best = null, anchored = null;
+        items.forEach(function (item) {
+            item.patterns.forEach(function (p) {
+                var m;
+                p.re.lastIndex = 0;
+                while ((m = p.re.exec(text)) !== null) {
+                    var c = { id: item.id, pos: m.index, len: p.len };
+                    if (better(c, best)) best = c;
+                    if (preferAfterVerb && verbRe.test(text.slice(0, m.index)) && better(c, anchored)) anchored = c;
+                    if (m[0] === '') p.re.lastIndex++;
+                }
+            });
+        });
+        return anchored ? anchored.id : (best ? best.id : 0);
+    }
+
+    var form = document.getElementById('taskForm');
+    var phoneType = document.getElementById('taskPhoneType');
+    var phoneStatus = document.getElementById('taskPhoneStatus');
+    var note = form.querySelector('[name="note"]');
+    var brandSelect = document.getElementById('brandId');
+    var repairSelect = document.getElementById('repairCategoryId');
+
+    function isLaptop() {
+        var r = form.querySelector('input[name="phoneTypeCategory"][value="1"]');
+        return r && r.checked;
+    }
+    function apply(select, id) {
+        if (select.getAttribute('data-auto') !== '1') return;
+        select.value = select.querySelector('option[value="' + id + '"]') ? String(id) : '0';
+        select.classList.toggle('is-guess', select.value !== '0');
+    }
+    function updateBrand() { apply(brandSelect, guess(brands, (isLaptop() ? 'laptop ' : '') + phoneType.value, false)); }
+    function updateRepair() {
+        var id = guess(repairs, phoneStatus.value, true);
+        apply(repairSelect, id || guess(repairs, note ? note.value : '', true));
+    }
+    [brandSelect, repairSelect].forEach(function (select) {
+        select.addEventListener('change', function () {
+            // Chọn tay: giữ nguyên. Chọn lại "-- Chọn --": cho tự đoán tiếp
+            select.setAttribute('data-auto', select.value === '0' ? '1' : '0');
+            select.classList.remove('is-guess');
+        });
+    });
+    phoneType.addEventListener('input', updateBrand);
+    form.querySelectorAll('input[name="phoneTypeCategory"]').forEach(function (r) { r.addEventListener('change', updateBrand); r.addEventListener('click', function () { setTimeout(updateBrand, 0); }); });
+    phoneStatus.addEventListener('input', updateRepair);
+    if (note) note.addEventListener('input', updateRepair);
+    updateBrand();
+    updateRepair();
+})();
+</script>

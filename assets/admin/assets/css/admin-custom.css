@@ -270,9 +270,62 @@ a.history-toggle:focus-visible {
 /* Menu ngang trên thanh top: các nhóm link dàn ngang, trang đang mở in đậm */
 #top .top-menu > li.top-menu-group {
     padding: 15px 0;
-    margin-left: 30px;
+    margin-left: 24px;
     font-size: 15px;
     color: #9d9d9d;
+    white-space: nowrap;
+}
+/* Màn hình máy tính: logo + menu + "Chào …" trên 1 hàng; thiếu chỗ thì menu tự xuống dòng
+   nhưng phần người dùng vẫn ở bên phải, không rớt xuống */
+@media (min-width: 768px) {
+    #top .navbar-collapse.collapse {
+        display: flex !important;
+        align-items: center;
+    }
+    #top .top-menu {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    #top .top-menu > li.top-menu-group {
+        float: none;
+    }
+    #top .navbar-right.top-user {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+        margin-left: auto;
+        float: none;
+        white-space: nowrap;
+    }
+}
+@media (min-width: 768px) and (max-width: 1365px) {
+    #top .top-menu > li.top-menu-group {
+        margin-left: 16px;
+        font-size: 14px;
+    }
+}
+/* Menu thả xuống "Báo cáo" */
+#top .top-menu > li.dropdown > a.dropdown-toggle {
+    cursor: pointer;
+}
+#top .top-menu .top-menu-dropdown {
+    margin-top: 12px;
+    font-size: 14px;
+}
+#top .top-menu .top-menu-dropdown > li > a {
+    padding: 7px 18px;
+    color: #333;
+}
+#top .top-menu .top-menu-dropdown > li.active > a {
+    font-weight: bold;
+    color: #fff;
+}
+@media (max-width: 767px) {
+    #top .top-menu .top-menu-dropdown > li > a {
+        color: #c8c8c8;
+    }
 }
 #top .top-menu > li.top-menu-group > a {
     display: inline;
@@ -340,4 +393,213 @@ a.history-toggle:focus-visible {
 
 .outer .inner {
     border: 0px;
+}
+/* Form phiếu: Tên thiết bị / Tình trạng rộng, ô chọn Thương hiệu / Hạng mục vừa đủ */
+.task-form-inline .tfi-device {
+    flex-grow: 3;
+}
+.task-form-inline .tfi-category {
+    flex: 0 1 240px;
+}
+select.task-category-select.is-guess {
+    color: #000080; /* tự đoán: chữ xanh đậm, nhân viên xem lại */
+    font-style: italic;
+}
+
+/* Trang Thống kê tháng */
+.statistics-page .stats-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+.statistics-page .stats-filter .form-control {
+    width: auto;
+}
+.statistics-page .stats-note,
+.categories-page .categories-note {
+    color: #888;
+    font-size: 12px;
+}
+.statistics-page .stats-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.statistics-page .stats-card {
+    flex: 1 1 180px;
+    padding: 10px 14px;
+    background: #f5f8fc;
+    border: 1px solid #dde3ee;
+    border-radius: 4px;
+}
+.statistics-page .stats-card span {
+    display: block;
+    color: #666;
+    font-size: 12px;
+}
+.statistics-page .stats-card b {
+    font-size: 20px;
+    color: #2c3e7a;
+}
+.statistics-page .stats-card-warn b {
+    color: #c0392b;
+}
+.statistics-page .stats-empty {
+    margin: 20px 0;
+}
+.statistics-page .stats-title,
+.categories-page .stats-title {
+    margin: 15px 0 8px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #2c3e7a;
+}
+.statistics-page .stats-title small {
+    font-weight: normal;
+    color: #888;
+}
+.statistics-page .stats-close {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: normal;
+}
+.statistics-page th.num,
+.statistics-page td.num,
+.categories-page th.num {
+    text-align: right;
+}
+.statistics-page tr.stats-total td,
+.statistics-page td.stats-total {
+    font-weight: bold;
+    background: #eef1f6;
+}
+.statistics-page tr.stats-unclassified td,
+.statistics-page tr.stats-unclassified a {
+    color: #c0392b;
+}
+.statistics-page .stats-matrix td small {
+    display: block;
+    color: #888;
+    font-size: 11px;
+    font-weight: normal;
+}
+.statistics-page .stats-matrix td.stats-row-name {
+    font-weight: bold;
+    white-space: nowrap;
+}
+.statistics-page .stats-matrix td.stats-active {
+    background: #fff3c4;
+}
+/* bảng chéo nhiều cột: cho tiêu đề cột xuống dòng */
+.statistics-page table.stats-matrix > thead > tr > th {
+    white-space: normal;
+    min-width: 70px;
+}
+
+/* Trang Danh mục thống kê */
+.categories-page .categories-help {
+    color: #555;
+}
+.categories-page .categories-classify {
+    margin: 10px 0 5px;
+    padding: 10px 14px;
+    background: #f5f8fc;
+    border: 1px solid #dde3ee;
+    border-radius: 4px;
+}
+.categories-page .categories-classify .alert {
+    margin-bottom: 8px;
+    padding: 8px 12px;
+}
+.categories-page .categories-classify .btn {
+    margin: 0 10px;
+}
+.categories-page .categories-table td {
+    vertical-align: middle !important;
+}
+.categories-page .categories-table td:nth-child(1) {
+    width: 30%;
+}
+.categories-page .categories-table td:nth-child(3) {
+    width: 80px;
+}
+.categories-page .categories-table textarea {
+    resize: vertical;
+    min-height: 30px;
+}
+.categories-page tr.categories-hidden input[type="text"],
+.categories-page tr.categories-hidden textarea {
+    color: #aaa;
+    text-decoration: line-through;
+}
+.categories-page tr.categories-new td {
+    background: #fbfcfe;
+}
+
+/* Form phiếu: báo thiếu ô bắt buộc (Khách hàng, Tên thiết bị, Tình trạng) */
+#taskForm .required-error {
+    display: block;
+    margin-top: 3px;
+    color: #c0392b;
+    font-size: 13px;
+    font-weight: bold;
+}
+#taskForm .has-error .chosen-container .chosen-single {
+    border-color: #a94442;
+}
+
+/* Trang Phiếu chưa phân loại */
+.statistics-page .stats-card .stats-card-link {
+    float: right;
+    margin-top: 8px;
+    font-size: 12px;
+}
+.categories-page .categories-classify .btn-default {
+    margin-left: 6px;
+}
+.unclassified-page .uc-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.unclassified-page .uc-filters .btn {
+    margin-right: 4px;
+}
+.unclassified-page .uc-table td {
+    vertical-align: middle !important;
+}
+.unclassified-page .uc-table select {
+    min-width: 150px;
+}
+.unclassified-page .uc-table select.uc-empty {
+    border-color: #e0a3a3;
+    background-color: #fff7f7;
+}
+.unclassified-page .uc-note {
+    color: #777;
+    font-size: 12px;
+}
+.unclassified-page .uc-blank {
+    color: #bbb;
+}
+.unclassified-page .uc-status {
+    white-space: nowrap;
+    font-size: 12px;
+    min-width: 90px;
+}
+.unclassified-page .uc-ok {
+    color: #27ae60;
+    font-weight: bold;
+}
+.unclassified-page .uc-fail {
+    color: #c0392b;
+    font-weight: bold;
+}
+.unclassified-page tr.uc-done td {
+    background: #eafaf0 !important;
 }

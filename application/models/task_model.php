@@ -2,7 +2,7 @@
     class Task_model extends MY_Model {
         
         var $primary_table = 'tasks';
-        var $fields = array('id', 'code', 'taskName', 'taskType', 'customer_id', 'phoneType', 'phoneTypeCategory', 'phoneImei', 'notePrivate', 'phonePass', 'phonePrice', 'phoneStatus', 'phoneSim', 'warrantyPeriod', 'warrantyPeriodEnd', 'technicalFinish', 'notificationCustomer', 'timeNotificationCustomer', 'quickStatus', 'taskStatus', 'note', 'isCustomerVip', 'timeClosedTask', 'timeWarranty', 'useAccessories', 'createdBy', 'updatedBy', 'shop', 'manufactory', 'features', 'phieu', 'khachMuonMay', 'updateNote', 'updateFlags', 'paymentMethod', 'created', 'updated');
+        var $fields = array('id', 'code', 'taskName', 'taskType', 'customer_id', 'phoneType', 'phoneTypeCategory', 'phoneImei', 'notePrivate', 'phonePass', 'phonePrice', 'phoneStatus', 'phoneSim', 'warrantyPeriod', 'warrantyPeriodEnd', 'technicalFinish', 'notificationCustomer', 'timeNotificationCustomer', 'quickStatus', 'taskStatus', 'note', 'isCustomerVip', 'timeClosedTask', 'timeWarranty', 'useAccessories', 'createdBy', 'updatedBy', 'shop', 'manufactory', 'features', 'phieu', 'khachMuonMay', 'updateNote', 'updateFlags', 'paymentMethod', 'brandId', 'repairCategoryId', 'created', 'updated');
         var $required_fields = array('taskType', 'customer_id');
 
         var $primary_key = 'id';
@@ -590,5 +590,105 @@
                 }
             }
             return $result;
+        }
+    
+        /**
+         * Thống kê tháng: cùng điều kiện với trang Doanh thu theo ngày (phiếu sửa chữa, đã giao, theo ngày giao máy).
+         * $shop: '' = tất cả, 1 = Vũng Tàu (shop 0/1), 2 = Long Sơn.
+         */
+        private function _statsFilter($timeFrom, $timeTo, $shop) {
+            $this->db->from($this->primary_table);
+            $this->db->where('taskType', 1);
+            $this->db->where('taskStatus', 1);
+            $this->db->where('timeClosedTask >=', $timeFrom);
+            $this->db->where('timeClosedTask <', $timeTo);
+            if ($shop == 1) {
+                $this->db->where_in('shop', array(0, 1));
+            } else if ($shop == 2) {
+                $this->db->where('shop', 2);
+            }
+        }
+
+        /** Số máy, doanh thu, số máy không sửa theo từng cặp (thương hiệu, hạng mục) */
+        public function statsByCategory($timeFrom, $timeTo, $shop) {
+            $this->db->select('brandId, repairCategoryId, COUNT(*) AS total, SUM(phonePrice) AS revenue, SUM(technicalFinish IN (2,3,4,5)) AS noRepair', FALSE);
+            $this->_statsFilter($timeFrom, $timeTo, $shop);
+            $this->db->group_by(array('brandId', 'repairCategoryId'));
+            return $this->db->get()->result();
+        }
+
+        /** Danh sách phiếu của 1 ô thống kê ($brandId / $repairId = null: không lọc) */
+        public function statsTasks($timeFrom, $timeTo, $shop, $brandId, $repairId) {
+            $this->db->select('*');
+            $this->_statsFilter($timeFrom, $timeTo, $shop);
+            if ($brandId !== null) {
+                $this->db->where('brandId', (int) $brandId);
+            }
+            if ($repairId !== null) {
+                $this->db->where('repairCategoryId', (int) $repairId);
+            }
+            $this->db->order_by('timeClosedTask', 'asc');
+            return $this->db->get()->result();
+        }
+
+        /** Phiếu sửa chữa còn thiếu thương hiệu hoặc hạng mục (để tự phân loại) */
+        public function readUnclassified() {
+            $this->db->select('id, phoneType, phoneTypeCategory, phoneStatus, note, brandId, repairCategoryId');
+            $this->db->from($this->primary_table);
+            $this->db->where('taskType', 1);
+            $this->db->where('(brandId = 0 OR repairCategoryId = 0)', NULL, FALSE);
+            return $this->db->get()->result();
+        }
+
+        public function countUnclassified() {
+            $this->db->from($this->primary_table);
+            $this->db->where('taskType', 1);
+            $this->db->where('(brandId = 0 OR repairCategoryId = 0)', NULL, FALSE);
+            return $this->db->count_all_results();
+        }
+
+        /**
+         * Danh sách phiếu chưa phân loại để phân loại tay.
+         * $missing: '' = thiếu 1 trong 2, 'brand' = thiếu thương hiệu, 'repair' = thiếu hạng mục. Phiếu mới lên trước.
+         */
+        public function readUnclassifiedList($missing = '') {
+            $this->db->select('id, code, customer_id, phoneType, phoneStatus, note, phonePrice, technicalFinish, taskStatus, timeClosedTask, created, shop, brandId, repairCategoryId');
+            $this->db->from($this->primary_table);
+            $this->db->where('taskType', 1);
+            if ($missing == 'brand') {
+                $this->db->where('brandId', 0);
+            } else if ($missing == 'repair') {
+                $this->db->where('repairCategoryId', 0);
+            } else {
+                $this->db->where('(brandId = 0 OR repairCategoryId = 0)', NULL, FALSE);
+            }
+            $this->db->order_by('id', 'desc');
+            return $this->db->get()->result();
+        }
+
+        /** Phân loại tay 1 phiếu (chỉ 2 cột brandId / repairCategoryId) */
+        public function setCategory($id, $column, $value) {
+            if (!in_array($column, array('brandId', 'repairCategoryId'))) {
+                return false;
+            }
+            $this->db->where('id', (int) $id);
+            $this->db->where('taskType', 1);
+            $this->db->update($this->primary_table, array($column => (int) $value));
+            return true;
+        }
+
+        /** Gán 1 cột phân loại cho nhiều phiếu, chỉ những phiếu cột đó đang trống (không đè lựa chọn của nhân viên) */
+        public function setCategoryWhereEmpty($column, $value, $ids) {
+            if (!in_array($column, array('brandId', 'repairCategoryId')) || count($ids) == 0) {
+                return 0;
+            }
+            $updated = 0;
+            foreach (array_chunk($ids, 500) as $chunk) {
+                $this->db->where_in('id', $chunk);
+                $this->db->where($column, 0);
+                $this->db->update($this->primary_table, array($column => (int) $value));
+                $updated += $this->db->affected_rows();
+            }
+            return $updated;
         }
     }

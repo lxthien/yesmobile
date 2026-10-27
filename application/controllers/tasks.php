@@ -5,6 +5,7 @@
             $this->load->model('task_model', 'task_model');
             $this->load->model('customer_model', 'customer_model');
             $this->load->model('tasks_histories_model', 'tasks_histories_model');
+            $this->load->model('task_category_model', 'task_category_model');
             $this->load->helper(array('form', 'form'));
             $this->load->helper('myhelper');
         }
@@ -150,9 +151,12 @@
             $task->updateNote = '';
             $task->updateFlags = '';
             $task->paymentMethod = '';
+            $task->brandId = 0;
+            $task->repairCategoryId = 0;
             $data['task'] = $task;
             $data['view'] = 'customer/task/add';
             $data['customers'] = $this->customer_model->read_all();
+            $this->_categoryFormData($data);
             $this->load->view('customer', $data);
         }
 
@@ -165,6 +169,7 @@
             } else {
                 $data['task'] = $task;
                 $data['view'] = 'customer/task/add';
+                $this->_categoryFormData($data);
                 $this->load->view('customer', $data);
             }
         }
@@ -212,15 +217,40 @@
                 $paymentMethod = (string) $this->input->post('paymentMethod');
                 $task['paymentMethod'] = array_key_exists($paymentMethod, taskPaymentOptions()) ? $paymentMethod : '';
 
-                // Đã giao máy (trừ 4 tình trạng không sửa) thì bắt buộc có hình thức thanh toán.
-                // Form đã chặn bằng JS; đây là chốt chặn cuối nếu JS không chạy.
+                // Thống kê: Thương hiệu + Hạng mục sửa (1 hạng mục chính). Để trống thì tự đoán từ Tên thiết bị / Tình trạng.
+                $task['brandId'] = $this->task_category_model->validId('brand', $this->input->post('brandId'));
+                if (!$task['brandId']) {
+                    $task['brandId'] = $this->task_category_model->guessBrand($task['phoneType'], $task['phoneTypeCategory']);
+                }
+                $task['repairCategoryId'] = $this->task_category_model->validId('repair', $this->input->post('repairCategoryId'));
+                if (!$task['repairCategoryId']) {
+                    $task['repairCategoryId'] = $this->task_category_model->guessRepair($task['phoneStatus'], $task['note']);
+                }
+
+                // Form đã kiểm tra bằng JS; đây là chốt chặn cuối nếu JS không chạy.
+                $errors = array();
+                // Bắt buộc: khách hàng có thật, tên thiết bị, tình trạng
+                $customerId = (int) $task['customer_id'];
+                if ($customerId <= 0 || !$this->customer_model->read_by_id($customerId)) {
+                    $errors[] = 'Chưa chọn <b>Khách hàng</b>.';
+                }
+                if (trim((string) $task['phoneType']) === '') {
+                    $errors[] = 'Chưa nhập <b>Tên thiết bị</b>.';
+                }
+                if (trim((string) $task['phoneStatus']) === '') {
+                    $errors[] = 'Chưa nhập <b>Tình trạng</b> máy.';
+                }
+                // Đã giao máy (trừ các tình trạng không thu tiền) thì bắt buộc có hình thức thanh toán.
                 if ($task['taskStatus'] == 1 && taskNoRepairLabel($task['technicalFinish']) == '' && $task['paymentMethod'] == '') {
+                    $errors[] = 'Phiếu đã giao máy phải chọn hình thức thanh toán: <b>Chuyển khoản</b> hoặc <b>Tiền mặt</b>.';
+                }
+                if ($errors) {
                     // Không dùng show_error(): dự án thiếu thư mục application/errors nên trang lỗi sẽ trắng
                     set_status_header(400);
-                    echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Thiếu hình thức thanh toán</title></head>'
+                    echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Phiếu chưa được lưu</title></head>'
                         . '<body style="font-family:Arial,sans-serif;padding:30px;">'
                         . '<h3 style="color:red;">Phiếu CHƯA được lưu</h3>'
-                        . '<p>Phiếu đã giao máy phải chọn hình thức thanh toán: <b>Chuyển khoản</b> hoặc <b>Tiền mặt</b>.</p>'
+                        . '<ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
                         . '<p><a href="javascript:history.back()">&laquo; Quay lại form</a></p>'
                         . '</body></html>';
                     exit;
@@ -382,6 +412,199 @@
             $taskID = $this->uri->rsegment(3);
             $data['tasks'] = $this->tasks_histories_model->read_by_task_id($taskID);
             $this->load->view('customer/task/histories', $data);
+        }
+
+        /* ================= Thống kê tháng theo Thương hiệu / Hạng mục sửa ================= */
+
+        private function _requireAdminShop() {
+            if (!$this->ion_auth->in_group('admin_shop')) {
+                echo 'Bạn ko có quyền truy cập vào chức năng này'; die;
+            }
+        }
+
+        /** Danh sách chọn + từ khoá tự đoán cho form phiếu */
+        private function _categoryFormData(&$data) {
+            $data['brands'] = $this->task_category_model->readByType('brand');
+            $data['repairs'] = $this->task_category_model->readByType('repair');
+            $data['categoryGuess'] = array(
+                'brand' => $this->task_category_model->guessData('brand'),
+                'repair' => $this->task_category_model->guessData('repair'),
+            );
+        }
+
+        /**
+         * Thống kê tháng: số máy + doanh thu theo hạng mục, thương hiệu và bảng chéo.
+         * Cùng điều kiện với trang Doanh thu theo ngày (phiếu sửa chữa đã giao, tính theo ngày giao máy),
+         * gồm cả phiếu không sửa được / khách đổi ý.
+         */
+        public function statistics() {
+            $this->_requireAdminShop();
+
+            $month = (string) $this->input->get('month');
+            if (!preg_match('/^\d{4}-(0[1-9]|1[0-2])$/', $month)) {
+                $now = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+                $month = $now->format('Y-m');
+            }
+            $from = new DateTime($month . '-01 00:00:00');
+            $to = clone $from;
+            $to->modify('+1 month');
+            $prev = clone $from;
+            $prev->modify('-1 month');
+
+            $shop = (string) $this->input->get('shop');
+            $shop = in_array($shop, array('1', '2'), true) ? (int) $shop : '';
+
+            $brandNames = array(0 => 'Chưa phân loại') + $this->task_category_model->namesByType('brand');
+            $repairNames = array(0 => 'Chưa phân loại') + $this->task_category_model->namesByType('repair');
+
+            $empty = array('total' => 0, 'revenue' => 0, 'noRepair' => 0);
+            $summary = $empty;
+            $byBrand = array();
+            $byRepair = array();
+            $matrix = array();
+            $rows = $this->task_model->statsByCategory($from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $shop);
+            foreach ($rows as $row) {
+                $b = isset($brandNames[$row->brandId]) ? (int) $row->brandId : 0;
+                $r = isset($repairNames[$row->repairCategoryId]) ? (int) $row->repairCategoryId : 0;
+                foreach (array('total', 'revenue', 'noRepair') as $key) {
+                    $value = (float) $row->$key;
+                    $summary[$key] += $value;
+                    if (!isset($byBrand[$b])) $byBrand[$b] = $empty;
+                    if (!isset($byRepair[$r])) $byRepair[$r] = $empty;
+                    if (!isset($matrix[$b][$r])) $matrix[$b][$r] = $empty;
+                    $byBrand[$b][$key] += $value;
+                    $byRepair[$r][$key] += $value;
+                    $matrix[$b][$r][$key] += $value;
+                }
+            }
+            // Nhiều máy lên trước; "Chưa phân loại" luôn ở cuối
+            $sorter = function ($list) {
+                uksort($list, function ($a, $b) use ($list) {
+                    if (($a == 0) != ($b == 0)) return $a == 0 ? 1 : -1;
+                    if ($list[$a]['total'] != $list[$b]['total']) return $list[$a]['total'] < $list[$b]['total'] ? 1 : -1;
+                    return $list[$a]['revenue'] < $list[$b]['revenue'] ? 1 : -1;
+                });
+                return $list;
+            };
+
+            // Bấm vào 1 ô: danh sách phiếu (để kiểm tra / sửa phân loại)
+            $detailBrand = $this->input->get('brand');
+            $detailRepair = $this->input->get('cat');
+            $detailBrand = ($detailBrand !== false && $detailBrand !== '' && ctype_digit((string) $detailBrand)) ? (int) $detailBrand : null;
+            $detailRepair = ($detailRepair !== false && $detailRepair !== '' && ctype_digit((string) $detailRepair)) ? (int) $detailRepair : null;
+            $data['detailTasks'] = null;
+            if ($detailBrand !== null || $detailRepair !== null) {
+                $data['detailTasks'] = $this->task_model->statsTasks($from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $shop, $detailBrand, $detailRepair);
+            }
+
+            $data['month'] = $month;
+            $data['prevMonth'] = $prev->format('Y-m');
+            $data['nextMonth'] = $to->format('Y-m');
+            $data['shop'] = $shop;
+            $data['summary'] = $summary;
+            $data['byBrand'] = $sorter($byBrand);
+            $data['byRepair'] = $sorter($byRepair);
+            $data['matrix'] = $matrix;
+            $data['brandNames'] = $brandNames;
+            $data['repairNames'] = $repairNames;
+            $data['detailBrand'] = $detailBrand;
+            $data['detailRepair'] = $detailRepair;
+            $data['view'] = 'customer/task/statistics';
+            $this->load->view('customer', $data);
+        }
+
+        /** Quản lý danh sách Thương hiệu / Hạng mục sửa + tự phân loại phiếu cũ */
+        public function categories() {
+            $this->_requireAdminShop();
+            $data['brands'] = $this->task_category_model->readByType('brand');
+            $data['repairs'] = $this->task_category_model->readByType('repair');
+            $data['unclassified'] = $this->task_model->countUnclassified();
+            $data['done'] = (string) $this->input->get('done');
+            $data['view'] = 'customer/task/categories';
+            $this->load->view('customer', $data);
+        }
+
+        public function saveCategory() {
+            $this->_requireAdminShop();
+            $type = (string) $this->input->post('type');
+            $name = trim((string) $this->input->post('name'));
+            $types = Task_category_model::types();
+            if ($this->input->server('REQUEST_METHOD') === 'POST' && isset($types[$type]) && $name !== '') {
+                $id = (int) $this->input->post('id');
+                if ($id && !$this->task_category_model->validId($type, $id)) {
+                    $id = 0;
+                }
+                if ($id || $this->input->post('isNew')) {
+                    $this->task_category_model->save(array(
+                        'id' => $id,
+                        'type' => $type,
+                        'name' => mb_substr($name, 0, 100, 'UTF-8'),
+                        'keywords' => trim((string) $this->input->post('keywords')),
+                        'sortOrder' => (int) $this->input->post('sortOrder'),
+                        'active' => $this->input->post('active') ? 1 : 0,
+                    ));
+                }
+            }
+            redirect(base_url('tasks/categories') . '#' . $type);
+        }
+
+        /** Danh sách phiếu chưa phân loại: chọn thương hiệu / hạng mục ngay trên từng dòng (lưu bằng setCategory) */
+        public function unclassified() {
+            $this->_requireAdminShop();
+            $missing = (string) $this->input->get('missing');
+            $missing = in_array($missing, array('brand', 'repair'), true) ? $missing : '';
+            $data['missing'] = $missing;
+            $data['tasks'] = $this->task_model->readUnclassifiedList($missing);
+            $data['brands'] = $this->task_category_model->readByType('brand');
+            $data['repairs'] = $this->task_category_model->readByType('repair');
+            $data['view'] = 'customer/task/unclassified';
+            $this->load->view('customer', $data);
+        }
+
+        /** Lưu nhanh 1 ô phân loại (AJAX). Trả JSON {ok, message} */
+        public function setCategory() {
+            $this->_requireAdminShop();
+            $types = array('brandId' => 'brand', 'repairCategoryId' => 'repair');
+            $id = (int) $this->input->post('id');
+            $column = (string) $this->input->post('column');
+            $ok = false;
+            if ($this->input->server('REQUEST_METHOD') === 'POST' && $id > 0 && isset($types[$column])) {
+                $value = (int) $this->input->post('value');
+                if ($value === 0 || $this->task_category_model->validId($types[$column], $value)) {
+                    $ok = $this->task_model->setCategory($id, $column, $value);
+                }
+            }
+            $this->output->set_content_type('application/json');
+            echo json_encode(array('ok' => (bool) $ok));
+        }
+
+        /** Tự phân loại các phiếu sửa chữa còn trống thương hiệu / hạng mục (không đè lựa chọn đã có) */
+        public function classifyOld() {
+            $this->_requireAdminShop();
+            if ($this->input->server('REQUEST_METHOD') !== 'POST') {
+                redirect(base_url('tasks/categories'));
+            }
+            $brandGroups = array();
+            $repairGroups = array();
+            foreach ($this->task_model->readUnclassified() as $row) {
+                if (!$row->brandId) {
+                    $id = $this->task_category_model->guessBrand($row->phoneType, $row->phoneTypeCategory);
+                    if ($id) $brandGroups[$id][] = $row->id;
+                }
+                if (!$row->repairCategoryId) {
+                    $id = $this->task_category_model->guessRepair($row->phoneStatus, $row->note);
+                    if ($id) $repairGroups[$id][] = $row->id;
+                }
+            }
+            $brandCount = 0;
+            $repairCount = 0;
+            foreach ($brandGroups as $id => $ids) {
+                $brandCount += $this->task_model->setCategoryWhereEmpty('brandId', $id, $ids);
+            }
+            foreach ($repairGroups as $id => $ids) {
+                $repairCount += $this->task_model->setCategoryWhereEmpty('repairCategoryId', $id, $ids);
+            }
+            redirect(base_url('tasks/categories') . '?done=' . $brandCount . '-' . $repairCount);
         }
 
         public function up()

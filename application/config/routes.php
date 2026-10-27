@@ -87,6 +87,9 @@ $route['customers/(:any)/(:any)']   = 'customers/$1/$2';
 $route['tasks']                     = 'tasks/$1';
 $route['tasks/add/customer/(:any)']	= 'tasks/add/$1';
 $route['tasks/listToday(:any)']		= 'tasks/listToday/$1';
+$route['tasks/statistics(:any)']	= 'tasks/statistics/$1';
+$route['tasks/categories(:any)']	= 'tasks/categories/$1';
+$route['tasks/unclassified(:any)']	= 'tasks/unclassified/$1';
 $route['tasks/(:any)']              = 'tasks/$1';
 $route['tasks/(:any)/(:any)']       = 'tasks/$1/$2';
 
