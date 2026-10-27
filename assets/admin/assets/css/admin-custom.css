@@ -149,6 +149,32 @@ table[id^="dataTable"] > tbody > tr > td.details-control {
     font-weight: bold;
 }
 
+/* Form nhập phiếu: nhiều ô trên 1 hàng (Khách hàng + Loại yêu cầu; Mật khẩu + Imei + Phụ kiện) */
+.task-form-inline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+}
+.task-form-inline .tfi-field {
+    flex: 1 1 160px;
+    min-width: 0;
+}
+.task-form-inline .tfi-customer {
+    flex-grow: 1.4;
+}
+.task-form-inline .tfi-password {
+    flex-grow: 1.6; /* ô mật khẩu dài nhất */
+}
+.task-form-inline .tfi-label {
+    margin: 0;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.task-form-inline .chosen-container {
+    width: 100% !important;
+}
+
 /* Danh sách khách hàng: ô Tìm kiếm đủ rộng cho placeholder */
 #dataTableCustomer_filter input {
     width: 340px;
