@@ -263,9 +263,30 @@ function taskNoRepairStatuses() {
     );
 }
 
-/** Chữ hiển thị thay cho chi phí khi máy không sửa; '' nếu máy có sửa */
+/** Tình trạng "Sửa hỗ trợ, không tính phí": máy có sửa nhưng không thu tiền */
+if (!defined('TASK_FREE_REPAIR')) {
+    define('TASK_FREE_REPAIR', 6);
+}
+
+/**
+ * Các tình trạng hiện CHỮ thay cho số tiền ở cột Chi phí / Báo giá, và không bắt buộc chọn thanh toán khi giao máy:
+ * 4 tình trạng không sửa + "Sửa hỗ trợ, không tính phí"
+ */
+function taskPriceTextStatuses() {
+    return taskNoRepairStatuses() + array(TASK_FREE_REPAIR => 'Sửa hỗ trợ, không tính phí');
+}
+
+/** Tất cả tình trạng kỹ thuật (technicalFinish) => nhãn */
+function taskTechnicalStatuses() {
+    return array(0 => 'Chưa sửa xong', 1 => 'Đã sửa xong') + taskPriceTextStatuses();
+}
+
+/**
+ * Chữ hiển thị thay cho chi phí (máy không sửa hoặc sửa hỗ trợ không tính phí); '' nếu là máy sửa có tính tiền.
+ * Cũng dùng để miễn bắt buộc chọn hình thức thanh toán khi giao máy.
+ */
 function taskNoRepairLabel($technicalFinish) {
-    $statuses = taskNoRepairStatuses();
+    $statuses = taskPriceTextStatuses();
     return isset($statuses[(int) $technicalFinish]) ? $statuses[(int) $technicalFinish] : '';
 }
 

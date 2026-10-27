@@ -150,7 +150,8 @@
                                 <div class="form-group">
                                     <label for="pass1" class="control-label col-lg-4">Báo giá</label>
                                     <div class="col-lg-8">
-                                        <input name="phonePrice" class="form-control" type="text" placeholder="Báo giá" value="<?php echo $task->phonePrice; ?>"/>
+                                        <?php // Số tiền hiện có dấu phẩy (1,400,000); khi lưu server bỏ dấu phẩy nên vẫn lưu dạng số ?>
+                                        <input name="phonePrice" class="form-control price-input" type="text" placeholder="Báo giá" value="<?php echo preg_match('/^-?\d+$/', (string) $task->phonePrice) ? number_format($task->phonePrice) : $task->phonePrice; ?>"/>
                                         <span style="color: red; font-size: 13px; font-weight: bold;">(Nếu máy Bảo Hành thì nhập “Bảo hành không tính phí”. Máy kiểm tra, báo giá thì để trống ô này.)</span>
                                     </div>
                                 </div>
@@ -189,6 +190,9 @@
                                         </div>
                                         <div class="checkbox">
                                             <label><input class="uniform" type="radio" name="technicalFinish" value="5" <?php echo $task->technicalFinish == 5 ? 'checked=""' : ''; ?>>&nbsp; Khách đổi ý, không sửa</label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label><input class="uniform" type="radio" name="technicalFinish" value="6" <?php echo $task->technicalFinish == 6 ? 'checked=""' : ''; ?>>&nbsp; Sửa hỗ trợ, không tính phí</label>
                                         </div>
                                     </div>
                                 </div>

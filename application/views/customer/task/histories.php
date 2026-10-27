@@ -83,7 +83,7 @@
                             <?php if (array_key_exists('technicalFinish', $tracks)) { ?>
                             <tr>
                                 <th>Tình hình kỹ thuật</th>
-                                <?php $technicalLabels = array(0 => 'Chưa xong', 1 => 'Đã xong') + taskNoRepairStatuses(); ?>
+                                <?php $technicalLabels = array(0 => 'Chưa xong', 1 => 'Đã xong') + taskPriceTextStatuses(); ?>
                                 <th><?php echo isset($technicalLabels[(int) $tracks->technicalFinish->from]) ? $technicalLabels[(int) $tracks->technicalFinish->from] : 'Chưa xong'; ?></th>
                                 <th><?php echo isset($technicalLabels[(int) $tracks->technicalFinish->to]) ? $technicalLabels[(int) $tracks->technicalFinish->to] : 'Chưa xong'; ?></th>
                             </tr>

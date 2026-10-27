@@ -80,19 +80,43 @@
             return $this->db->get()->result();
         }
 
+        /**
+         * Ô "Tìm kiếm Khách hàng" (trang danh sách phiếu): tên hoặc SĐT chứa chuỗi tìm,
+         * KHÔNG phân biệt hoa/thường nhưng PHÂN BIỆT DẤU (tìm "Vân" không ra "Vạn", "Văn").
+         * Khách mới nhất lên trước.
+         */
+        public function quickSearchList($search, $limit = 10) {
+            $this->db->select('*');
+            $this->db->from($this->primary_table);
+            $this->db->where($this->_searchCondition($search), NULL, FALSE);
+            $this->db->order_by('id', 'desc');
+            $this->db->limit($limit);
+            return $this->db->get()->result();
+        }
+
         /** Tổng số khách theo cùng điều kiện với readListForPage() */
         public function countListForPage($search, $inactiveSince) {
             $this->_applyListFilters($search, $inactiveSince);
             return $this->db->count_all_results();
         }
 
+        /**
+         * Điều kiện tìm khách dùng chung (ô tìm nhanh ở trang danh sách phiếu + trang Danh sách khách hàng):
+         * tên hoặc SĐT chứa chuỗi tìm, KHÔNG phân biệt hoa/thường nhưng PHÂN BIỆT DẤU
+         * (cột name dùng utf8_general_ci vốn coi "Vân" = "Vạn" = "Văn", nên so sánh LOWER(name) bằng utf8_bin)
+         */
+        private function _searchCondition($search) {
+            $lower = function_exists('mb_strtolower') ? mb_strtolower($search, 'UTF-8') : strtolower($search);
+            $like = $this->db->escape_like_str($lower);
+            return "(LOWER(name) COLLATE utf8_bin LIKE '%{$like}%' OR phone LIKE '%{$like}%')";
+        }
+
         private function _applyListFilters($search, $inactiveSince) {
             $this->db->from($this->primary_table);
 
             if ($search) {
-                // Giống read_list(): tên hoặc SĐT chứa chuỗi tìm kiếm
-                $like = $this->db->escape_like_str($search);
-                $this->db->where("(name LIKE '%{$like}%' OR phone LIKE '%{$like}%')", NULL, FALSE);
+                // Tên hoặc SĐT chứa chuỗi tìm kiếm, khớp đúng dấu
+                $this->db->where($this->_searchCondition($search), NULL, FALSE);
             }
 
             if ($inactiveSince) {

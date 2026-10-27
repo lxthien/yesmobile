@@ -79,12 +79,44 @@ table[id^="dataTable"] > tbody > tr > td.details-control {
        !important vì view có CSS riêng theo id (#dataTableTask1_wrapper .toolbar) */
     display: none !important;
 }
+/* Box trống: chỉ hiện dòng "Không có yêu cầu nào…" (ẩn bảng rỗng giữ chỗ #dataTable "No data available in table"),
+   và cho dòng này cách trên/dưới vừa phải */
+.list-task-page #dataTable_wrapper {
+    display: none;
+}
+.list-task-page p.center {
+    margin: 12px 0;
+    padding: 0 5px;
+}
 /* Bỏ khoảng trắng thừa phía trên bảng (thanh công cụ đã ẩn) */
 .list-task-page .box > .body {
     padding-top: 4px;
 }
 .list-task-page table.dataTable {
     margin-top: 0 !important;
+}
+
+/* Mọi bảng: ẩn dòng "Showing … to … of … entries" */
+.dataTables_info {
+    display: none;
+}
+
+/* Doanh thu theo ngày: bỏ "Show … entries" và ô Search; ngày không có doanh thu chỉ hiện
+   dòng "Không có doanh thu…" (ẩn bảng rỗng giữ chỗ #dataTable "No data available in table") */
+.revenue-page .dataTables_length,
+.revenue-page .dataTables_filter,
+.revenue-page #dataTable_wrapper {
+    display: none;
+}
+/* Ô "Chọn ngày:" căn giữa theo chiều dọc với ô chọn ngày */
+.revenue-page .body > table:first-child td {
+    vertical-align: middle !important;
+}
+.revenue-page .body > table:first-child td > label.control-label {
+    float: none;
+    width: auto;
+    margin: 0;
+    padding: 0 15px;
 }
 
 /* Trang lịch sử sửa chữa của khách: bỏ "Show … entries" và ô Search, tiêu đề gọn */

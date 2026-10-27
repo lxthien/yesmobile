@@ -1148,6 +1148,26 @@
                     }
                 });
 
+                // Ô Báo giá: gõ số thì tự thêm dấu phẩy (100000 -> 100,000); gõ chữ (VD "Bảo hành không tính phí") thì để nguyên.
+                // Server bỏ dấu phẩy trước khi lưu nên vẫn lưu dạng số.
+                $(document).on('input', 'input.price-input', function () {
+                    var raw = this.value;
+                    if (!/^-?[\d,]*$/.test(raw)) return;
+                    var digitsBeforeCaret = raw.slice(0, this.selectionStart).replace(/[^\d-]/g, '').length;
+                    var negative = raw.charAt(0) === '-';
+                    var digits = raw.replace(/[^\d]/g, '').replace(/^0+(?=\d)/, '');
+                    var formatted = (negative ? '-' : '') + digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    if (formatted === raw) return;
+                    this.value = formatted;
+                    // giữ con trỏ đúng sau chữ số vừa gõ
+                    var pos = 0, count = 0;
+                    while (pos < formatted.length && count < digitsBeforeCaret) {
+                        if (/[\d-]/.test(formatted.charAt(pos))) count++;
+                        pos++;
+                    }
+                    this.setSelectionRange(pos, pos);
+                });
+
                 // Radio có thể bỏ chọn khi bấm lại (Sửa Laptop/Mua xác, hình thức thanh toán)
                 $('input.radio-uncheckable:checked').data('wasChecked', true);
                 $(document).on('click', 'input.radio-uncheckable', function () {
@@ -1166,10 +1186,12 @@
                     // 4 tình trạng máy không sửa: Không sửa được, Tư vấn không sửa, Không có linh kiện, Khách đổi ý
                     var technicalFinish = $(this).find('input[name="technicalFinish"]:checked').val();
                     var isNoRepair = ['2', '3', '4', '5'].indexOf(technicalFinish) >= 0;
+                    // Không thu tiền: 4 tình trạng trên + "Sửa hỗ trợ, không tính phí" (6)
+                    var isNoCharge = isNoRepair || technicalFinish == '6';
 
-                    // Đã giao máy (trừ 4 tình trạng không sửa): bắt buộc chọn 1 hình thức thanh toán
+                    // Đã giao máy (trừ máy không thu tiền): bắt buộc chọn 1 hình thức thanh toán
                     if ( $(this).find('input[name="taskStatus"]:checked').val() == 1
-                        && !isNoRepair
+                        && !isNoCharge
                         && $(this).find('input[name="paymentMethod"]:checked').length == 0 ) {
                         alert('Vui lòng chọn hình thức thanh toán: Chuyển khoản hoặc Tiền mặt.');
                         return;

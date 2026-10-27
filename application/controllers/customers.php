@@ -186,19 +186,8 @@
 
             $qLength = function_exists('mb_strlen') ? mb_strlen($q, 'UTF-8') : strlen($q);
             if ($qLength >= 2) {
-                // MySQL so khớp không phân biệt dấu (ư = u), nên lấy rộng rồi đưa khách khớp đúng dấu lên trước
-                $customers = $this->customer_model->readListForPage($q, null, 0, 50, true);
-                $exact = array();
-                $others = array();
-                foreach ($customers as $c) {
-                    $nameMatch = function_exists('mb_stripos') ? mb_stripos($c->name, $q, 0, 'UTF-8') !== false : stripos($c->name, $q) !== false;
-                    if ($nameMatch || strpos($c->phone, $q) !== false) {
-                        $exact[] = $c;
-                    } else {
-                        $others[] = $c;
-                    }
-                }
-                $customers = array_slice(array_merge($exact, $others), 0, 10);
+                // Chỉ khách khớp đúng dấu (tìm "Vân" không ra "Vạn", "Văn"), mới nhất trước
+                $customers = $this->customer_model->quickSearchList($q, 10);
                 $ids = array();
                 foreach ($customers as $c) {
                     $ids[] = $c->id;

@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content" class="revenue-page">
     <div class="outer">
         <div class="inner bg-light lter">
             <!--Begin Datatables-->
