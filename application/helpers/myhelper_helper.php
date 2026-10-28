@@ -268,12 +268,20 @@ if (!defined('TASK_FREE_REPAIR')) {
     define('TASK_FREE_REPAIR', 6);
 }
 
+/** Tình trạng "Bảo hành, không mất phí": máy bảo hành, có sửa nhưng không thu tiền */
+if (!defined('TASK_WARRANTY_REPAIR')) {
+    define('TASK_WARRANTY_REPAIR', 7);
+}
+
 /**
  * Các tình trạng hiện CHỮ thay cho số tiền ở cột Chi phí / Báo giá, và không bắt buộc chọn thanh toán khi giao máy:
- * 4 tình trạng không sửa + "Sửa hỗ trợ, không tính phí"
+ * 4 tình trạng không sửa + "Sửa hỗ trợ, không tính phí" + "Bảo hành, không mất phí"
  */
 function taskPriceTextStatuses() {
-    return taskNoRepairStatuses() + array(TASK_FREE_REPAIR => 'Sửa hỗ trợ, không tính phí');
+    return taskNoRepairStatuses() + array(
+        TASK_FREE_REPAIR => 'Sửa hỗ trợ, không tính phí',
+        TASK_WARRANTY_REPAIR => 'Bảo hành, không mất phí',
+    );
 }
 
 /** Tất cả tình trạng kỹ thuật (technicalFinish) => nhãn */
@@ -296,6 +304,7 @@ function taskUpdateFlagOptions() {
         'cho_bao_lai' => 'Chờ Khách báo lại',
         'goi_kbm' => 'Gọi 2 lần KBM',
         'goi_klld' => 'Gọi 2 lần KLLĐ',
+        'goi_mang_ra' => 'Đã gọi Khách mang máy ra',
     );
 }
 

@@ -145,6 +145,7 @@
             $task->useAccessories = 0;
             $task->note = '';
             $task->manufactory = '';
+            $task->accessoryPrice = 0;
             $task->features = '';
             $task->phieu = '';
             $task->khachMuonMay = '';
@@ -203,6 +204,9 @@
                 $task['useAccessories'] = $this->input->post('useAccessories');
                 $task['note'] = $this->input->post('note');
                 $task['manufactory'] = $this->input->post('manufactory');
+                // Giá linh kiện (tổng giá LK + phí ship): chỉ giữ chữ số, bỏ dấu phẩy/chấm
+                $accessoryPrice = preg_replace('/[^\d]/', '', (string) $this->input->post('accessoryPrice'));
+                $task['accessoryPrice'] = $accessoryPrice === '' ? 0 : (int) $accessoryPrice;
                 $task['features'] = $this->input->post('features');
                 $task['phieu'] = $this->input->post('phieu');
                 $task['khachMuonMay'] = $this->input->post('khachMuonMay');
@@ -333,7 +337,7 @@
                     if ($currentTask->note != $task['note']) {
                         $tracks['manufactory'] = array('from'=>$currentTask->manufactory, 'to'=>$task['manufactory']);
                     }
-                    foreach (array('updateNote', 'updateFlags', 'paymentMethod') as $newField) {
+                    foreach (array('updateNote', 'updateFlags', 'paymentMethod', 'accessoryPrice') as $newField) {
                         $oldValue = isset($currentTask->$newField) ? (string) $currentTask->$newField : '';
                         if ($oldValue != $task[$newField]) {
                             $tracks[$newField] = array('from'=>$oldValue, 'to'=>$task[$newField]);

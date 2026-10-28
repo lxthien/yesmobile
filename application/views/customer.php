@@ -1213,8 +1213,8 @@
                     // 4 tình trạng máy không sửa: Không sửa được, Tư vấn không sửa, Không có linh kiện, Khách đổi ý
                     var technicalFinish = $(this).find('input[name="technicalFinish"]:checked').val();
                     var isNoRepair = ['2', '3', '4', '5'].indexOf(technicalFinish) >= 0;
-                    // Không thu tiền: 4 tình trạng trên + "Sửa hỗ trợ, không tính phí" (6)
-                    var isNoCharge = isNoRepair || technicalFinish == '6';
+                    // Không thu tiền: 4 tình trạng trên + "Sửa hỗ trợ, không tính phí" (6) + "Bảo hành, không mất phí" (7)
+                    var isNoCharge = isNoRepair || technicalFinish == '6' || technicalFinish == '7';
 
                     // Đã giao máy (trừ máy không thu tiền): bắt buộc chọn 1 hình thức thanh toán
                     if ( $(this).find('input[name="taskStatus"]:checked').val() == 1

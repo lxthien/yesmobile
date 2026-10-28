@@ -44,6 +44,10 @@
                                         } elseif ($row->useAccessories == 2) {
                                             $lkContent = '<p style="display:block;color:#007802;margin:0;"><b style="font-weigh:bold;">'.$row->manufactory.'</b></p>';
                                         }
+                                        // Giá linh kiện hiện dưới nhà cung cấp
+                                        if (!empty($row->accessoryPrice)) {
+                                            $lkContent .= '<p style="display:block;color:red;margin:0;">'.number_format($row->accessoryPrice).'</p>';
+                                        }
                                     ?>
                                     <tr>
                                         <td><span style="color:#000080;font-weight:bold;"><?php echo $row->phoneType; ?></span></td>

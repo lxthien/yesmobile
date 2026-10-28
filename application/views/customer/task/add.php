@@ -144,6 +144,12 @@
                                                 <input class="form-control" type="text" name="manufactory" value="<?php echo $task->manufactory; ?>" placeholder="Nhà cung cấp">
                                             </label>
                                         </div>
+                                        <div class="checkbox no-padding-left accessory-price">
+                                            <label>
+                                                <span>Giá linh kiện</span>
+                                                <input class="form-control price-input" type="text" name="accessoryPrice" value="<?php echo !empty($task->accessoryPrice) ? number_format($task->accessoryPrice) : ''; ?>" placeholder="Tổng giá LK và phí ship">
+                                            </label>
+                                        </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input class="uniform" type="checkbox" name="phieu" value="1" <?php echo $task->phieu == 1 ? 'checked=""' : ''; ?>><span style="color:red; font-weight: bold;">Không phiếu</span>
@@ -200,6 +206,9 @@
                                         </div>
                                         <div class="checkbox">
                                             <label><input class="uniform" type="radio" name="technicalFinish" value="6" <?php echo $task->technicalFinish == 6 ? 'checked=""' : ''; ?>>&nbsp; Sửa hỗ trợ, không tính phí</label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label><input class="uniform" type="radio" name="technicalFinish" value="7" <?php echo $task->technicalFinish == 7 ? 'checked=""' : ''; ?>>&nbsp; Bảo hành, không mất phí</label>
                                         </div>
                                     </div>
                                 </div>

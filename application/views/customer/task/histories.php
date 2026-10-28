@@ -134,6 +134,13 @@
                                 <th><?php echo isset($paymentOptions[$tracks->paymentMethod->to]) ? $paymentOptions[$tracks->paymentMethod->to] : ''; ?></th>
                             </tr>
                             <?php } ?>
+                            <?php if (isset($tracks->accessoryPrice)) { ?>
+                            <tr>
+                                <th>Giá linh kiện</th>
+                                <th><?php echo $tracks->accessoryPrice->from ? number_format($tracks->accessoryPrice->from) : ''; ?></th>
+                                <th><?php echo $tracks->accessoryPrice->to ? number_format($tracks->accessoryPrice->to) : ''; ?></th>
+                            </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </td>

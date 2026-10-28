@@ -603,3 +603,30 @@ select.task-category-select.is-guess {
 .unclassified-page tr.uc-done td {
     background: #eafaf0 !important;
 }
+
+/* Form phiếu: ô Giá linh kiện cạnh Nhà cung cấp */
+.dat-linh-kien .accessory-price label {
+    padding-left: 10px;
+}
+.dat-linh-kien .accessory-price label > span {
+    margin-right: 6px;
+}
+.dat-linh-kien .accessory-price input.form-control {
+    display: inline-block;
+    width: 170px;
+}
+
+/* Doanh thu theo ngày: cột số căn phải, dòng tổng có chia thanh toán */
+.revenue-table td.num {
+    text-align: right;
+    white-space: nowrap;
+}
+.revenue-table tr.revenue-total td {
+    background: #f7f9fc;
+}
+.revenue-table tr.revenue-profit td {
+    border-bottom: 2px solid #c7d0dd;
+}
+.revenue-table td.revenue-payment {
+    color: #555;
+}
