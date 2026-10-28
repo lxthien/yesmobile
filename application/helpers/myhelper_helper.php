@@ -298,6 +298,24 @@ function taskNoRepairLabel($technicalFinish) {
     return isset($statuses[(int) $technicalFinish]) ? $statuses[(int) $technicalFinish] : '';
 }
 
+/**
+ * Cột Ghi chú (trang Máy đang sửa chữa): dòng trống trước "Đặt linh kiện / LK-Sửa ngoài" ($item = 'accessories'),
+ * "Không phiếu" ('phieu'), "Khách mượn máy" ('khachMuonMay'). Chỉ chèn khi phía trên đã có nội dung, để ô không bị hở đầu.
+ */
+function taskNoteGap($row, $item) {
+    $hasAbove = trim(strip_tags((string) $row->notePrivate)) != '';
+    if ($item == 'phieu' || $item == 'khachMuonMay') {
+        $hasAbove = $hasAbove || in_array((int) $row->useAccessories, array(1, 2));
+    }
+    if ($item == 'khachMuonMay') {
+        $hasAbove = $hasAbove || $row->phieu == 1;
+    }
+    if (!$hasAbove) {
+        return '';
+    }
+    return $item == 'accessories' ? '<br><br>' : '<br>';
+}
+
 /** Các ô tick của mục Cập nhật (lưu trong tasks.updateFlags) */
 function taskUpdateFlagOptions() {
     return array(
