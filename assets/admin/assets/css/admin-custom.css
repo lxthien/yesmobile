@@ -630,3 +630,27 @@ select.task-category-select.is-guess {
 .revenue-table td.revenue-payment {
     color: #555;
 }
+
+/* Thống kê: danh sách phiếu có ô chọn phân loại lưu ngay */
+.stats-detail-table select.uc-select {
+    min-width: 150px;
+    height: 28px;
+    padding: 2px 6px;
+}
+.stats-detail-table select.uc-empty {
+    border-color: #e0a3a3;
+    background-color: #fff7f7;
+}
+.stats-detail-table .uc-status {
+    display: block;
+    white-space: nowrap;
+    font-size: 12px;
+}
+.stats-detail-table .uc-ok {
+    color: #27ae60;
+    font-weight: bold;
+}
+.stats-detail-table .uc-fail {
+    color: #c0392b;
+    font-weight: bold;
+}

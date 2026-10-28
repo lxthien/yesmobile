@@ -10,6 +10,16 @@
     $percent = function ($value, $total) { return $total > 0 ? round($value * 100 / $total, 1) . '%' : '-'; };
     $shops = array('' => 'Tất cả cửa hàng', 1 => 'Vũng Tàu', 2 => 'Long Sơn');
     $monthLabel = substr($month, 5, 2) . '/' . substr($month, 0, 4);
+    // Ô chọn phân loại lưu ngay (giống trang Phân loại tay)
+    $select = function ($column, $items, $selected, $taskId) use ($h) {
+        $html = '<select class="form-control input-sm uc-select' . ($selected ? '' : ' uc-empty') . '" data-id="' . (int) $taskId . '" data-column="' . $column . '">';
+        $html .= '<option value="0">-- Chọn --</option>';
+        foreach ($items as $item) {
+            if (!$item->active && $item->id != $selected) continue; // mục đã ẩn chỉ hiện khi phiếu đang chọn nó
+            $html .= '<option value="' . $item->id . '"' . ($item->id == $selected ? ' selected' : '') . '>' . $h($item->name) . '</option>';
+        }
+        return $html . '</select>';
+    };
 ?>
 <div id="content" class="statistics-page">
     <div class="outer">
@@ -150,7 +160,8 @@
                                 ?>
                                 <a class="stats-close" href="<?php echo $statsUrl(); ?>">Đóng</a>
                             </h4>
-                            <table class="table table-bordered table-condensed table-striped table-hover table-data">
+                            <p class="categories-note">Chọn lại Thương hiệu / Hạng mục ở 2 cột dưới là <b>lưu ngay</b>, chỉ đổi phân loại, không đổi ngày giao máy hay thông tin khác của phiếu. Bảng số liệu phía trên cập nhật khi tải lại trang.</p>
+                            <table class="table table-bordered table-condensed table-striped table-hover table-data stats-detail-table">
                                 <thead>
                                     <tr>
                                         <th>Ngày giao</th>
@@ -171,11 +182,11 @@
                                         <td><?php echo $h('...' . substr($row->code, strlen($row->code) - 5)); ?></td>
                                         <td><?php echo $h($row->phoneType); ?></td>
                                         <td><?php echo $h($row->phoneStatus); ?></td>
-                                        <td><?php echo $h(isset($brandNames[$row->brandId]) ? $brandNames[$row->brandId] : $brandNames[0]); ?></td>
-                                        <td><?php echo $h(isset($repairNames[$row->repairCategoryId]) ? $repairNames[$row->repairCategoryId] : $repairNames[0]); ?></td>
+                                        <td><?php echo $select('brandId', $brands, $row->brandId, $row->id); ?></td>
+                                        <td><?php echo $select('repairCategoryId', $repairs, $row->repairCategoryId, $row->id); ?></td>
                                         <td><?php echo taskNoRepairLabel($row->technicalFinish) != '' ? '<span style="color:red;">' . taskNoRepairLabel($row->technicalFinish) . '</span>' : (is_numeric($row->phonePrice) ? number_format($row->phonePrice) : $h($row->phonePrice)); ?></td>
                                         <td><?php echo $row->shop == 2 ? 'Long Sơn' : 'Vũng Tàu'; ?></td>
-                                        <td><a href="<?php echo base_url('tasks/edit/' . $row->id); ?>" target="_blank">Sửa phiếu</a></td>
+                                        <td><a href="<?php echo base_url('tasks/edit/' . $row->id); ?>" target="_blank">Sửa phiếu</a> <span class="uc-status"></span></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -188,3 +199,4 @@
         </div>
     </div>
 </div>
+<?php $this->load->view('customer/task/category_inline'); ?>

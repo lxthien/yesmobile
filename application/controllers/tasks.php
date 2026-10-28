@@ -500,6 +500,9 @@
             if ($detailBrand !== null || $detailRepair !== null) {
                 $data['detailTasks'] = $this->task_model->statsTasks($from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $shop, $detailBrand, $detailRepair);
             }
+            // Danh sách phiếu: sửa phân loại ngay tại chỗ (không mở form phiếu, không đổi ngày giao)
+            $data['brands'] = $this->task_category_model->readByType('brand');
+            $data['repairs'] = $this->task_category_model->readByType('repair');
 
             $data['month'] = $month;
             $data['prevMonth'] = $prev->format('Y-m');
