@@ -491,15 +491,31 @@
                 return $list;
             };
 
+            // Theo tình trạng kỹ thuật (Đã sửa xong, Không sửa được, Bảo hành...), theo thứ tự trên form
+            $technicalNames = taskTechnicalStatuses();
+            $byTechnical = array();
+            foreach ($this->task_model->statsByTechnical($from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $shop) as $row) {
+                $t = (int) $row->technicalFinish;
+                if (!isset($byTechnical[$t])) $byTechnical[$t] = array('total' => 0, 'revenue' => 0);
+                $byTechnical[$t]['total'] += (float) $row->total;
+                $byTechnical[$t]['revenue'] += (float) $row->revenue;
+            }
+            ksort($byTechnical);
+
             // Bấm vào 1 ô: danh sách phiếu (để kiểm tra / sửa phân loại)
             $detailBrand = $this->input->get('brand');
             $detailRepair = $this->input->get('cat');
+            $detailTechnical = $this->input->get('tech');
             $detailBrand = ($detailBrand !== false && $detailBrand !== '' && ctype_digit((string) $detailBrand)) ? (int) $detailBrand : null;
             $detailRepair = ($detailRepair !== false && $detailRepair !== '' && ctype_digit((string) $detailRepair)) ? (int) $detailRepair : null;
+            $detailTechnical = ($detailTechnical !== false && $detailTechnical !== '' && ctype_digit((string) $detailTechnical)) ? (int) $detailTechnical : null;
             $data['detailTasks'] = null;
-            if ($detailBrand !== null || $detailRepair !== null) {
-                $data['detailTasks'] = $this->task_model->statsTasks($from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $shop, $detailBrand, $detailRepair);
+            if ($detailBrand !== null || $detailRepair !== null || $detailTechnical !== null) {
+                $data['detailTasks'] = $this->task_model->statsTasks($from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $shop, $detailBrand, $detailRepair, $detailTechnical);
             }
+            $data['byTechnical'] = $byTechnical;
+            $data['technicalNames'] = $technicalNames;
+            $data['detailTechnical'] = $detailTechnical;
             // Danh sách phiếu: sửa phân loại ngay tại chỗ (không mở form phiếu, không đổi ngày giao)
             $data['brands'] = $this->task_category_model->readByType('brand');
             $data['repairs'] = $this->task_category_model->readByType('repair');

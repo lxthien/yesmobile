@@ -23,7 +23,9 @@ tr.expired, tr.expired a, tr.expired p {
 tr.expired .task-update,
 tr[style*="background"] .task-update,
 tr.expired .task-customer-count,
-tr[style*="background"] .task-customer-count {
+tr[style*="background"] .task-customer-count,
+tr.expired .task-status-label,
+tr[style*="background"] .task-status-label {
     color: #ffffff !important;
 }
 

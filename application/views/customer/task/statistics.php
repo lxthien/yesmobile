@@ -64,6 +64,37 @@
                                 <p class="center stats-empty">Không có máy nào giao trong tháng <?php echo $monthLabel; ?>.</p>
                             <?php else: ?>
                             <div class="row">
+                                <div class="col-lg-6">
+                                    <h4 class="stats-title">Theo tình trạng kỹ thuật</h4>
+                                    <table class="table table-bordered table-condensed table-striped table-hover table-data stats-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tình trạng kỹ thuật</th>
+                                                <th class="num">Số máy</th>
+                                                <th class="num">% số máy</th>
+                                                <th class="num">Doanh thu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($byTechnical as $t => $row): ?>
+                                            <tr class="<?php echo ($detailTechnical === $t) ? 'stats-active' : ''; ?>">
+                                                <td><a href="<?php echo $statsUrl(array('tech' => $t)); ?>#chi-tiet"><?php echo $h(isset($technicalNames[$t]) ? $technicalNames[$t] : 'Khác (' . $t . ')'); ?></a></td>
+                                                <td class="num"><b><?php echo $money($row['total']); ?></b></td>
+                                                <td class="num"><?php echo $percent($row['total'], $summary['total']); ?></td>
+                                                <td class="num"><?php echo $money($row['revenue']); ?></td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                            <tr class="stats-total">
+                                                <td>Tổng</td>
+                                                <td class="num"><?php echo $money($summary['total']); ?></td>
+                                                <td class="num">100%</td>
+                                                <td class="num"><?php echo $money($summary['revenue']); ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <?php foreach (array(
                                     array('Theo hạng mục sửa', 'Hạng mục', $byRepair, $repairNames, 'cat'),
                                     array('Theo thương hiệu', 'Thương hiệu', $byBrand, $brandNames, 'brand'),
@@ -156,6 +187,7 @@
                                     $parts = array();
                                     if ($detailBrand !== null) $parts[] = $h(isset($brandNames[$detailBrand]) ? $brandNames[$detailBrand] : '?');
                                     if ($detailRepair !== null) $parts[] = $h(isset($repairNames[$detailRepair]) ? $repairNames[$detailRepair] : '?');
+                                    if ($detailTechnical !== null) $parts[] = $h(isset($technicalNames[$detailTechnical]) ? $technicalNames[$detailTechnical] : '?');
                                     echo implode(' · ', $parts) . ' (' . count($detailTasks) . ' máy)';
                                 ?>
                                 <a class="stats-close" href="<?php echo $statsUrl(); ?>">Đóng</a>

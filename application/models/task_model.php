@@ -7,6 +7,13 @@
 
         var $primary_key = 'id';
 
+        /**
+         * Tình trạng kỹ thuật còn nằm ở box "Máy đang sửa chữa": Chưa sửa xong (0) và các tình trạng không sửa / không thu tiền
+         * (2 Không sửa được, 3 Tư vấn không sửa, 4 Không có linh kiện, 5 Khách đổi ý, 6 Sửa hỗ trợ, 7 Bảo hành).
+         * Chỉ "Đã sửa xong" (1) mới chuyển xuống box "Máy đã sửa xong".
+         */
+        public static $doingTechnicalStatuses = array(0, 2, 3, 4, 5, 6, 7);
+
         function __construct() {
             parent::__construct();
         }
@@ -33,7 +40,7 @@
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
             $this->db->where('phoneTypeCategory', 0);
-            $this->db->where('technicalFinish', 0);
+            $this->db->where_in('technicalFinish', self::$doingTechnicalStatuses);
             $this->db->where('notificationCustomer', 0);
             if ($shop == 1) {
                 $this->db->where_in('shop', array(0, 1));
@@ -53,7 +60,7 @@
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
             $this->db->where_in('phoneTypeCategory', array(1));
-            $this->db->where('technicalFinish', 0);
+            $this->db->where_in('technicalFinish', self::$doingTechnicalStatuses);
             $this->db->where('notificationCustomer', 0);
             if ($shop == 1) {
                 $this->db->where_in('shop', array(0, 1));
@@ -73,7 +80,7 @@
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
             $this->db->where_in('phoneTypeCategory', array(2));
-            $this->db->where('technicalFinish', 0);
+            $this->db->where_in('technicalFinish', self::$doingTechnicalStatuses);
             $this->db->where('notificationCustomer', 0);
             if ($shop == 1) {
                 $this->db->where_in('shop', array(0, 1));
@@ -93,7 +100,7 @@
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
             $this->db->where('phoneTypeCategory', 0);
-            $this->db->where('technicalFinish', 0);
+            $this->db->where_in('technicalFinish', self::$doingTechnicalStatuses);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(0, 1));
             $this->db->order_by("warrantyPeriodEnd", "asc");
@@ -108,7 +115,7 @@
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
             $this->db->where('phoneTypeCategory', 1);
-            $this->db->where('technicalFinish', 0);
+            $this->db->where_in('technicalFinish', self::$doingTechnicalStatuses);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(0, 1));
             $this->db->order_by("warrantyPeriodEnd", "asc");
@@ -123,7 +130,7 @@
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
             $this->db->where('phoneTypeCategory', 2);
-            $this->db->where('technicalFinish', 0);
+            $this->db->where_in('technicalFinish', self::$doingTechnicalStatuses);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(0, 1));
             $this->db->order_by("warrantyPeriodEnd", "asc");
@@ -138,7 +145,7 @@
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
             $this->db->where('phoneTypeCategory', 0);
-            $this->db->where('technicalFinish', 0);
+            $this->db->where_in('technicalFinish', self::$doingTechnicalStatuses);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(2));
             $this->db->order_by("warrantyPeriodEnd", "asc");
@@ -153,7 +160,7 @@
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
             $this->db->where('phoneTypeCategory', 1);
-            $this->db->where('technicalFinish', 0);
+            $this->db->where_in('technicalFinish', self::$doingTechnicalStatuses);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(2));
             $this->db->order_by("warrantyPeriodEnd", "asc");
@@ -168,7 +175,7 @@
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
             $this->db->where('phoneTypeCategory', 2);
-            $this->db->where('technicalFinish', 0);
+            $this->db->where_in('technicalFinish', self::$doingTechnicalStatuses);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(2));
             $this->db->order_by("warrantyPeriodEnd", "asc");
@@ -182,7 +189,7 @@
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
-            $this->db->where_in('technicalFinish', array(1, 2, 3, 4, 5, 6, 7));
+            $this->db->where('technicalFinish', 1);
             $this->db->where('notificationCustomer', 0);
             if ($shop == 1) {
                 $this->db->where_in('shop', array(0, 1));
@@ -201,7 +208,7 @@
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
-            $this->db->where_in('technicalFinish', array(1, 2, 3, 4, 5, 6, 7));
+            $this->db->where('technicalFinish', 1);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(0, 1));
             $this->db->order_by("created", "asc");
@@ -214,7 +221,7 @@
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 0);
-            $this->db->where_in('technicalFinish', array(1, 2, 3, 4, 5, 6, 7));
+            $this->db->where('technicalFinish', 1);
             $this->db->where('notificationCustomer', 0);
             $this->db->where_in('shop', array(2));
             $this->db->order_by("created", "asc");
@@ -617,8 +624,16 @@
             return $this->db->get()->result();
         }
 
-        /** Danh sách phiếu của 1 ô thống kê ($brandId / $repairId = null: không lọc) */
-        public function statsTasks($timeFrom, $timeTo, $shop, $brandId, $repairId) {
+        /** Số máy, doanh thu theo tình trạng kỹ thuật */
+        public function statsByTechnical($timeFrom, $timeTo, $shop) {
+            $this->db->select('technicalFinish, COUNT(*) AS total, SUM(phonePrice) AS revenue', FALSE);
+            $this->_statsFilter($timeFrom, $timeTo, $shop);
+            $this->db->group_by('technicalFinish');
+            return $this->db->get()->result();
+        }
+
+        /** Danh sách phiếu của 1 ô thống kê ($brandId / $repairId / $technical = null: không lọc) */
+        public function statsTasks($timeFrom, $timeTo, $shop, $brandId, $repairId, $technical = null) {
             $this->db->select('*');
             $this->_statsFilter($timeFrom, $timeTo, $shop);
             if ($brandId !== null) {
@@ -626,6 +641,9 @@
             }
             if ($repairId !== null) {
                 $this->db->where('repairCategoryId', (int) $repairId);
+            }
+            if ($technical !== null) {
+                $this->db->where('technicalFinish', (int) $technical);
             }
             $this->db->order_by('timeClosedTask', 'asc');
             return $this->db->get()->result();

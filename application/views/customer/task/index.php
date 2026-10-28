@@ -64,11 +64,11 @@
                                                 <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                             </td>
                                             <?php if ($row->technicalFinish == 2) { ?>
-                                                <td><span style="color:red;">Không sửa được</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
-                                                <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Tư vấn không sửa</span></td>
                                             <?php } elseif (in_array((int) $row->technicalFinish, array(4, 5, 6, 7))) { ?>
-                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
+                                                <td><span class="task-status-label" style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
                                                 <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                             <?php } ?>
@@ -154,11 +154,11 @@
                                                 <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                             </td>
                                             <?php if ($row->technicalFinish == 2) { ?>
-                                                <td><span style="color:red;">Không sửa được</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
-                                                <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Tư vấn không sửa</span></td>
                                             <?php } elseif (in_array((int) $row->technicalFinish, array(4, 5, 6, 7))) { ?>
-                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
+                                                <td><span class="task-status-label" style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
                                                 <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                             <?php } ?>
@@ -244,11 +244,11 @@
                                                 <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                             </td>
                                             <?php if ($row->technicalFinish == 2) { ?>
-                                                <td><span style="color:red;">Không sửa được</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
-                                                <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Tư vấn không sửa</span></td>
                                             <?php } elseif (in_array((int) $row->technicalFinish, array(4, 5, 6, 7))) { ?>
-                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
+                                                <td><span class="task-status-label" style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
                                                 <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                             <?php } ?>
@@ -333,11 +333,11 @@
                                                 <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                             </td>
                                             <?php if ($row->technicalFinish == 2) { ?>
-                                                <td><span style="color:red;">Không sửa được</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
-                                                <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Tư vấn không sửa</span></td>
                                             <?php } elseif (in_array((int) $row->technicalFinish, array(4, 5, 6, 7))) { ?>
-                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
+                                                <td><span class="task-status-label" style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
                                                 <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                             <?php } ?>
@@ -422,11 +422,11 @@
                                                 <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                             </td>
                                             <?php if ($row->technicalFinish == 2) { ?>
-                                                <td><span style="color:red;">Không sửa được</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
-                                                <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Tư vấn không sửa</span></td>
                                             <?php } elseif (in_array((int) $row->technicalFinish, array(4, 5, 6, 7))) { ?>
-                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
+                                                <td><span class="task-status-label" style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
                                                 <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span></td>
                                             <?php } ?>
@@ -512,11 +512,11 @@
                                                 <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                             </td>
                                             <?php if ($row->technicalFinish == 2) { ?>
-                                                <td><span style="color:red;">Không sửa được</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
-                                                <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Tư vấn không sửa</span></td>
                                             <?php } elseif (in_array((int) $row->technicalFinish, array(4, 5, 6, 7))) { ?>
-                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
+                                                <td><span class="task-status-label" style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
                                                 <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span><?php echo taskPaymentHtml($row); ?></td>
                                             <?php } ?>
@@ -602,11 +602,11 @@
                                                 <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                             </td>
                                             <?php if ($row->technicalFinish == 2) { ?>
-                                                <td><span style="color:red;">Không sửa được</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Không sửa được</span></td>
                                             <?php } elseif ($row->technicalFinish == 3) { ?>
-                                                <td><span style="color:red;">Tư vấn không sửa</span></td>
+                                                <td><span class="task-status-label" style="color:red;">Tư vấn không sửa</span></td>
                                             <?php } elseif (in_array((int) $row->technicalFinish, array(4, 5, 6, 7))) { ?>
-                                                <td><span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
+                                                <td><span class="task-status-label" style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span></td>
                                             <?php } else { ?>
                                                 <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span><?php echo taskPaymentHtml($row); ?></td>
                                             <?php } ?>
