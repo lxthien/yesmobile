@@ -64,7 +64,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? taskNoteGap($row, 'phieu').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -146,7 +146,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? taskNoteGap($row, 'phieu').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -242,7 +242,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? taskNoteGap($row, 'phieu').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -324,7 +324,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? taskNoteGap($row, 'phieu').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -420,7 +420,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? taskNoteGap($row, 'phieu').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -502,7 +502,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? taskNoteGap($row, 'phieu').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -597,7 +597,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? taskNoteGap($row, 'phieu').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -678,7 +678,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? taskNoteGap($row, 'phieu').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -773,7 +773,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? taskNoteGap($row, 'phieu').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -854,7 +854,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                     <?php echo $row->phieu == 1 ? taskNoteGap($row, 'phieu').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Không phiếu'.'</b></p>' : ''; ?>
                                                     <?php echo $row->khachMuonMay == 1 ? taskNoteGap($row, 'khachMuonMay').'<p style="display:block;color:#007802;"><b style="font-weigh:bold;">'.'Khách mượn máy cửa hàng'.'</b></p>' : ''; ?>
                                                 </td>
@@ -950,7 +950,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                 </td>
                                                 <?php if ($row->technicalFinish == 2) { ?>
                                                     <td><span class="task-status-label" style="color:red;">Không sửa được</span></td>
@@ -1030,7 +1030,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                 </td>
                                                 <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span><?php echo taskPaymentHtml($row); ?></td>
                                                 <td><?php echo formatTimeLineBreak($row->timeClosedTask); ?></td>
@@ -1115,7 +1115,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                 </td>
                                                 <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span><?php echo taskPaymentHtml($row); ?></td>
                                                 <td><?php echo formatTimeLineBreak($row->timeClosedTask); ?></td>
@@ -1186,7 +1186,7 @@
                                                 <td>
                                                     <?php echo $row->notePrivate; ?>
                                                     <?php echo $row->useAccessories == 1 ? taskNoteGap($row, 'accessories').'<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b>' : ''; ?>
-                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/Sửa ngoài: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
+                                                    <?php echo $row->useAccessories == 2 ? taskNoteGap($row, 'accessories').'<p style="display:block;color:#007802;">LK/SN: <b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
                                                 </td>
                                                 <td><span style="color:red;"><?php echo is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "KT, báo giá" : $row->phonePrice); ?></span><?php echo taskPaymentHtml($row); ?></td>
                                                 <td><?php echo formatTimeLineBreak($row->timeClosedTask); ?></td>

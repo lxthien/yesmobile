@@ -299,8 +299,9 @@ function taskNoRepairLabel($technicalFinish) {
 }
 
 /**
- * Cột Ghi chú (trang Máy đang sửa chữa): dòng trống trước "Đặt linh kiện / LK-Sửa ngoài" ($item = 'accessories'),
+ * Cột Ghi chú (trang Máy đang sửa chữa): khoảng cách nhỏ trước "Đặt linh kiện / LK/SN" ($item = 'accessories'),
  * "Không phiếu" ('phieu'), "Khách mượn máy" ('khachMuonMay'). Chỉ chèn khi phía trên đã có nội dung, để ô không bị hở đầu.
+ * Các dòng này là khối (display:block) nên tự xuống dòng; khoảng cách xem .task-note-gap trong admin-custom.css.
  */
 function taskNoteGap($row, $item) {
     $hasAbove = trim(strip_tags((string) $row->notePrivate)) != '';
@@ -313,7 +314,7 @@ function taskNoteGap($row, $item) {
     if (!$hasAbove) {
         return '';
     }
-    return $item == 'accessories' ? '<br><br>' : '<br>';
+    return '<span class="task-note-gap"></span>';
 }
 
 /** Các ô tick của mục Cập nhật (lưu trong tasks.updateFlags) */

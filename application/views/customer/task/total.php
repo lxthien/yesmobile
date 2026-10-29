@@ -26,7 +26,8 @@
                                 </table>
                                 <?php
                                     // Cộng theo cửa hàng: giá linh kiện, doanh thu chia theo hình thức thanh toán.
-                                    // Doanh thu từng phiếu = (float) phonePrice, cùng cách cộng với SUM(phonePrice) của tổng doanh thu.
+                                    // Doanh thu từng phiếu = (float) phonePrice, cùng cách cộng với Task_model::revenueSql() của tổng doanh thu
+                                    // (máy không thu tiền tính 0).
                                     $paymentOptions = taskPaymentOptions();
                                     $sums = array();
                                     foreach (array('VT', 'LS', 'ALL') as $key) {
@@ -36,6 +37,8 @@
                                     $sums['LS']['revenue'] = (float) $tasksLS[0]->totalPriceLS;
                                     $sums['ALL']['revenue'] = $sums['VT']['revenue'] + $sums['LS']['revenue'];
                                     foreach ($tasks as $row) {
+                                        // Máy không thu tiền (Không sửa được, Bảo hành...): không cộng doanh thu, giá LK, lợi nhuận
+                                        if (taskNoRepairLabel($row->technicalFinish) != '') continue;
                                         $revenue = (float) $row->phonePrice;
                                         $accessory = isset($row->accessoryPrice) ? (int) $row->accessoryPrice : 0;
                                         foreach (array($row->shop == 2 ? 'LS' : 'VT', 'ALL') as $key) {
@@ -84,7 +87,8 @@
                                         <?php foreach ($tasks as $row): ?>
                                         <?php
                                             $accessory = isset($row->accessoryPrice) ? (int) $row->accessoryPrice : 0;
-                                            $revenue = (float) $row->phonePrice;
+                                            $noCharge = taskNoRepairLabel($row->technicalFinish) != '';
+                                            $revenue = $noCharge ? 0 : (float) $row->phonePrice;
                                         ?>
                                         <tr>
                                             <td><?php echo $date; ?></td>
@@ -92,8 +96,8 @@
                                             <td><?php echo $row->phoneType; ?></td>
                                             <td><?php echo $row->phoneStatus; ?></td>
                                             <td><?php echo taskNoRepairLabel($row->technicalFinish) != '' ? '<span style="color:red;">'.taskNoRepairLabel($row->technicalFinish).'</span>' : (is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "Kiểm tra, báo giá trước khi sửa chữa" : $row->phonePrice)); ?><?php echo taskPaymentHtml($row); ?></td>
-                                            <td class="num"><?php echo $accessory > 0 ? number_format($accessory) : ''; ?></td>
-                                            <td class="num"><?php echo ($revenue != 0 || $accessory > 0) ? '<b>' . number_format($revenue - $accessory) . '</b>' : ''; ?></td>
+                                            <td class="num<?php echo $noCharge ? ' revenue-excluded' : ''; ?>"<?php echo $noCharge && $accessory > 0 ? ' title="Máy không thu tiền: không cộng vào tổng"' : ''; ?>><?php echo $accessory > 0 ? number_format($accessory) : ''; ?></td>
+                                            <td class="num"><?php echo (!$noCharge && ($revenue != 0 || $accessory > 0)) ? '<b>' . number_format($revenue - $accessory) . '</b>' : ''; ?></td>
                                             <td><?php echo $row->note; ?></td>
                                             <td><?php echo getCustomerName($row->customer_id); ?></td>
                                             <td><?php echo getCustomerPhone($row->customer_id); ?></td>

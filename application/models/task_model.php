@@ -14,6 +14,18 @@
          */
         public static $doingTechnicalStatuses = array(0, 2, 3, 4, 5, 6, 7);
 
+        /**
+         * Tình trạng không thu tiền (2 Không sửa được, 3 Tư vấn không sửa, 4 Không có linh kiện, 5 Khách đổi ý,
+         * 6 Sửa hỗ trợ, 7 Bảo hành): không tính doanh thu / lợi nhuận dù ô Báo giá còn số tiền (nhân viên quên xoá).
+         * Giữ giống taskPriceTextStatuses() trong myhelper_helper.php.
+         */
+        public static $noChargeTechnicalStatuses = array(2, 3, 4, 5, 6, 7);
+
+        /** Biểu thức SQL cộng doanh thu: bỏ qua phiếu không thu tiền */
+        public static function revenueSql() {
+            return 'SUM(IF(technicalFinish IN (' . implode(',', self::$noChargeTechnicalStatuses) . '), 0, phonePrice))';
+        }
+
         function __construct() {
             parent::__construct();
         }
@@ -396,7 +408,7 @@
         }
         
         public function getAllTaskVT($timeFrom, $timeTo) {
-            $this->db->select('COUNT(id) as taskVT, SUM(phonePrice) as totalPriceVT');
+            $this->db->select('COUNT(id) as taskVT, ' . self::revenueSql() . ' as totalPriceVT', FALSE);
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 1);
@@ -411,7 +423,7 @@
         }
 
         public function getAllTaskLS($timeFrom, $timeTo) {
-            $this->db->select('COUNT(id) as taskLS, SUM(phonePrice) as totalPriceLS');
+            $this->db->select('COUNT(id) as taskLS, ' . self::revenueSql() . ' as totalPriceLS', FALSE);
             $this->db->from($this->primary_table);
             $this->db->where('taskType', 1);
             $this->db->where('taskStatus', 1);
@@ -618,7 +630,7 @@
 
         /** Số máy, doanh thu, số máy không sửa theo từng cặp (thương hiệu, hạng mục) */
         public function statsByCategory($timeFrom, $timeTo, $shop) {
-            $this->db->select('brandId, repairCategoryId, COUNT(*) AS total, SUM(phonePrice) AS revenue, SUM(technicalFinish IN (2,3,4,5)) AS noRepair', FALSE);
+            $this->db->select('brandId, repairCategoryId, COUNT(*) AS total, ' . self::revenueSql() . ' AS revenue, SUM(technicalFinish IN (2,3,4,5)) AS noRepair', FALSE);
             $this->_statsFilter($timeFrom, $timeTo, $shop);
             $this->db->group_by(array('brandId', 'repairCategoryId'));
             return $this->db->get()->result();
@@ -626,7 +638,7 @@
 
         /** Số máy, doanh thu theo tình trạng kỹ thuật */
         public function statsByTechnical($timeFrom, $timeTo, $shop) {
-            $this->db->select('technicalFinish, COUNT(*) AS total, SUM(phonePrice) AS revenue', FALSE);
+            $this->db->select('technicalFinish, COUNT(*) AS total, ' . self::revenueSql() . ' AS revenue', FALSE);
             $this->_statsFilter($timeFrom, $timeTo, $shop);
             $this->db->group_by('technicalFinish');
             return $this->db->get()->result();

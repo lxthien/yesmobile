@@ -656,3 +656,26 @@ select.task-category-select.is-guess {
     color: #c0392b;
     font-weight: bold;
 }
+
+/* Máy đang sửa chữa, cột Ghi chú: LK/SN, Không phiếu, Khách mượn máy xếp sát nhau cho gọn */
+.list-task-page td > .task-note-gap {
+    display: block;
+    height: 6px;
+}
+.list-task-page td > p[style*="#007802"] {
+    margin: 0;
+}
+.list-task-page td > b[style*="display:block"] {
+    margin: 0;
+}
+/* Lịch sử sửa chữa: link Sửa lại cạnh tên thiết bị */
+a.history-repair-again {
+    font-size: 12px;
+    font-weight: normal;
+    white-space: nowrap;
+}
+/* Doanh thu theo ngày: giá LK của máy không thu tiền (không cộng vào tổng) */
+.revenue-table td.revenue-excluded {
+    color: #aaa;
+    text-decoration: line-through;
+}

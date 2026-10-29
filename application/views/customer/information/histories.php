@@ -50,7 +50,11 @@
                                         }
                                     ?>
                                     <tr>
-                                        <td><span style="color:#000080;font-weight:bold;"><?php echo $row->phoneType; ?></span></td>
+                                        <td>
+                                            <span style="color:#000080;font-weight:bold;"><?php echo $row->phoneType; ?></span>
+                                            <?php // Sửa lại: tạo phiếu mới (mã mới), lấy sẵn Thiết bị, Mật khẩu, Imei của phiếu này ?>
+                                            <a class="history-repair-again" target="_blank" href="<?php echo base_url().'tasks/add/customer/'.$customer->id.'/'.$row->id; ?>" title="Tạo phiếu mới cho máy này">(Sửa lại)</a>
+                                        </td>
                                         <td><span style="color:red;font-weight:bold;"><?php echo $row->phonePass; ?></span></td>
                                         <td><?php echo $row->phoneImei; ?></td>
                                         <td><span style="font-weight:bold;"><?php echo $row->phoneStatus; ?></span></td>

@@ -154,6 +154,19 @@
             $task->paymentMethod = '';
             $task->brandId = 0;
             $task->repairCategoryId = 0;
+
+            // "Sửa lại" từ Lịch sử sửa chữa (tasks/add/customer/{khách}/{phiếu cũ}):
+            // phiếu mới, mã mới, chỉ lấy sẵn Thiết bị, Mật khẩu, Imei của phiếu cũ (cùng khách)
+            $fromTaskId = $this->uri->rsegment(4);
+            if (trim($customer_id) !== '' && ctype_digit((string) $fromTaskId)) {
+                $fromTask = $this->task_model->read_by_id((int) $fromTaskId);
+                if ($fromTask && $fromTask->customer_id == $customer_id) {
+                    $task->phoneType = $fromTask->phoneType;
+                    $task->phonePass = $fromTask->phonePass;
+                    $task->phoneImei = $fromTask->phoneImei;
+                }
+            }
+
             $data['task'] = $task;
             $data['view'] = 'customer/task/add';
             $data['customers'] = $this->customer_model->read_all();
