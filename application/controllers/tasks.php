@@ -277,7 +277,8 @@
                         $task['timeClosedTask'] = date('Y-m-d H:i:s');
                         
                         $dateWarrantyPerios = new DateTime(date('Y-m-d H:i:s', time()));
-                        $dateWarrantyPerios->add(new DateInterval('P'.$this->input->post('timeWarranty').'D'));
+                        // Ô bảo hành để trống = 0 ngày (trước đây để trống sẽ lỗi DateInterval 'PD')
+                        $dateWarrantyPerios->add(new DateInterval('P'.max(0, (int) $task['timeWarranty']).'D'));
                         $task['warrantyPeriod'] = $dateWarrantyPerios->format('Y-m-d H:i:s');
                     }
 

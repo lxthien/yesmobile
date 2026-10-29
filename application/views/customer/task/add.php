@@ -246,7 +246,7 @@
                                 <div class="form-group">
                                     <label for="pass1" class="control-label col-lg-2">Thời gian bảo hành (Ngày)</label>
                                     <div class="col-lg-10">
-                                        <input name="timeWarranty" class="form-control" type="text" placeholder="Thời gian bảo hành (Ngày)" value="<?php echo $task->timeWarranty; ?>"/>
+                                        <input name="timeWarranty" class="form-control" type="text" placeholder="Thời gian bảo hành (Ngày)" value="<?php echo $task->timeWarranty ? $task->timeWarranty : ''; // 0 (chưa nhập) hiện ô trống, khi lưu vẫn là 0 ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
