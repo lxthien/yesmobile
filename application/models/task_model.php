@@ -701,6 +701,13 @@
             return $this->db->get()->result();
         }
 
+        /** Sửa giá linh kiện 1 phiếu (chỉ cột accessoryPrice, không đổi ngày giao máy / ngày sửa) */
+        public function setAccessoryPrice($id, $value) {
+            $this->db->where('id', (int) $id);
+            $this->db->update($this->primary_table, array('accessoryPrice' => max(0, (int) $value)));
+            return true;
+        }
+
         /** Phân loại tay 1 phiếu (chỉ 2 cột brandId / repairCategoryId) */
         public function setCategory($id, $column, $value) {
             if (!in_array($column, array('brandId', 'repairCategoryId'))) {

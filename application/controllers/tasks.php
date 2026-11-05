@@ -622,6 +622,36 @@
         }
 
         /** Lưu nhanh 1 ô phân loại (AJAX). Trả JSON {ok, message} */
+        /**
+         * Trang Doanh thu theo ngày: sửa Giá LK tại chỗ (AJAX). Chỉ đổi cột accessoryPrice,
+         * không đổi ngày giao máy / bảo hành như khi lưu form phiếu; có ghi lịch sử chỉnh sửa.
+         */
+        public function setAccessoryPrice() {
+            $this->_requireAdminShop();
+            $id = (int) $this->input->post('id');
+            $value = (int) preg_replace('/[^\d]/', '', (string) $this->input->post('value'));
+            $ok = false;
+            if ($this->input->server('REQUEST_METHOD') === 'POST' && $id > 0) {
+                $task = $this->task_model->read_by_id($id);
+                if ($task) {
+                    $old = (int) $task->accessoryPrice;
+                    $ok = $this->task_model->setAccessoryPrice($id, $value);
+                    if ($ok && $old !== $value) {
+                        $createDate = new DateTime(date('Y-m-d H:i:s'));
+                        $createDate->setTimezone(new DateTimeZone('UTC'));
+                        $this->tasks_histories_model->add(array(
+                            'user_id' => $this->ion_auth->user()->row()->id,
+                            'task_id' => $id,
+                            'tracks' => json_encode(array('accessoryPrice' => array('from' => (string) $old, 'to' => $value))),
+                            'created' => $createDate->format('Y-m-d H:i:s'),
+                        ));
+                    }
+                }
+            }
+            $this->output->set_content_type('application/json');
+            echo json_encode(array('ok' => (bool) $ok, 'value' => $value));
+        }
+
         public function setCategory() {
             $this->_requireAdminShop();
             $types = array('brandId' => 'brand', 'repairCategoryId' => 'repair');

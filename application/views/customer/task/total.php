@@ -27,7 +27,7 @@
                                 <?php
                                     // Cộng theo cửa hàng: giá linh kiện, doanh thu chia theo hình thức thanh toán.
                                     // Doanh thu từng phiếu = (float) phonePrice, cùng cách cộng với Task_model::revenueSql() của tổng doanh thu
-                                    // (máy không thu tiền tính 0).
+                                    // (máy không thu tiền tính 0, không cộng giá LK).
                                     $paymentOptions = taskPaymentOptions();
                                     $sums = array();
                                     foreach (array('VT', 'LS', 'ALL') as $key) {
@@ -50,10 +50,13 @@
                                             }
                                         }
                                     }
-                                    $paymentText = function ($sum) use ($paymentOptions) {
+                                    // Màu số tổng: chuyển khoản đỏ, tiền mặt xanh lá (cùng in đậm)
+                                    $paymentClasses = array('chuyen_khoan' => 'revenue-num-red', 'tien_mat' => 'revenue-num-green');
+                                    $paymentText = function ($sum) use ($paymentOptions, $paymentClasses) {
                                         $parts = array();
                                         foreach ($paymentOptions as $code => $label) {
-                                            $parts[] = 'Tổng ' . mb_strtolower($label, 'UTF-8') . ': <b>' . number_format($sum['payment'][$code]) . '</b>';
+                                            $class = isset($paymentClasses[$code]) ? $paymentClasses[$code] : '';
+                                            $parts[] = 'Tổng ' . mb_strtolower($label, 'UTF-8') . ': <b class="' . $class . '">' . number_format($sum['payment'][$code]) . '</b>';
                                         }
                                         if ($sum['unpaid'] != 0) {
                                             $parts[] = 'Chưa chọn thanh toán: <b>' . number_format($sum['unpaid']) . '</b>';
@@ -61,12 +64,12 @@
                                         return implode(' &nbsp;|&nbsp; ', $parts);
                                     };
                                     $totalRows = array(
-                                        array('Tổng doanh thu cửa hàng Vũng Tàu', 'Tổng lợi nhuận cửa hàng Vũng Tàu', $sums['VT']),
-                                        array('Tổng doanh thu cửa hàng Long Sơn', 'Tổng lợi nhuận cửa hàng Long Sơn', $sums['LS']),
-                                        array('Tổng doanh thu', 'Tổng lợi nhuận', $sums['ALL']),
+                                        array('Tổng doanh thu cửa hàng Vũng Tàu', 'Tổng lợi nhuận cửa hàng Vũng Tàu', 'VT'),
+                                        array('Tổng doanh thu cửa hàng Long Sơn', 'Tổng lợi nhuận cửa hàng Long Sơn', 'LS'),
+                                        array('Tổng doanh thu', 'Tổng lợi nhuận', 'ALL'),
                                     );
                                 ?>
-                                <table class="table table-bordered table-condensed table-striped no-footer table-data revenue-table">
+                                <table class="table table-bordered table-condensed table-striped no-footer table-data revenue-table" id="revenueTable">
                                     <thead>
                                         <tr>
                                             <th>Ngày</th>
@@ -74,12 +77,12 @@
                                             <th>Thiết bị</th>
                                             <th>Lỗi thiết bị</th>
                                             <th>Báo giá</th>
+                                            <th style="width: 100px;">LK/SN</th>
                                             <th>Giá LK</th>
                                             <th>Lợi nhuận</th>
                                             <th>Hướng xử lý</th>
                                             <th>Khách hàng</th>
                                             <th>Điện thoại</th>
-                                            <th style="width: 100px;">LK/SN</th>
                                             <th>Cửa hàng</th>
                                         </tr>
                                     </thead>
@@ -89,39 +92,112 @@
                                             $accessory = isset($row->accessoryPrice) ? (int) $row->accessoryPrice : 0;
                                             $noCharge = taskNoRepairLabel($row->technicalFinish) != '';
                                             $revenue = $noCharge ? 0 : (float) $row->phonePrice;
+                                            $paymentLabel = taskPaymentLabel($row);
                                         ?>
-                                        <tr>
+                                        <tr data-shop="<?php echo $row->shop == 2 ? 'LS' : 'VT'; ?>" data-revenue="<?php echo $revenue; ?>" data-nocharge="<?php echo $noCharge ? 1 : 0; ?>">
                                             <td><?php echo $date; ?></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 5); ?></td>
                                             <td><?php echo $row->phoneType; ?></td>
                                             <td><?php echo $row->phoneStatus; ?></td>
-                                            <td><?php echo taskNoRepairLabel($row->technicalFinish) != '' ? '<span style="color:red;">'.taskNoRepairLabel($row->technicalFinish).'</span>' : (is_numeric($row->phonePrice) ? number_format($row->phonePrice) : ($row->phonePrice == '' ? "Kiểm tra, báo giá trước khi sửa chữa" : $row->phonePrice)); ?><?php echo taskPaymentHtml($row); ?></td>
-                                            <td class="num<?php echo $noCharge ? ' revenue-excluded' : ''; ?>"<?php echo $noCharge && $accessory > 0 ? ' title="Máy không thu tiền: không cộng vào tổng"' : ''; ?>><?php echo $accessory > 0 ? number_format($accessory) : ''; ?></td>
-                                            <td class="num"><?php echo (!$noCharge && ($revenue != 0 || $accessory > 0)) ? '<b>' . number_format($revenue - $accessory) . '</b>' : ''; ?></td>
+                                            <td>
+                                                <?php if ($noCharge) { ?>
+                                                    <span style="color:red;"><?php echo taskNoRepairLabel($row->technicalFinish); ?></span>
+                                                <?php } elseif (is_numeric($row->phonePrice)) { ?>
+                                                    <span class="revenue-price"><?php echo number_format($row->phonePrice); ?></span>
+                                                <?php } else { ?>
+                                                    <?php echo $row->phonePrice == '' ? 'Kiểm tra, báo giá trước khi sửa chữa' : $row->phonePrice; ?>
+                                                <?php } ?>
+                                                <?php if ($paymentLabel != '') { ?><br><span class="revenue-paylabel"><?php echo $paymentLabel; ?></span><?php } ?>
+                                            </td>
+                                            <td class="revenue-lksn">
+                                                <?php echo $row->useAccessories == 1 ? '<span class="revenue-lksn-order">Đặt linh kiện</span>' : ''; ?>
+                                                <?php echo $row->useAccessories == 2 ? $row->manufactory : ''; ?>
+                                            </td>
+                                            <td class="num revenue-lk<?php echo $noCharge ? ' revenue-excluded' : ''; ?>"<?php echo $noCharge ? ' title="Máy không thu tiền: không cộng vào tổng"' : ''; ?>>
+                                                <?php // Sửa giá LK ngay tại đây: chỉ đổi giá LK, không đổi ngày giao máy hay thông tin khác ?>
+                                                <input type="text" class="form-control input-sm price-input revenue-lk-input" inputmode="numeric" data-id="<?php echo (int) $row->id; ?>" data-saved="<?php echo $accessory; ?>" value="<?php echo $accessory > 0 ? number_format($accessory) : ''; ?>" placeholder="Nhập">
+                                                <span class="revenue-lk-status"></span>
+                                            </td>
+                                            <td class="num revenue-profit-cell"><?php echo (!$noCharge && ($revenue != 0 || $accessory > 0)) ? number_format($revenue - $accessory) : ''; ?></td>
                                             <td><?php echo $row->note; ?></td>
                                             <td><?php echo getCustomerName($row->customer_id); ?></td>
                                             <td><?php echo getCustomerPhone($row->customer_id); ?></td>
-                                            <td>
-                                                <?php echo $row->useAccessories == 1 ? '<b style="display:block;color:#000080;"><u>Đặt linh kiện</u></b><br><br>' : ''; ?>
-                                                <?php echo $row->useAccessories == 2 ? '<p style="display:block;color:#FF8C00;"><b style="font-weigh:bold;">'.$row->manufactory.'</b></p>' : ''; ?>
-                                            </td>
                                             <td><?php echo $row->shop == 2 ? 'Long Sơn' : 'Vũng Tàu'; ?></td>
                                         </tr>
                                         <?php endforeach; ?>
-                                        <?php foreach ($totalRows as $totalRow): list($revenueLabel, $profitLabel, $sum) = $totalRow; ?>
+                                        <?php foreach ($totalRows as $totalRow): list($revenueLabel, $profitLabel, $key) = $totalRow; $sum = $sums[$key]; ?>
                                         <tr class="revenue-total">
                                             <td colspan="4"><p style="float: right; font-weight: bold;"><?php echo $revenueLabel; ?>:</p></td>
-                                            <td><?php echo number_format($sum['revenue']); ?></td>
+                                            <td><b class="revenue-num-red"><?php echo number_format($sum['revenue']); ?></b></td>
                                             <td colspan="7" class="revenue-payment"><?php echo $paymentText($sum); ?></td>
                                         </tr>
                                         <tr class="revenue-total revenue-profit">
                                             <td colspan="4"><p style="float: right; font-weight: bold;"><?php echo $profitLabel; ?>:</p></td>
-                                            <td><b><?php echo number_format($sum['revenue'] - $sum['accessory']); ?></b></td>
-                                            <td colspan="7" class="revenue-payment"><?php echo $sum['accessory'] > 0 ? 'Tổng giá linh kiện: <b>' . number_format($sum['accessory']) . '</b>' : ''; ?></td>
+                                            <td><b class="revenue-num-blue" data-total-profit="<?php echo $key; ?>" data-revenue="<?php echo $sum['revenue']; ?>"><?php echo number_format($sum['revenue'] - $sum['accessory']); ?></b></td>
+                                            <td colspan="7" class="revenue-payment">Tổng giá linh kiện: <b data-total-accessory="<?php echo $key; ?>"><?php echo number_format($sum['accessory']); ?></b></td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
+                                <script>
+                                (function () {
+                                    // Giá LK sửa tại chỗ: lưu khi rời ô / bấm Enter, rồi tính lại lợi nhuận dòng và các dòng tổng
+                                    var url = '<?php echo base_url('tasks/setAccessoryPrice'); ?>';
+                                    var table = document.getElementById('revenueTable');
+                                    var fmt = function (n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+                                    function recalcTotals() {
+                                        var acc = {VT: 0, LS: 0, ALL: 0};
+                                        table.querySelectorAll('tbody tr[data-shop]').forEach(function (tr) {
+                                            if (tr.getAttribute('data-nocharge') === '1') return;
+                                            var v = parseInt(tr.querySelector('.revenue-lk-input').getAttribute('data-saved'), 10) || 0;
+                                            acc[tr.getAttribute('data-shop')] += v;
+                                            acc.ALL += v;
+                                        });
+                                        table.querySelectorAll('[data-total-accessory]').forEach(function (b) { b.textContent = fmt(acc[b.getAttribute('data-total-accessory')]); });
+                                        table.querySelectorAll('[data-total-profit]').forEach(function (b) {
+                                            b.textContent = fmt(parseFloat(b.getAttribute('data-revenue')) - acc[b.getAttribute('data-total-profit')]);
+                                        });
+                                    }
+                                    function save(input) {
+                                        var value = input.value.replace(/\D/g, '');
+                                        var number = value === '' ? 0 : parseInt(value, 10);
+                                        if (String(number) === input.getAttribute('data-saved')) return;
+                                        var tr = input.closest('tr');
+                                        var status = tr.querySelector('.revenue-lk-status');
+                                        status.className = 'revenue-lk-status';
+                                        status.textContent = 'Đang lưu…';
+                                        var xhr = new XMLHttpRequest();
+                                        xhr.open('POST', url);
+                                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                        xhr.onload = function () {
+                                            var res = null;
+                                            try { res = xhr.status === 200 ? JSON.parse(xhr.responseText) : null; } catch (e) {}
+                                            if (!res || !res.ok) {
+                                                status.className = 'revenue-lk-status revenue-lk-fail';
+                                                status.textContent = 'Lỗi, chưa lưu';
+                                                return;
+                                            }
+                                            input.setAttribute('data-saved', String(res.value));
+                                            input.value = res.value > 0 ? fmt(res.value) : '';
+                                            status.className = 'revenue-lk-status revenue-lk-ok';
+                                            status.textContent = 'Đã lưu ✓';
+                                            var revenue = parseFloat(tr.getAttribute('data-revenue')) || 0;
+                                            var profitCell = tr.querySelector('.revenue-profit-cell');
+                                            profitCell.textContent = (tr.getAttribute('data-nocharge') !== '1' && (revenue !== 0 || res.value > 0)) ? fmt(revenue - res.value) : '';
+                                            recalcTotals();
+                                        };
+                                        xhr.onerror = function () {
+                                            status.className = 'revenue-lk-status revenue-lk-fail';
+                                            status.textContent = 'Lỗi mạng, chưa lưu';
+                                        };
+                                        xhr.send('id=' + encodeURIComponent(input.getAttribute('data-id')) + '&value=' + number);
+                                    }
+                                    table.querySelectorAll('.revenue-lk-input').forEach(function (input) {
+                                        input.addEventListener('change', function () { save(input); });
+                                        input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); input.blur(); } });
+                                    });
+                                })();
+                                </script>
                             <?php else: ?>
                                 <table class="table table-bordered table-condensed table-hover table-striped">
                                     <tbody>
