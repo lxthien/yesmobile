@@ -1170,6 +1170,11 @@
                     this.setSelectionRange(pos, pos);
                 });
 
+                // Máy đang sửa chữa: bấm vào phiếu đang nhấp nháy (mở phiếu) thì hết nháy ngay, kể cả khi quay lại trang bằng nút Back
+                $(document).on('click', 'tr.task-blink a', function () {
+                    $(this).closest('tr').removeClass('task-blink');
+                });
+
                 // Radio có thể bỏ chọn khi bấm lại (Sửa Laptop/Mua xác, hình thức thanh toán)
                 $('input.radio-uncheckable:checked').data('wasChecked', true);
                 $(document).on('click', 'input.radio-uncheckable', function () {

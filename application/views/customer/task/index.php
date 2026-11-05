@@ -39,7 +39,7 @@
                                         <?php if($row->useAccessories == 1) {$cssBgAccessories = 'background: #5b8e4b; color: #ffffff;';} else {$cssBgAccessories = '';} ?>
                                         <?php if($row->quickStatus == 1) {$cssBg = 'background: #b51b1b; color: #ffffff;';} else {$cssBg = '';} ?>
                                         <?php if($row->isCustomerVip == 1) {$cssBgVip = 'background: #5cb85c; color: #ffffff;';} else {$cssBgVip = '';} ?>
-                                        <tr style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo isTaskNotifyCustomerEnd($row->id) ? 'expired' : ''; ?>">
+                                        <tr data-task-id="<?php echo (int) $row->id; ?>" style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo isTaskNotifyCustomerEnd($row->id) ? 'expired' : ''; ?><?php echo taskBlinkClass($row); ?>">
                                             <td><?php echo $row->id; ?></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
@@ -129,7 +129,7 @@
                                         <?php if($row->useAccessories == 1) {$cssBgAccessories = 'background: #5b8e4b; color: #ffffff;';} else {$cssBgAccessories = '';} ?>
                                         <?php if($row->quickStatus == 1) {$cssBg = 'background: #b51b1b; color: #ffffff;';} else {$cssBg = '';} ?>
                                         <?php if($row->isCustomerVip == 1) {$cssBgVip = 'background: #5cb85c; color: #ffffff;';} else {$cssBgVip = '';} ?>
-                                        <tr style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo isTaskNotifyCustomerEnd($row->id) ? 'expired' : ''; ?>">
+                                        <tr data-task-id="<?php echo (int) $row->id; ?>" style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo isTaskNotifyCustomerEnd($row->id) ? 'expired' : ''; ?><?php echo taskBlinkClass($row); ?>">
                                             <td><?php echo $row->id; ?></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
@@ -219,7 +219,7 @@
                                         <?php if($row->useAccessories == 1) {$cssBgAccessories = 'background: #5b8e4b; color: #ffffff;';} else {$cssBgAccessories = '';} ?>
                                         <?php if($row->quickStatus == 1) {$cssBg = 'background: #b51b1b; color: #ffffff;';} else {$cssBg = '';} ?>
                                         <?php if($row->isCustomerVip == 1) {$cssBgVip = 'background: #5cb85c; color: #ffffff;';} else {$cssBgVip = '';} ?>
-                                        <tr style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo isTaskNotifyCustomerEnd($row->id) ? 'expired' : ''; ?>">
+                                        <tr data-task-id="<?php echo (int) $row->id; ?>" style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo isTaskNotifyCustomerEnd($row->id) ? 'expired' : ''; ?><?php echo taskBlinkClass($row); ?>">
                                             <td><?php echo $row->id; ?></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
@@ -308,7 +308,7 @@
                                     <?php foreach ($tasksFinish as $row): ?>
                                         <?php if($row->quickStatus == 1) {$cssBg = 'background: #b51b1b; color: #ffffff;';} else {$cssBg = '';} ?>
                                         <?php if($row->isCustomerVip == 1) {$cssBgVip = 'background: #5cb85c; color: #ffffff;';} else {$cssBgVip = '';} ?>
-                                        <tr style="<?php echo $cssBg.$cssBgVip; ?>">
+                                        <tr data-task-id="<?php echo (int) $row->id; ?>" style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo trim(taskBlinkClass($row)); ?>">
                                             <td></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
@@ -397,7 +397,7 @@
                                     <?php foreach ($tasksNotifiedCustomer as $row): ?>
                                         <?php if($row->quickStatus == 1) {$cssBg = 'background: #b51b1b; color: #ffffff;';} else {$cssBg = '';} ?>
                                         <?php if($row->isCustomerVip == 1) {$cssBgVip = 'background: #5cb85c; color: #ffffff;';} else {$cssBgVip = '';} ?>
-                                        <tr style="<?php echo $cssBg.$cssBgVip; ?>">
+                                        <tr data-task-id="<?php echo (int) $row->id; ?>" style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo trim(taskBlinkClass($row)); ?>">
                                             <td></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
@@ -487,7 +487,7 @@
                                     <?php foreach ($tasksCustomerReceived as $row): ?>
                                         <?php if($row->quickStatus == 1) {$cssBg = 'background: #b51b1b; color: #ffffff;';} else {$cssBg = '';} ?>
                                         <?php if($row->isCustomerVip == 1) {$cssBgVip = 'background: #5cb85c; color: #ffffff;';} else {$cssBgVip = '';} ?>
-                                        <tr style="<?php echo $cssBg.$cssBgVip; ?>">
+                                        <tr data-task-id="<?php echo (int) $row->id; ?>" style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo trim(taskBlinkClass($row)); ?>">
                                             <td></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
@@ -577,7 +577,7 @@
                                     <?php foreach ($tasksCustomerReceivedWithPrice as $row): ?>
                                         <?php if($row->quickStatus == 1) {$cssBg = 'background: #b51b1b; color: #ffffff;';} else {$cssBg = '';} ?>
                                         <?php if($row->isCustomerVip == 1) {$cssBgVip = 'background: #5cb85c; color: #ffffff;';} else {$cssBgVip = '';} ?>
-                                        <tr style="<?php echo $cssBg.$cssBgVip; ?>">
+                                        <tr data-task-id="<?php echo (int) $row->id; ?>" style="<?php echo $cssBg.$cssBgVip; ?>" class="<?php echo trim(taskBlinkClass($row)); ?>">
                                             <td></td>
                                             <td><?php echo '...'.substr($row->code, strlen($row->code) - 4); ?></td>
                                             <td>
@@ -700,3 +700,4 @@
         width: 100% !important;
     }
 </style>
+<?php echo taskBlinkScript(); // tự kiểm tra phiếu nhấp nháy mỗi phút ?>

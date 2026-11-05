@@ -1,5 +1,10 @@
 <?php
     class Tasks extends Admin_Controller {
+        /** Phiếu nhấp nháy ở trang Máy đang sửa chữa: array(task_id => true) */
+        public $taskBlinkIds = array();
+        /** Mọi phiếu đang hiện trên trang Máy đang sửa chữa (để trang tự kiểm tra nhấp nháy mỗi phút) */
+        public $taskPageIds = array();
+
         public function __construct() {
             parent::__construct();
             $this->load->model('task_model', 'task_model');
@@ -67,6 +72,7 @@
          */
         private function _prefetchCustomerRequest($data) {
             $customerIDs = array();
+            $taskIDs = array();
             foreach ($data as $rows) {
                 if (!is_array($rows)) {
                     continue;
@@ -75,9 +81,15 @@
                     if (is_object($row) && isset($row->customer_id)) {
                         $customerIDs[] = $row->customer_id;
                     }
+                    if (is_object($row) && isset($row->id)) {
+                        $taskIDs[] = $row->id;
+                    }
                 }
             }
             $this->task_model->prefetchCountRequest($customerIDs);
+            // Phiếu người khác vừa thay đổi mà mình chưa mở xem: nhấp nháy (xem taskBlinkClass() trong myhelper)
+            $this->taskPageIds = array_values(array_unique(array_map('intval', $taskIDs)));
+            $this->taskBlinkIds = $this->task_model->changedTaskIds($this->ion_auth->user()->row()->id, $this->taskPageIds);
         }
 
         function listToday() {
@@ -184,6 +196,8 @@
                 $data['task'] = $task;
                 $data['view'] = 'customer/task/add';
                 $this->_categoryFormData($data);
+                // Đã mở xem phiếu: hết nhấp nháy ở trang Máy đang sửa chữa (với tài khoản này)
+                $this->task_model->markTaskSeen($this->ion_auth->user()->row()->id, $task->id);
                 $this->load->view('customer', $data);
             }
         }
@@ -622,6 +636,20 @@
         }
 
         /** Lưu nhanh 1 ô phân loại (AJAX). Trả JSON {ok, message} */
+        /**
+         * Trang Máy đang sửa chữa tự gọi mỗi phút (AJAX, POST ids=1,2,3):
+         * trả về các phiếu người khác vừa thay đổi mà tài khoản này chưa mở xem, để bật/tắt nhấp nháy không cần tải lại trang.
+         */
+        public function blinkStatus() {
+            $ids = array();
+            if ($this->input->server('REQUEST_METHOD') === 'POST') {
+                $ids = array_slice(array_filter(array_map('intval', explode(',', (string) $this->input->post('ids')))), 0, 2000);
+            }
+            $changed = $this->task_model->changedTaskIds($this->ion_auth->user()->row()->id, $ids);
+            $this->output->set_content_type('application/json');
+            echo json_encode(array('ok' => true, 'ids' => array_keys($changed)));
+        }
+
         /**
          * Trang Doanh thu theo ngày: sửa Giá LK tại chỗ (AJAX). Chỉ đổi cột accessoryPrice,
          * không đổi ngày giao máy / bảo hành như khi lưu form phiếu; có ghi lịch sử chỉnh sửa.

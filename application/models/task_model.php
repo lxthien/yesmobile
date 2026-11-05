@@ -701,6 +701,60 @@
             return $this->db->get()->result();
         }
 
+        /* ---------- Phiếu nhấp nháy: người khác vừa thay đổi mà mình chưa mở xem (bảng task_views) ---------- */
+
+        private $viewTrackingStart = null;
+
+        /** Mốc bắt đầu theo dõi (dòng user 0 / phiếu 0); false nếu chưa chạy database/task_views.sql */
+        private function viewTrackingStart() {
+            if ($this->viewTrackingStart === null) {
+                $this->viewTrackingStart = false;
+                if ($this->db->table_exists('task_views')) {
+                    $row = $this->db->query('SELECT seen_at FROM task_views WHERE user_id = 0 AND task_id = 0')->row();
+                    $this->viewTrackingStart = $row ? $row->seen_at : false;
+                }
+            }
+            return $this->viewTrackingStart;
+        }
+
+        /** Giờ UTC hiện tại, cùng cách ghi với tasks_histories.created */
+        private static function utcNow() {
+            $now = new DateTime(date('Y-m-d H:i:s'));
+            $now->setTimezone(new DateTimeZone('UTC'));
+            return $now->format('Y-m-d H:i:s');
+        }
+
+        /**
+         * Trong các phiếu $taskIds, phiếu nào có thay đổi của NGƯỜI KHÁC (tasks_histories) sau lần cuối $userId mở xem.
+         * Trả về array(task_id => true).
+         */
+        public function changedTaskIds($userId, $taskIds) {
+            $start = $this->viewTrackingStart();
+            $taskIds = array_values(array_unique(array_filter(array_map('intval', $taskIds))));
+            if (!$start || !$userId || !$taskIds) {
+                return array();
+            }
+            $sql = 'SELECT h.task_id FROM tasks_histories h'
+                . ' LEFT JOIN task_views v ON v.user_id = ? AND v.task_id = h.task_id'
+                . ' WHERE h.task_id IN (' . implode(',', $taskIds) . ') AND h.user_id <> ? AND h.tracks <> \'\' AND h.created > ?'
+                . ' GROUP BY h.task_id'
+                . ' HAVING MAX(h.created) > IFNULL(MAX(v.seen_at), ?)';
+            $result = array();
+            foreach ($this->db->query($sql, array((int) $userId, (int) $userId, $start, $start))->result() as $row) {
+                $result[(int) $row->task_id] = true;
+            }
+            return $result;
+        }
+
+        /** Ghi nhận $userId đã mở xem phiếu (hết nhấp nháy) */
+        public function markTaskSeen($userId, $taskId) {
+            if (!$this->viewTrackingStart() || !$userId || !$taskId) {
+                return;
+            }
+            $this->db->query('INSERT INTO task_views (user_id, task_id, seen_at) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE seen_at = VALUES(seen_at)',
+                array((int) $userId, (int) $taskId, self::utcNow()));
+        }
+
         /** Sửa giá linh kiện 1 phiếu (chỉ cột accessoryPrice, không đổi ngày giao máy / ngày sửa) */
         public function setAccessoryPrice($id, $value) {
             $this->db->where('id', (int) $id);

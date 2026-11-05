@@ -299,6 +299,71 @@ function taskNoRepairLabel($technicalFinish) {
 }
 
 /**
+ * Class cho dòng phiếu ở trang Máy đang sửa chữa: ' task-blink' nếu người khác vừa thay đổi phiếu mà mình chưa mở xem
+ * (danh sách do Tasks::_prefetchCustomerRequest() tính sẵn), '' nếu không.
+ */
+function taskBlinkClass($row) {
+    $ci = & get_instance();
+    return (isset($ci->taskBlinkIds) && isset($row->id) && isset($ci->taskBlinkIds[(int) $row->id])) ? ' task-blink' : '';
+}
+
+/**
+ * Script cuối trang Máy đang sửa chữa: mỗi 1 phút hỏi server (tasks/blinkStatus) phiếu nào vừa đổi,
+ * bật/tắt nhấp nháy ngay trên trang (không tải lại). Tab đang ẩn thì tạm dừng, mở lại tab thì kiểm tra ngay.
+ * Dòng phiếu cần thuộc tính data-task-id; gồm cả các dòng DataTables đang ở trang khác.
+ */
+function taskBlinkScript() {
+    $ci = & get_instance();
+    if (empty($ci->taskPageIds)) {
+        return '';
+    }
+    $ids = json_encode(array_values($ci->taskPageIds));
+    $url = json_encode(base_url('tasks/blinkStatus'));
+    return <<<HTML
+<script>
+(function () {
+    var ids = $ids, url = $url, busy = false;
+    function allRows() {
+        var list = [].slice.call(document.querySelectorAll('tr[data-task-id]'));
+        try {
+            if (window.jQuery && jQuery.fn.dataTable) {
+                jQuery.fn.dataTable.tables().forEach(function (table) {
+                    jQuery(table).DataTable().rows().nodes().each(function (node) {
+                        if (node.hasAttribute && node.hasAttribute('data-task-id') && list.indexOf(node) < 0) list.push(node);
+                    });
+                });
+            }
+        } catch (e) {}
+        return list;
+    }
+    function check() {
+        if (busy || document.hidden) return;
+        busy = true;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            busy = false;
+            var res = null;
+            try { res = xhr.status === 200 ? JSON.parse(xhr.responseText) : null; } catch (e) {}
+            if (!res || !res.ok) return;
+            var changed = {};
+            res.ids.forEach(function (id) { changed[String(id)] = true; });
+            allRows().forEach(function (tr) {
+                tr.classList.toggle('task-blink', !!changed[tr.getAttribute('data-task-id')]);
+            });
+        };
+        xhr.onerror = function () { busy = false; };
+        xhr.send('ids=' + ids.join(','));
+    }
+    setInterval(check, 60000);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
+})();
+</script>
+HTML;
+}
+
+/**
  * Cột Ghi chú (trang Máy đang sửa chữa): khoảng cách nhỏ trước "Đặt linh kiện / LK/SN" ($item = 'accessories'),
  * "Không phiếu" ('phieu'), "Khách mượn máy" ('khachMuonMay'). Chỉ chèn khi phía trên đã có nội dung, để ô không bị hở đầu.
  * Các dòng này là khối (display:block) nên tự xuống dòng; khoảng cách xem .task-note-gap trong admin-custom.css.
