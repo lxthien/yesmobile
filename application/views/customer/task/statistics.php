@@ -1,8 +1,12 @@
 <?php
     $h = function ($text) { return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8'); };
-    // Link giữ tháng + cửa hàng đang xem
-    $statsUrl = function ($params = array()) use ($month, $shop) {
-        $query = array_merge(array('month' => $month, 'shop' => $shop), $params);
+    // Link giữ kỳ đang xem (tháng hoặc cả năm) + cửa hàng
+    $isYear = ($period == 'year');
+    $statsUrl = function ($params = array()) use ($month, $year, $isYear, $shop) {
+        $base = $isYear ? array('year' => $year) : array('month' => $month);
+        if (isset($params['month'])) unset($base['year']);
+        if (isset($params['year'])) unset($base['month']);
+        $query = array_merge($base, array('shop' => $shop), $params);
         $query = array_filter($query, function ($v) { return $v !== '' && $v !== null; });
         return base_url('tasks/statistics') . '?' . http_build_query($query);
     };
@@ -10,6 +14,8 @@
     $percent = function ($value, $total) { return $total > 0 ? round($value * 100 / $total, 1) . '%' : '-'; };
     $shops = array('' => 'Tất cả cửa hàng', 1 => 'Vũng Tàu', 2 => 'Long Sơn');
     $monthLabel = substr($month, 5, 2) . '/' . substr($month, 0, 4);
+    $periodLabel = $isYear ? 'năm ' . $year : 'tháng ' . $monthLabel;
+    $profit = function ($row) { return $row['revenue'] - $row['accessory']; };
     // Ô chọn phân loại lưu ngay (giống trang Phân loại tay)
     $select = function ($column, $items, $selected, $taskId) use ($h) {
         $html = '<select class="form-control input-sm uc-select' . ($selected ? '' : ' uc-empty') . '" data-id="' . (int) $taskId . '" data-column="' . $column . '">';
@@ -29,25 +35,40 @@
                     <div class="box">
                         <header>
                             <div class="icons"><i class="fa fa-bar-chart-o"></i></div>
-                            <h5>Thống kê tháng <?php echo $monthLabel; ?> · <?php echo $shops[$shop]; ?></h5>
+                            <h5>Thống kê <?php echo $periodLabel; ?> · <?php echo $shops[$shop]; ?></h5>
                         </header>
                         <div class="body">
                             <form class="stats-filter" method="get" action="<?php echo base_url('tasks/statistics'); ?>">
+                                <?php if ($isYear): ?>
+                                <a class="btn btn-default btn-sm" href="<?php echo $statsUrl(array('year' => $prevPeriod)); ?>">&laquo; Năm trước</a>
+                                <span class="stats-year-label">Cả năm <?php echo $year; ?></span>
+                                <a class="btn btn-default btn-sm" href="<?php echo $statsUrl(array('year' => $nextPeriod)); ?>">Năm sau &raquo;</a>
+                                <a class="btn btn-link btn-sm" href="<?php echo $statsUrl(array('month' => $month)); ?>">Xem theo tháng</a>
+                                <?php else: ?>
                                 <a class="btn btn-default btn-sm" href="<?php echo $statsUrl(array('month' => $prevMonth)); ?>">&laquo; Tháng trước</a>
+                                <?php endif; ?>
+                                <?php if ($isYear): ?>
+                                <input type="hidden" name="year" value="<?php echo $year; ?>">
+                                <?php else: ?>
                                 <input type="month" name="month" class="form-control input-sm" value="<?php echo $month; ?>">
+                                <?php endif; ?>
                                 <select name="shop" class="form-control input-sm">
                                     <?php foreach ($shops as $value => $label): ?>
                                     <option value="<?php echo $value; ?>" <?php echo (string) $value === (string) $shop ? 'selected' : ''; ?>><?php echo $label; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <button type="submit" class="btn btn-primary btn-sm">Xem</button>
+                                <?php if (!$isYear): ?>
                                 <a class="btn btn-default btn-sm" href="<?php echo $statsUrl(array('month' => $nextMonth)); ?>">Tháng sau &raquo;</a>
+                                <a class="btn btn-default btn-sm" href="<?php echo $statsUrl(array('year' => substr($month, 0, 4))); ?>">Xem cả năm <?php echo substr($month, 0, 4); ?></a>
+                                <?php endif; ?>
                                 <span class="stats-note">Tính theo ngày giao máy, giống trang Doanh thu theo ngày.</span>
                             </form>
 
                             <div class="stats-summary">
                                 <div class="stats-card"><span>Máy đã giao</span><b><?php echo $money($summary['total']); ?></b></div>
                                 <div class="stats-card"><span>Doanh thu</span><b><?php echo $money($summary['revenue']); ?></b></div>
+                                <div class="stats-card stats-card-profit"><span>Lợi nhuận <small>(doanh thu − linh kiện <?php echo $money($summary['accessory']); ?>)</small></span><b><?php echo $money($profit($summary)); ?></b></div>
                                 <div class="stats-card"><span>Không sửa / Khách đổi ý</span><b><?php echo $money($summary['noRepair']); ?></b></div>
                                 <?php
                                     $unBrand = isset($byBrand[0]) ? $byBrand[0]['total'] : 0;
@@ -61,7 +82,7 @@
                             </div>
 
                             <?php if ($summary['total'] == 0): ?>
-                                <p class="center stats-empty">Không có máy nào giao trong tháng <?php echo $monthLabel; ?>.</p>
+                                <p class="center stats-empty">Không có máy nào giao trong <?php echo $periodLabel; ?>.</p>
                             <?php else: ?>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -107,6 +128,8 @@
                                                 <th><?php echo $column; ?></th>
                                                 <th class="num">Số máy</th>
                                                 <th class="num">Doanh thu</th>
+                                                <th class="num">Linh kiện</th>
+                                                <th class="num stats-profit">Lợi nhuận</th>
                                                 <th class="num">% doanh thu</th>
                                                 <th class="num">Không sửa</th>
                                             </tr>
@@ -117,6 +140,8 @@
                                                 <td><a href="<?php echo $statsUrl(array($param => $id)); ?>#chi-tiet"><?php echo $h($names[$id]); ?></a></td>
                                                 <td class="num"><b><?php echo $money($row['total']); ?></b></td>
                                                 <td class="num"><?php echo $money($row['revenue']); ?></td>
+                                                <td class="num"><?php echo $row['accessory'] ? $money($row['accessory']) : ''; ?></td>
+                                                <td class="num stats-profit"><?php echo $money($profit($row)); ?></td>
                                                 <td class="num"><?php echo $percent($row['revenue'], $summary['revenue']); ?></td>
                                                 <td class="num"><?php echo $row['noRepair'] ? $money($row['noRepair']) : ''; ?></td>
                                             </tr>
@@ -125,6 +150,8 @@
                                                 <td>Tổng</td>
                                                 <td class="num"><?php echo $money($summary['total']); ?></td>
                                                 <td class="num"><?php echo $money($summary['revenue']); ?></td>
+                                                <td class="num"><?php echo $money($summary['accessory']); ?></td>
+                                                <td class="num stats-profit"><?php echo $money($profit($summary)); ?></td>
                                                 <td class="num">100%</td>
                                                 <td class="num"><?php echo $money($summary['noRepair']); ?></td>
                                             </tr>

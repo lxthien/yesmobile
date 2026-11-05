@@ -17,7 +17,7 @@
     if ($this->ion_auth->in_group('admin_shop')) {
         $reportLinks = array(
             'tasks/listtoday' => array('tasks/listToday', 'Doanh thu theo ngày'),
-            'tasks/statistics' => array('tasks/statistics', 'Thống kê tháng'),
+            'tasks/statistics' => array('tasks/statistics', 'Thống kê tháng / năm'),
             'tasks/categories' => array('tasks/categories', 'Danh mục thống kê'),
         );
     }

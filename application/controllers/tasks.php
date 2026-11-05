@@ -257,6 +257,14 @@
                 if (trim((string) $task['phoneStatus']) === '') {
                     $errors[] = 'Chưa nhập <b>Tình trạng</b> máy.';
                 }
+                // Báo giá: chỉ nhập số (cho phép số âm: cửa hàng chi tiền mua máy/xác) hoặc để trống.
+                // Phiếu cũ đã lưu chữ (VD "Bảo hành không tính phí") mà không sửa ô này thì vẫn lưu được.
+                $phonePrice = trim((string) $task['phonePrice']);
+                if ($phonePrice === '' || preg_match('/^-?\d+$/', $phonePrice)) {
+                    $task['phonePrice'] = $phonePrice;
+                } elseif (!(isset($currentTask) && $currentTask && (string) $currentTask->phonePrice === (string) $task['phonePrice'])) {
+                    $errors[] = '<b>Báo giá</b> chỉ được nhập số. Máy bảo hành / hỗ trợ không tính phí: để trống Báo giá và chọn Tình trạng kỹ thuật "Bảo hành, không mất phí" hoặc "Sửa hỗ trợ, không tính phí".';
+                }
                 // Đã giao máy (trừ các tình trạng không thu tiền) thì bắt buộc có hình thức thanh toán.
                 if ($task['taskStatus'] == 1 && taskNoRepairLabel($task['technicalFinish']) == '' && $task['paymentMethod'] == '') {
                     $errors[] = 'Phiếu đã giao máy phải chọn hình thức thanh toán: <b>Chuyển khoản</b> hoặc <b>Tiền mặt</b>.';
@@ -458,16 +466,31 @@
         public function statistics() {
             $this->_requireAdminShop();
 
+            // Xem theo tháng (?month=2026-10) hoặc cả năm (?year=2026)
+            $year = (string) $this->input->get('year');
             $month = (string) $this->input->get('month');
-            if (!preg_match('/^\d{4}-(0[1-9]|1[0-2])$/', $month)) {
-                $now = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
-                $month = $now->format('Y-m');
+            if (preg_match('/^\d{4}$/', $year)) {
+                $from = new DateTime($year . '-01-01 00:00:00');
+                $to = clone $from;
+                $to->modify('+1 year');
+                $data['period'] = 'year';
+                $data['prevPeriod'] = (string) ((int) $year - 1);
+                $data['nextPeriod'] = (string) ((int) $year + 1);
+                $month = $year . '-01'; // để ô chọn tháng có giá trị khi chuyển về xem tháng
+            } else {
+                if (!preg_match('/^\d{4}-(0[1-9]|1[0-2])$/', $month)) {
+                    $now = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
+                    $month = $now->format('Y-m');
+                }
+                $year = '';
+                $from = new DateTime($month . '-01 00:00:00');
+                $to = clone $from;
+                $to->modify('+1 month');
+                $data['period'] = 'month';
             }
-            $from = new DateTime($month . '-01 00:00:00');
-            $to = clone $from;
-            $to->modify('+1 month');
             $prev = clone $from;
             $prev->modify('-1 month');
+            $data['year'] = $year;
 
             $shop = (string) $this->input->get('shop');
             $shop = in_array($shop, array('1', '2'), true) ? (int) $shop : '';
@@ -475,7 +498,7 @@
             $brandNames = array(0 => 'Chưa phân loại') + $this->task_category_model->namesByType('brand');
             $repairNames = array(0 => 'Chưa phân loại') + $this->task_category_model->namesByType('repair');
 
-            $empty = array('total' => 0, 'revenue' => 0, 'noRepair' => 0);
+            $empty = array('total' => 0, 'revenue' => 0, 'accessory' => 0, 'noRepair' => 0);
             $summary = $empty;
             $byBrand = array();
             $byRepair = array();
@@ -484,7 +507,7 @@
             foreach ($rows as $row) {
                 $b = isset($brandNames[$row->brandId]) ? (int) $row->brandId : 0;
                 $r = isset($repairNames[$row->repairCategoryId]) ? (int) $row->repairCategoryId : 0;
-                foreach (array('total', 'revenue', 'noRepair') as $key) {
+                foreach (array('total', 'revenue', 'accessory', 'noRepair') as $key) {
                     $value = (float) $row->$key;
                     $summary[$key] += $value;
                     if (!isset($byBrand[$b])) $byBrand[$b] = $empty;

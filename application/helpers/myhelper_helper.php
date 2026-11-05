@@ -324,6 +324,7 @@ function taskUpdateFlagOptions() {
         'goi_kbm' => 'Gọi 2 lần KBM',
         'goi_klld' => 'Gọi 2 lần KLLĐ',
         'goi_mang_ra' => 'Đã gọi Khách mang máy ra',
+        'da_thanh_toan_du' => 'Khách đã thanh toán đủ',
     );
 }
 

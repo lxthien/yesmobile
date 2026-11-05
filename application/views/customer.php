@@ -1149,21 +1149,22 @@
                     }
                 });
 
-                // Ô Báo giá: gõ số thì tự thêm dấu phẩy (100000 -> 100,000); gõ chữ (VD "Bảo hành không tính phí") thì để nguyên.
+                // Ô Báo giá / Giá linh kiện: chỉ nhận số, tự thêm dấu phẩy (100000 -> 100,000); chữ gõ vào bị bỏ.
+                // Dấu trừ đầu chỉ cho ô có data-allow-negative="1" (Báo giá: cửa hàng chi tiền mua máy/xác).
                 // Server bỏ dấu phẩy trước khi lưu nên vẫn lưu dạng số.
                 $(document).on('input', 'input.price-input', function () {
                     var raw = this.value;
-                    if (!/^-?[\d,]*$/.test(raw)) return;
-                    var digitsBeforeCaret = raw.slice(0, this.selectionStart).replace(/[^\d-]/g, '').length;
-                    var negative = raw.charAt(0) === '-';
+                    var allowNegative = this.getAttribute('data-allow-negative') === '1';
+                    var digitsBeforeCaret = raw.slice(0, this.selectionStart).replace(/\D/g, '').length;
+                    var negative = allowNegative && $.trim(raw).charAt(0) === '-';
                     var digits = raw.replace(/[^\d]/g, '').replace(/^0+(?=\d)/, '');
                     var formatted = (negative ? '-' : '') + digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     if (formatted === raw) return;
                     this.value = formatted;
                     // giữ con trỏ đúng sau chữ số vừa gõ
-                    var pos = 0, count = 0;
+                    var pos = negative ? 1 : 0, count = 0;
                     while (pos < formatted.length && count < digitsBeforeCaret) {
-                        if (/[\d-]/.test(formatted.charAt(pos))) count++;
+                        if (/\d/.test(formatted.charAt(pos))) count++;
                         pos++;
                     }
                     this.setSelectionRange(pos, pos);
@@ -1200,6 +1201,14 @@
                         field.closest('.tfi-field, .col-lg-10').first().append('<span class="required-error">' + rule[1] + '</span>');
                         if (!firstError) firstError = field;
                     });
+                    // Báo giá chỉ nhập số (phiếu cũ đã lưu chữ mà không sửa ô này thì cho qua, server cũng kiểm tra)
+                    var priceField = form.find('input[name="phonePrice"]');
+                    var priceValue = $.trim(priceField.val() || '');
+                    if (priceField.length && !/^-?[\d,]*$/.test(priceValue) && priceField.val() !== priceField.attr('data-original')) {
+                        priceField.closest('.form-group').addClass('has-error');
+                        priceField.closest('.col-lg-10').append('<span class="required-error">Báo giá chỉ được nhập số</span>');
+                        if (!firstError) firstError = priceField;
+                    }
                     if (firstError) {
                         $('html, body').scrollTop(firstError.closest('.form-group').offset().top - 80);
                         if (firstError.is('select.chzn-select')) {

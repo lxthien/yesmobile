@@ -164,8 +164,12 @@
                                     <label for="pass1" class="control-label col-lg-2">Báo giá</label>
                                     <div class="col-lg-10">
                                         <?php // Số tiền hiện có dấu phẩy (1,400,000); khi lưu server bỏ dấu phẩy nên vẫn lưu dạng số ?>
-                                        <input name="phonePrice" class="form-control price-input" type="text" placeholder="Báo giá" value="<?php echo preg_match('/^-?\d+$/', (string) $task->phonePrice) ? number_format($task->phonePrice) : $task->phonePrice; ?>"/>
-                                        <span style="color: red; font-size: 13px; font-weight: bold;">(Nếu máy Bảo Hành thì nhập “Bảo hành không tính phí”. Máy kiểm tra, báo giá thì để trống ô này.)</span>
+                                        <?php
+                                            // Chỉ nhập số (số âm: cửa hàng chi tiền mua máy/xác). data-original: chữ cũ của phiếu trước đây, giữ nguyên nếu không sửa
+                                            $phonePriceValue = preg_match('/^-?\d+$/', (string) $task->phonePrice) ? number_format($task->phonePrice) : $task->phonePrice;
+                                        ?>
+                                        <input name="phonePrice" class="form-control price-input" type="text" inputmode="numeric" data-allow-negative="1" data-original="<?php echo htmlspecialchars((string) $phonePriceValue, ENT_QUOTES, 'UTF-8'); ?>" placeholder="Báo giá" value="<?php echo $phonePriceValue; ?>"/>
+                                        <span style="color: red; font-size: 13px; font-weight: bold;">(Nếu máy kiểm tra, báo giá thì để trống ô này)</span>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -38,13 +38,13 @@ tr[style*="background"] .task-status-label {
 table[id^="dataTable"] > thead > tr > th,
 table.table-data > thead > tr > th {
     background-color: #eef1f6;
-    color: #34495e;
+    color: #000080;
     font-size: 13px;
     font-weight: 600;
     white-space: nowrap;
     vertical-align: middle !important;
     padding: 8px 6px !important;
-    border-bottom: 2px solid #2c3e7a !important;
+    border-bottom: 2px solid #000080 !important;
 }
 /* Cột còn bấm để sắp xếp: chừa chỗ bên phải cho mũi tên */
 table[id^="dataTable"] > thead > tr > th.sorting,
@@ -444,7 +444,7 @@ select.task-category-select.is-guess {
 }
 .statistics-page .stats-card b {
     font-size: 20px;
-    color: #2c3e7a;
+    color: #000080;
 }
 .statistics-page .stats-card-warn b {
     color: #c0392b;
@@ -457,7 +457,7 @@ select.task-category-select.is-guess {
     margin: 15px 0 8px;
     font-size: 15px;
     font-weight: bold;
-    color: #2c3e7a;
+    color: #000080;
 }
 .statistics-page .stats-title small {
     font-weight: normal;
@@ -678,4 +678,23 @@ a.history-repair-again {
 .revenue-table td.revenue-excluded {
     color: #aaa;
     text-decoration: line-through;
+}
+
+/* Thống kê: Lợi nhuận chữ đỏ, không in đậm */
+.statistics-page .stats-card-profit b {
+    color: #e00000;
+}
+.statistics-page .stats-card span small {
+    font-size: 11px;
+    color: #999;
+}
+.statistics-page th.stats-profit,
+.statistics-page td.stats-profit {
+    color: #e00000 !important;
+    font-weight: normal !important;
+}
+.statistics-page .stats-year-label {
+    font-weight: bold;
+    color: #000080;
+    padding: 0 6px;
 }
