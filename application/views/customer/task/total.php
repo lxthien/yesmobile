@@ -27,7 +27,7 @@
                                 <?php
                                     // Cộng theo cửa hàng: giá linh kiện, doanh thu chia theo hình thức thanh toán.
                                     // Doanh thu từng phiếu = (float) phonePrice, cùng cách cộng với Task_model::revenueSql() của tổng doanh thu
-                                    // (máy không thu tiền tính 0, không cộng giá LK).
+                                    // (máy không thu tiền tính doanh thu 0, nhưng vẫn cộng giá LK).
                                     $paymentOptions = taskPaymentOptions();
                                     $sums = array();
                                     foreach (array('VT', 'LS', 'ALL') as $key) {
@@ -37,12 +37,14 @@
                                     $sums['LS']['revenue'] = (float) $tasksLS[0]->totalPriceLS;
                                     $sums['ALL']['revenue'] = $sums['VT']['revenue'] + $sums['LS']['revenue'];
                                     foreach ($tasks as $row) {
-                                        // Máy không thu tiền (Không sửa được, Bảo hành...): không cộng doanh thu, giá LK, lợi nhuận
-                                        if (taskNoRepairLabel($row->technicalFinish) != '') continue;
-                                        $revenue = (float) $row->phonePrice;
+                                        // Máy không thu tiền (Không sửa được, Bảo hành...): không cộng doanh thu,
+                                        // nhưng vẫn cộng giá LK (VD trả lại tiền sửa trước đây cho khách) => trừ vào lợi nhuận
+                                        $noCharge = taskNoRepairLabel($row->technicalFinish) != '';
+                                        $revenue = $noCharge ? 0 : (float) $row->phonePrice;
                                         $accessory = isset($row->accessoryPrice) ? (int) $row->accessoryPrice : 0;
                                         foreach (array($row->shop == 2 ? 'LS' : 'VT', 'ALL') as $key) {
                                             $sums[$key]['accessory'] += $accessory;
+                                            if ($noCharge) continue;
                                             if (isset($sums[$key]['payment'][$row->paymentMethod])) {
                                                 $sums[$key]['payment'][$row->paymentMethod] += $revenue;
                                             } else {
@@ -113,12 +115,12 @@
                                                 <?php echo $row->useAccessories == 1 ? '<span class="revenue-lksn-order">Đặt linh kiện</span>' : ''; ?>
                                                 <?php echo $row->useAccessories == 2 ? $row->manufactory : ''; ?>
                                             </td>
-                                            <td class="num revenue-lk<?php echo $noCharge ? ' revenue-excluded' : ''; ?>"<?php echo $noCharge ? ' title="Máy không thu tiền: không cộng vào tổng"' : ''; ?>>
+                                            <td class="num revenue-lk">
                                                 <?php // Sửa giá LK ngay tại đây: chỉ đổi giá LK, không đổi ngày giao máy hay thông tin khác ?>
                                                 <input type="text" class="form-control input-sm price-input revenue-lk-input" inputmode="numeric" data-id="<?php echo (int) $row->id; ?>" data-saved="<?php echo $accessory; ?>" value="<?php echo $accessory > 0 ? number_format($accessory) : ''; ?>" placeholder="Nhập">
                                                 <span class="revenue-lk-status"></span>
                                             </td>
-                                            <td class="num revenue-profit-cell"><?php echo (!$noCharge && ($revenue != 0 || $accessory > 0)) ? number_format($revenue - $accessory) : ''; ?></td>
+                                            <td class="num revenue-profit-cell"><?php echo ($revenue != 0 || $accessory > 0) ? number_format($revenue - $accessory) : ''; ?></td>
                                             <td><?php echo $row->note; ?></td>
                                             <td><?php echo getCustomerName($row->customer_id); ?></td>
                                             <td><?php echo getCustomerPhone($row->customer_id); ?></td>
@@ -148,7 +150,6 @@
                                     function recalcTotals() {
                                         var acc = {VT: 0, LS: 0, ALL: 0};
                                         table.querySelectorAll('tbody tr[data-shop]').forEach(function (tr) {
-                                            if (tr.getAttribute('data-nocharge') === '1') return;
                                             var v = parseInt(tr.querySelector('.revenue-lk-input').getAttribute('data-saved'), 10) || 0;
                                             acc[tr.getAttribute('data-shop')] += v;
                                             acc.ALL += v;
@@ -183,7 +184,7 @@
                                             status.textContent = 'Đã lưu ✓';
                                             var revenue = parseFloat(tr.getAttribute('data-revenue')) || 0;
                                             var profitCell = tr.querySelector('.revenue-profit-cell');
-                                            profitCell.textContent = (tr.getAttribute('data-nocharge') !== '1' && (revenue !== 0 || res.value > 0)) ? fmt(revenue - res.value) : '';
+                                            profitCell.textContent = (revenue !== 0 || res.value > 0) ? fmt(revenue - res.value) : '';
                                             recalcTotals();
                                         };
                                         xhr.onerror = function () {

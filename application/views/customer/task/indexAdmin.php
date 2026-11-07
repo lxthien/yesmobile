@@ -7,7 +7,7 @@
                     <div class="box">
                         <header>
                             <div class="icons"><i class="fa fa-table"></i></div>
-                            <h5>MÁY ĐANG SỬA CHỬA</h5>
+                            <h5>MÁY ĐANG SỬA CHỮA</h5>
                             <ul class="nav nav-tabs pull-left">
                                 <li class="active"><a href="#chvt1" data-toggle="tab" aria-expanded="true">VŨNG TÀU</a></li>
                                 <li class=""><a href="#chls1" data-toggle="tab" aria-expanded="false">LONG SƠN</a> </li>
@@ -58,7 +58,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -140,7 +140,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -236,7 +236,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -318,7 +318,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -364,7 +364,7 @@
                     <div class="box">
                         <header>
                             <div class="icons"><i class="fa fa-table"></i></div>
-                            <h5>[SỬA LAPTOP, PC] MÁY ĐANG SỬA CHỬA</h5>
+                            <h5>[SỬA LAPTOP, PC] MÁY ĐANG SỬA CHỮA</h5>
                             <ul class="nav nav-tabs pull-left">
                                 <li class="active"><a href="#chvt11" data-toggle="tab" aria-expanded="true">VŨNG TÀU</a></li>
                                 <li class=""><a href="#chls11" data-toggle="tab" aria-expanded="false">LONG SƠN</a> </li>
@@ -414,7 +414,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : '#000080'; ?>"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:<?php echo isTaskNotifyCustomerEnd($row->id) ? '#ffffff' : 'red'; ?>"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -496,7 +496,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -591,7 +591,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -672,7 +672,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -767,7 +767,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -848,7 +848,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -944,7 +944,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -1024,7 +1024,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -1109,7 +1109,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>
@@ -1180,7 +1180,7 @@
                                                 </td>
                                                 <td><?php echo taskUpdateHtml($row); ?></td>
                                                 <td><?php echo $row->features; ?></td>
-                                                <td><span style="color:#000080"><?php echo $row->phonePass; ?></span></td>
+                                                <td><span style="color:red"><?php echo $row->phonePass; ?></span></td>
                                                 <td><?php echo $row->phoneImei; ?></td>
                                                 <td><?php echo $row->phoneSim; ?></td>
                                                 <td>

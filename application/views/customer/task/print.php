@@ -34,7 +34,10 @@
                                 text-transform: uppercase; font-weight: 500;
                             }
                             p.title {
-                                text-align: center; font-weight: 600; padding: 10px 0; margin-bottom: 0;
+                                text-align: center; font-weight: 700; font-size: 13px; padding: 8px 0 0; margin-bottom: 0;
+                            }
+                            p.subtitle {
+                                text-align: center; font-style: italic; font-size: 12px; padding: 0 0 6px; margin: 0;
                             }
                             .pers .left {
                                 width: 58%; float: left;
@@ -46,7 +49,7 @@
                                 font-size: 12px; margin: 0;
                             }
                             .cls2 .footer {
-                                height: 80px; width: 100%; text-align: right; padding-top: 0px;
+                                height: 65px; width: 100%; text-align: right; padding-top: 0px;
                             }
                             .cls2 .footer p {
                                 text-transform: uppercase; font-weight: 600;
@@ -60,8 +63,18 @@
                             .cls2 .wrapper-print {
                                 width: 100%; text-align: center;
                             }
+                            /* Phiếu ở giữa, nút In phiếu bên phải */
+                            .print-layout {
+                                display: flex; justify-content: center; align-items: flex-start; gap: 24px; flex-wrap: wrap;
+                            }
+                            .print-actions {
+                                position: sticky; top: 80px; margin-top: 24px;
+                            }
                             #btnSubmit {
-                                border: none; width: 100px; height: 30px; cursor: pointer; background: #263e81; color: #ffffff; text-transform: uppercase; font-size: 18px;
+                                border: none; border-radius: 4px; padding: 12px 24px; cursor: pointer; background: #263e81; color: #ffffff; text-transform: uppercase; font-size: 18px; font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,.25);
+                            }
+                            #btnSubmit:hover {
+                                background: #1a2d63;
                             }
                             table {
                                 width: 100%; padding: 0px;
@@ -85,6 +98,7 @@
                                 width: 60%;
                             }
                         </style>
+                        <div class="print-layout">
                         <div id="printTask">
                             <div class="cls2">
                                 <style type="text/css">
@@ -117,7 +131,10 @@
                                             text-transform: uppercase; font-weight: 500;
                                         }
                                         p.title {
-                                            text-align: center; font-weight: 600; padding: 10px 0; margin-bottom: 0;
+                                            text-align: center; font-weight: 700; font-size: 13px; padding: 8px 0 0; margin-bottom: 0;
+                            }
+                            p.subtitle {
+                                text-align: center; font-style: italic; font-size: 12px; padding: 0 0 6px; margin: 0;
                                         }
                                         .pers .left {
                                             width: 58%; float: left;
@@ -129,7 +146,7 @@
                                             font-size: 13px; margin: 0;
                                         }
                                         .cls2 .footer {
-                                            height: 80px; width: 100%; text-align: right; padding-top: 0px; margin-bottom: -5px;
+                                            height: 65px; width: 100%; text-align: right; padding-top: 0px; margin-bottom: -5px;
                                         }
                                         .cls2 .footer p {
                                             text-transform: uppercase; font-weight: 600;
@@ -185,7 +202,8 @@
                                         </div>
                                     </div>
                                     <div class="cl"></div>
-                                  <p class="title">PHIẾU BIÊN NHẬN SỬA CHỮA</p>        
+                                  <p class="title">PHIẾU BIÊN NHẬN SỬA CHỮA</p>
+                                  <p class="subtitle">Vui lòng giữ phiếu để nhận lại thiết bị</p>        
                                     <div class="cl"></div>
                                     <div class="pers">
                                         <div class="left">
@@ -262,9 +280,6 @@
                                     <div class="cl"></div>
                                  Nếu chuyển khoản, vui lòng ghi nội dung chuyển khoản là:<strong> <?php echo $task->code; ?></strong></br><strong>Trân trọng cám ơn Quý Khách Hàng đã tin tưởng và sử dụng dịch vụ của Yes Mobile!</strong>
                                 </div>
-                                <div class="wrapper-print">
-                                    <input id="btnSubmit" type="submit" value="Print" onclick="divPrint();" />
-                                </div>
                                 <script type="text/javascript">
                                       function divPrint() {
                                         var newWindow = window.open('','printwindow');
@@ -278,6 +293,11 @@
                                       }
                                 </script>
                             </div>
+                        </div>
+                        <?php // Nút in đặt bên phải phiếu, ngoài #printTask nên không bị in ra; bám theo khi cuộn trang ?>
+                        <div class="print-actions">
+                            <button id="btnSubmit" type="button" onclick="divPrint();"><i class="fa fa-print"></i> In phiếu</button>
+                        </div>
                         </div>
                     </div>
                 </div>

@@ -73,15 +73,17 @@
         private function _prefetchCustomerRequest($data) {
             $customerIDs = array();
             $taskIDs = array();
-            foreach ($data as $rows) {
+            foreach ($data as $key => $rows) {
                 if (!is_array($rows)) {
                     continue;
                 }
+                // Box "Các máy đã giao cho khách hàng" (kể cả > 300k): không cảnh báo nhấp nháy khi có thay đổi
+                $noBlink = strpos((string) $key, 'tasksCustomerReceived') === 0;
                 foreach ($rows as $row) {
                     if (is_object($row) && isset($row->customer_id)) {
                         $customerIDs[] = $row->customer_id;
                     }
-                    if (is_object($row) && isset($row->id)) {
+                    if (!$noBlink && is_object($row) && isset($row->id)) {
                         $taskIDs[] = $row->id;
                     }
                 }

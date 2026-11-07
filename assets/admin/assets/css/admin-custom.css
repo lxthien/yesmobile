@@ -98,6 +98,11 @@ table[id^="dataTable"] > tbody > tr > td.details-control {
     margin-top: 0 !important;
 }
 
+/* Trang danh sách phiếu: tiêu đề cột lớn hơn cho dễ đọc */
+.list-task-page table[id^="dataTable"] > thead > tr > th {
+    font-size: 14px;
+}
+
 /* Mọi bảng: ẩn dòng "Showing … to … of … entries" */
 .dataTables_info {
     display: none;

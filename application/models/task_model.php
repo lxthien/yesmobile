@@ -26,9 +26,12 @@
             return 'SUM(IF(technicalFinish IN (' . implode(',', self::$noChargeTechnicalStatuses) . '), 0, phonePrice))';
         }
 
-        /** Biểu thức SQL cộng giá linh kiện: bỏ qua phiếu không thu tiền (giống trang Doanh thu theo ngày) */
+        /**
+         * Biểu thức SQL cộng giá linh kiện: cộng cả phiếu không thu tiền (VD máy bảo hành không sửa được phải trả lại tiền
+         * cho khách, nhập vào Giá LK) để trừ vào lợi nhuận (giống trang Doanh thu theo ngày)
+         */
         public static function accessorySql() {
-            return 'SUM(IF(technicalFinish IN (' . implode(',', self::$noChargeTechnicalStatuses) . '), 0, accessoryPrice))';
+            return 'SUM(accessoryPrice)';
         }
 
         function __construct() {
