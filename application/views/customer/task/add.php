@@ -87,7 +87,12 @@
                                 <div class="form-group">
                                     <label for="pass1" class="control-label col-lg-2">Đặc điểm</label>
                                     <div class="col-lg-10">
-                                        <input name="features" class="form-control" type="text" placeholder="Không kiểm tra được chức năng, đã từng sửa ở cửa hàng khác, máy trầy, cấn móp, hư chức năng..." value="<?php echo $task->features; ?>"/>
+                                        <input name="features" id="taskFeatures" class="form-control" type="text" placeholder="Không kiểm tra được chức năng, đã từng sửa ở cửa hàng khác, máy trầy, cấn móp, hư chức năng..." value="<?php echo htmlspecialchars((string) $task->features, ENT_QUOTES, 'UTF-8'); ?>"/>
+                                        <?php foreach (taskFeatureOptions() as $featureOption) { ?>
+                                        <label class="checkbox-inline feature-flag">
+                                            <input type="checkbox" name="featureFlags[]" value="<?php echo htmlspecialchars($featureOption, ENT_QUOTES, 'UTF-8'); ?>" <?php echo taskHasFeature($task->features, $featureOption) ? 'checked=""' : ''; ?>> <?php echo htmlspecialchars($featureOption, ENT_QUOTES, 'UTF-8'); ?>
+                                        </label>
+                                        <?php } ?>
                                     </div>
                                 </div>
                                 <div class="form-group">

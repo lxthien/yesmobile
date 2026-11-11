@@ -382,6 +382,49 @@ function taskNoteGap($row, $item) {
     return '<span class="task-note-gap"></span>';
 }
 
+/** Các ô tick nhanh của mục Đặc điểm (lưu trong tasks.features, cách nhau bằng dấu .) */
+function taskFeatureOptions() {
+    return array(
+        'Không kiểm tra được chức năng.',
+        'LL qua Zalo.',
+        'Khách đã đồng ý rủi ro mất hết dữ liệu.',
+        'Khách đã đồng ý rủi ro mất nguồn.',
+    );
+}
+
+/** Kiểm tra chuỗi Đặc điểm có chứa tùy chọn $option (dạng câu ngăn cách bởi dấu .) hay chưa */
+function taskHasFeature($features, $option) {
+    $base = rtrim(trim((string) $option), '.');
+    if ($base === '') {
+        return false;
+    }
+    return (bool) preg_match('/(?:^|\.\s*)' . preg_quote($base, '/') . '(?:\.\s*|\s*$)/iu', (string) $features);
+}
+
+/** Gộp các tùy chọn Đặc điểm đã tick vào chuỗi features (cách nhau bằng dấu .) */
+function taskMergeFeatures($features, $selectedOptions) {
+    $text = trim((string) $features);
+    if (!is_array($selectedOptions)) {
+        return $text;
+    }
+    $validOptions = taskFeatureOptions();
+    foreach ($selectedOptions as $opt) {
+        if (!in_array($opt, $validOptions, true) || taskHasFeature($text, $opt)) {
+            continue;
+        }
+        $base = rtrim(trim($opt), '.');
+        if ($text === '') {
+            $text = $base . '.';
+        } else {
+            if (substr(rtrim($text), -1) !== '.') {
+                $text = rtrim($text) . '.';
+            }
+            $text .= ' ' . $base . '.';
+        }
+    }
+    return $text;
+}
+
 /** Các ô tick của mục Cập nhật (lưu trong tasks.updateFlags) */
 function taskUpdateFlagOptions() {
     return array(

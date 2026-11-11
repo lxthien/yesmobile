@@ -56,4 +56,52 @@ $(document).ready(function() {
     $(function() {
         $('.customers').find('#dataTable_filter label span').html('Tìm kiếm khách hàng:');
     });
+
+    // Đồng bộ các ô tick nhanh của mục "Đặc điểm" với ô nhập Đặc điểm (cách nhau bằng dấu .)
+    var $taskForm = $('#taskForm');
+    var $taskFeatures = $('#taskFeatures');
+    if ($taskForm.length && $taskFeatures.length) {
+        var $featureCheckboxes = $taskForm.find('input[name="featureFlags[]"]');
+        var escapeFeatureRe = function(s) {
+            return s.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&');
+        };
+        var baseFeatureText = function(opt) {
+            return $.trim((opt || '').replace(/\.+\s*$/, ''));
+        };
+        var hasFeatureOption = function(text, opt) {
+            var base = baseFeatureText(opt);
+            if (!base) return false;
+            return new RegExp('(?:^|\\.\\s*)' + escapeFeatureRe(base) + '(?:\\.\\s*|\\s*$)', 'i').test(text || '');
+        };
+
+        $featureCheckboxes.on('change', function() {
+            var val = $(this).val();
+            var base = baseFeatureText(val);
+            var cur = $.trim($taskFeatures.val() || '');
+            if ($(this).is(':checked')) {
+                if (!hasFeatureOption(cur, val)) {
+                    if (cur === '') {
+                        cur = base + '.';
+                    } else {
+                        if (!/\.$/.test(cur)) cur += '.';
+                        cur += ' ' + base + '.';
+                    }
+                    $taskFeatures.val(cur);
+                }
+            } else {
+                var re = new RegExp('(^|\\.\\s*)' + escapeFeatureRe(base) + '(?:\\.\\s*|\\s*$)', 'i');
+                cur = $.trim(cur.replace(re, function(m, lead) {
+                    return lead ? '. ' : '';
+                }).replace(/\.\s*$/, '.'));
+                $taskFeatures.val(cur);
+            }
+        });
+
+        $taskFeatures.on('input', function() {
+            var cur = $(this).val() || '';
+            $featureCheckboxes.each(function() {
+                $(this).prop('checked', hasFeatureOption(cur, $(this).val()));
+            });
+        });
+    }
 });

@@ -112,7 +112,7 @@
 
         <script src="<?php echo base_url().'assets/admin'; ?>/assets/js/simple.money.format.js"></script>
 
-        <script src="<?php echo base_url().'assets/admin'; ?>/assets/js/site.js"></script>
+        <script src="<?php echo base_url().'assets/admin'; ?>/assets/js/site.js?v=<?php echo time(); ?>"></script>
 
         <script>
             $(function() {
@@ -1239,7 +1239,8 @@
                     }
 
                     if ( $(this).find('input[name="taskStatus"]:checked').val() == 1 ) {
-                        if (isNoRepair || $(this).find('input[name="timeWarranty"]').val() != 0) {
+                        // Máy không sửa hoặc "Sửa hỗ trợ, không tính phí" / "Bảo hành, không mất phí": không yêu cầu nhập ngày bảo hành
+                        if (isNoCharge || $(this).find('input[name="timeWarranty"]').val() != 0) {
                             e.currentTarget.submit();
                         } else {
                             $('#confirmDialog').dialog('open');

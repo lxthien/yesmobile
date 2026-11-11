@@ -236,7 +236,7 @@
                 // Giá linh kiện (tổng giá LK + phí ship): chỉ giữ chữ số, bỏ dấu phẩy/chấm
                 $accessoryPrice = preg_replace('/[^\d]/', '', (string) $this->input->post('accessoryPrice'));
                 $task['accessoryPrice'] = $accessoryPrice === '' ? 0 : (int) $accessoryPrice;
-                $task['features'] = $this->input->post('features');
+                $task['features'] = taskMergeFeatures($this->input->post('features'), $this->input->post('featureFlags'));
                 $task['phieu'] = $this->input->post('phieu');
                 $task['khachMuonMay'] = $this->input->post('khachMuonMay');
 
