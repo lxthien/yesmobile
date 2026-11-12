@@ -72,6 +72,11 @@
                 $timeWarranty = $last->taskStatus == 1 ? formatTime($last->warrantyPeriod) : 'Không có';
             }
 
+            // Ngày sửa đầu tiên: lấy ngày tạo khách hàng (customers.created); khách cũ trước 2021 có created = 0000-00-00 thì lấy ngày phiếu đầu tiên
+            $firstDate = (!empty($r->created) && $r->created != '0000-00-00 00:00:00')
+                ? $r->created
+                : ($summary && !empty($summary->firstCreated) ? $summary->firstCreated : '');
+
             return array(
                 "id" => $r->id,
                 "customer1" => $r->name,
@@ -88,7 +93,8 @@
                 '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank"><i class="fa fa-history"></i></a>',
                 "customer12" => $r->shop != 2 ? 'Vũng tàu' : 'Long Sơn',
                 "customer13" => '<a href="' . base_url().'tasks/add/customer/'.$r->id . '" title="Thêm máy sửa" target="_blank">+ Thêm máy sửa</a>',
-                "customer14" => '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank">Xem lịch sử</a>'
+                "customer14" => '<a href="' . base_url().'customers/histories/'.$r->id. '" title="Lịch sử" target="_blank">Xem lịch sử</a>',
+                "customer15" => formatDate($firstDate)
             );
         }
 

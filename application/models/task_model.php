@@ -584,7 +584,7 @@
             if (count($customerIDs) == 0) {
                 return $result;
             }
-            $this->db->select('customer_id, COUNT(*) AS total, SUM(phonePrice) AS price', FALSE);
+            $this->db->select('customer_id, COUNT(*) AS total, SUM(phonePrice) AS price, MIN(created) AS firstCreated', FALSE);
             $this->db->from($this->primary_table);
             $this->db->where_in('customer_id', $customerIDs);
             $this->db->group_by('customer_id');

@@ -182,6 +182,7 @@
                         { "data": "customer2" },
                         { "data": "customer13" },
                         { "data": "customer14" },
+                        { "data": "customer15", "defaultContent": "" },
                         { "data": "customer9" },
                         { "data": "customer10" },
                         { "data": "customer12" },

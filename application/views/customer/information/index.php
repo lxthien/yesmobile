@@ -32,6 +32,7 @@
                                         <th>Số Điện Thoại</th>
                                         <th>Thêm máy sửa mới</th>
                                         <th>Lịch sử đã sửa</th>
+                                        <th>Ngày sửa đầu tiên</th>
                                         <th>Tổng máy sửa</th>
                                         <th>Tổng chi phí</th>
                                         <th>Cửa Hàng Sửa</th>
