@@ -146,7 +146,23 @@
                                         <div class="checkbox no-padding-left">
                                             <label>
                                                 <input class="uniform" type="radio" name="useAccessories" value="2" <?php echo $task->useAccessories == 2 ? 'checked=""' : ''; ?>><span>&nbsp; Đã đặt hàng</span>
-                                                <input class="form-control" type="text" name="manufactory" value="<?php echo $task->manufactory; ?>" placeholder="Nhà cung cấp">
+                                                <?php
+                                                    $currentManufactory = trim((string) $task->manufactory);
+                                                    $matchedSupplier = false;
+                                                    $supplierOptions = isset($suppliers) && is_array($suppliers) ? $suppliers : array();
+                                                ?>
+                                                <select class="form-control" name="manufactory">
+                                                    <option value="">-- Chọn nhà cung cấp --</option>
+                                                    <?php foreach ($supplierOptions as $sup):
+                                                        $selected = ($currentManufactory !== '' && mb_strtolower($currentManufactory, 'UTF-8') === mb_strtolower(trim($sup->name), 'UTF-8'));
+                                                        if ($selected) $matchedSupplier = true;
+                                                    ?>
+                                                    <option value="<?php echo htmlspecialchars($sup->name, ENT_QUOTES, 'UTF-8'); ?>" <?php echo $selected ? 'selected' : ''; ?>><?php echo htmlspecialchars($sup->name, ENT_QUOTES, 'UTF-8'); ?></option>
+                                                    <?php endforeach; ?>
+                                                    <?php if ($currentManufactory !== '' && !$matchedSupplier): ?>
+                                                    <option value="<?php echo htmlspecialchars($currentManufactory, ENT_QUOTES, 'UTF-8'); ?>" selected><?php echo htmlspecialchars($currentManufactory, ENT_QUOTES, 'UTF-8'); ?></option>
+                                                    <?php endif; ?>
+                                                </select>
                                             </label>
                                         </div>
                                         <div class="checkbox no-padding-left accessory-price">

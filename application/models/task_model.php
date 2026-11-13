@@ -26,6 +26,11 @@
             return 'SUM(IF(technicalFinish IN (' . implode(',', self::$noChargeTechnicalStatuses) . '), 0, phonePrice))';
         }
 
+        /** Biểu thức SQL cộng doanh thu theo hình thức thanh toán (chuyen_khoan / tien_mat), bỏ qua phiếu không thu tiền */
+        public static function paymentRevenueSql($method) {
+            return "SUM(IF(COALESCE(technicalFinish, 0) NOT IN (" . implode(',', self::$noChargeTechnicalStatuses) . ") AND paymentMethod = '" . $method . "', phonePrice, 0))";
+        }
+
         /**
          * Biểu thức SQL cộng giá linh kiện: cộng cả phiếu không thu tiền (VD máy bảo hành không sửa được phải trả lại tiền
          * cho khách, nhập vào Giá LK) để trừ vào lợi nhuận (giống trang Doanh thu theo ngày)
@@ -636,9 +641,17 @@
             }
         }
 
-        /** Số máy, doanh thu, số máy không sửa theo từng cặp (thương hiệu, hạng mục) */
+        /** Số máy, doanh thu (gồm chuyển khoản / tiền mặt), số máy không sửa theo từng cặp (thương hiệu, hạng mục) */
         public function statsByCategory($timeFrom, $timeTo, $shop) {
-            $this->db->select('brandId, repairCategoryId, COUNT(*) AS total, ' . self::revenueSql() . ' AS revenue, ' . self::accessorySql() . ' AS accessory, SUM(technicalFinish IN (2,3,4,5)) AS noRepair', FALSE);
+            $this->db->select(
+                'brandId, repairCategoryId, COUNT(*) AS total, '
+                . self::revenueSql() . ' AS revenue, '
+                . self::paymentRevenueSql('chuyen_khoan') . ' AS transferRevenue, '
+                . self::paymentRevenueSql('tien_mat') . ' AS cashRevenue, '
+                . self::accessorySql() . ' AS accessory, '
+                . 'SUM(technicalFinish IN (2,3,4,5)) AS noRepair',
+                FALSE
+            );
             $this->_statsFilter($timeFrom, $timeTo, $shop);
             $this->db->group_by(array('brandId', 'repairCategoryId'));
             return $this->db->get()->result();
@@ -649,6 +662,24 @@
             $this->db->select('technicalFinish, COUNT(*) AS total, ' . self::revenueSql() . ' AS revenue, ' . self::accessorySql() . ' AS accessory', FALSE);
             $this->_statsFilter($timeFrom, $timeTo, $shop);
             $this->db->group_by('technicalFinish');
+            return $this->db->get()->result();
+        }
+
+        /** Số lần lấy hàng (số máy) và tổng chi phí linh kiện theo nhà cung cấp (chỉ phiếu có đặt hàng / có nhà cung cấp) */
+        public function statsBySupplier($timeFrom, $timeTo, $shop) {
+            $this->db->select('manufactory, COUNT(*) AS total, ' . self::accessorySql() . ' AS accessory', FALSE);
+            $this->_statsFilter($timeFrom, $timeTo, $shop);
+            $this->db->where("(useAccessories = 2 OR TRIM(IFNULL(manufactory, '')) <> '')", NULL, FALSE);
+            $this->db->group_by('manufactory');
+            return $this->db->get()->result();
+        }
+
+        /** Danh sách phiếu có lấy linh kiện nhà cung cấp trong kỳ */
+        public function statsSupplierTasks($timeFrom, $timeTo, $shop) {
+            $this->db->select('*');
+            $this->_statsFilter($timeFrom, $timeTo, $shop);
+            $this->db->where("(useAccessories = 2 OR TRIM(IFNULL(manufactory, '')) <> '')", NULL, FALSE);
+            $this->db->order_by('timeClosedTask', 'asc');
             return $this->db->get()->result();
         }
 

@@ -69,6 +69,8 @@
                                 <div class="stats-card"><span>Máy đã giao</span><b><?php echo $money($summary['total']); ?></b></div>
                                 <div class="stats-card"><span>Doanh thu</span><b><?php echo $money($summary['revenue']); ?></b></div>
                                 <div class="stats-card stats-card-profit"><span>Lợi nhuận <small>(doanh thu − linh kiện <?php echo $money($summary['accessory']); ?>)</small></span><b><?php echo $money($profit($summary)); ?></b></div>
+                                <div class="stats-card stats-card-transfer"><span>Chuyển khoản</span><b><?php echo $money($summary['transferRevenue']); ?></b></div>
+                                <div class="stats-card stats-card-cash"><span>Tiền mặt</span><b><?php echo $money($summary['cashRevenue']); ?></b></div>
                                 <div class="stats-card"><span>Không sửa / Khách đổi ý</span><b><?php echo $money($summary['noRepair']); ?></b></div>
                                 <?php
                                     $unBrand = isset($byBrand[0]) ? $byBrand[0]['total'] : 0;
@@ -111,6 +113,38 @@
                                                 <td class="num">100%</td>
                                                 <td class="num"><?php echo $money($summary['revenue']); ?></td>
                                             </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h4 class="stats-title">Nhà cung cấp linh kiện</h4>
+                                    <table class="table table-bordered table-condensed table-striped table-hover table-data stats-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nhà cung cấp</th>
+                                                <th class="num">Số máy</th>
+                                                <th class="num">Tổng chi phí linh kiện</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php if (empty($bySupplier)): ?>
+                                            <tr>
+                                                <td colspan="3" class="center">Chưa có dữ liệu nhà cung cấp linh kiện.</td>
+                                            </tr>
+                                            <?php else: ?>
+                                            <?php foreach ($bySupplier as $sid => $row): ?>
+                                            <tr class="<?php echo ($detailSupplier === $sid) ? 'stats-active' : ''; ?>">
+                                                <td><a href="<?php echo $statsUrl(array('supplier' => $sid)); ?>#chi-tiet"><?php echo $h(isset($supplierNames[$sid]) ? $supplierNames[$sid] : 'Khác'); ?></a></td>
+                                                <td class="num"><b><?php echo $money($row['total']); ?></b></td>
+                                                <td class="num"><?php echo $money($row['accessory']); ?></td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                            <tr class="stats-total">
+                                                <td>Tổng</td>
+                                                <td class="num"><?php echo $money($supplierSummary['total']); ?></td>
+                                                <td class="num"><?php echo $money($supplierSummary['accessory']); ?></td>
+                                            </tr>
+                                            <?php endif; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -215,6 +249,7 @@
                                     if ($detailBrand !== null) $parts[] = $h(isset($brandNames[$detailBrand]) ? $brandNames[$detailBrand] : '?');
                                     if ($detailRepair !== null) $parts[] = $h(isset($repairNames[$detailRepair]) ? $repairNames[$detailRepair] : '?');
                                     if ($detailTechnical !== null) $parts[] = $h(isset($technicalNames[$detailTechnical]) ? $technicalNames[$detailTechnical] : '?');
+                                    if ($detailSupplier !== null) $parts[] = 'NCC: ' . $h(isset($supplierNames[$detailSupplier]) ? $supplierNames[$detailSupplier] : 'Khác');
                                     echo implode(' · ', $parts) . ' (' . count($detailTasks) . ' máy)';
                                 ?>
                                 <a class="stats-close" href="<?php echo $statsUrl(); ?>">Đóng</a>

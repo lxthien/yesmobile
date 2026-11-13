@@ -36,8 +36,16 @@
                             </div>
 
                             <div class="row">
-                                <?php foreach (array('brand' => array('Thương hiệu', $brands), 'repair' => array('Hạng mục sửa', $repairs)) as $type => $block): list($title, $items) = $block; ?>
-                                <div class="col-lg-6" id="<?php echo $type; ?>">
+                                <?php
+                                    $blocks = array(
+                                        'brand' => array('Thương hiệu', $brands, 'col-lg-6', 'VD: infinix, tecno'),
+                                        'repair' => array('Hạng mục sửa', $repairs, 'col-lg-6', 'VD: bản lề, sườn'),
+                                        'supplier' => array('Nhà cung cấp linh kiện', isset($suppliers) ? $suppliers : array(), 'col-lg-12', 'VD: mr tư, a tư'),
+                                    );
+                                    foreach ($blocks as $type => $block):
+                                        list($title, $items, $colClass, $kwPlaceholder) = $block;
+                                ?>
+                                <div class="<?php echo $colClass; ?>" id="<?php echo $type; ?>">
                                     <h4 class="stats-title"><?php echo $title; ?></h4>
                                     <?php
                                         // Mỗi dòng 1 form (form nằm ngoài bảng, ô nhập gắn bằng thuộc tính form="...")
@@ -69,7 +77,7 @@
                                                     <input form="<?php echo $fid; ?>" type="hidden" name="type" value="<?php echo $type; ?>">
                                                     <input form="<?php echo $fid; ?>" type="text" name="name" class="form-control input-sm" value="<?php echo $item ? $h($item->name) : ''; ?>" placeholder="<?php echo $item ? '' : 'Thêm mới...'; ?>" required maxlength="100">
                                                 </td>
-                                                <td><textarea form="<?php echo $fid; ?>" name="keywords" class="form-control input-sm" rows="<?php echo $item ? min(5, max(1, (int) ceil(mb_strlen((string) $item->keywords, 'UTF-8') / 42))) : 1; ?>" placeholder="<?php echo $item ? '' : ($type == 'brand' ? 'VD: infinix, tecno' : 'VD: bản lề, sườn'); ?>"><?php echo $item ? $h($item->keywords) : ''; ?></textarea></td>
+                                                <td><textarea form="<?php echo $fid; ?>" name="keywords" class="form-control input-sm" rows="<?php echo $item ? min(5, max(1, (int) ceil(mb_strlen((string) $item->keywords, 'UTF-8') / 42))) : 1; ?>" placeholder="<?php echo $item ? '' : $kwPlaceholder; ?>"><?php echo $item ? $h($item->keywords) : ''; ?></textarea></td>
                                                 <td><input form="<?php echo $fid; ?>" type="number" name="sortOrder" class="form-control input-sm" value="<?php echo $item ? (int) $item->sortOrder : 50; ?>"></td>
                                                 <td class="center"><input form="<?php echo $fid; ?>" type="checkbox" name="active" value="1" <?php echo (!$item || $item->active) ? 'checked' : ''; ?>></td>
                                                 <td><button form="<?php echo $fid; ?>" type="submit" class="btn <?php echo $item ? 'btn-default' : 'btn-primary'; ?> btn-xs"><?php echo $item ? 'Lưu' : 'Thêm'; ?></button></td>

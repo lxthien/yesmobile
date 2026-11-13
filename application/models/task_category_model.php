@@ -20,13 +20,48 @@
         }
 
         public static function types() {
-            return array('brand' => 'Thương hiệu', 'repair' => 'Hạng mục sửa');
+            return array(
+                'brand' => 'Thương hiệu',
+                'repair' => 'Hạng mục sửa',
+                'supplier' => 'Nhà cung cấp linh kiện',
+            );
+        }
+
+        /** Danh sách nhà cung cấp mặc định (tự khởi tạo lần đầu nếu bảng chưa có dữ liệu supplier) */
+        private function ensureDefaultSuppliers() {
+            $count = $this->db->where('type', 'supplier')->count_all_results($this->primary_table);
+            if ($count > 0) {
+                return;
+            }
+            $defaults = array(
+                array('Envy',        'envy',                 1),
+                array('555',         '555',                  2),
+                array('Thành Tuyên', 'thành tuyên',          3),
+                array('Mr Tư',       'mr tư, a tư, anh tư',  4),
+                array('Văn Hiến',    'văn hiến',             5),
+                array('Mr Đức',      'mr đức',               6),
+                array('Mr Thanh',    'mr thanh',             7),
+                array('TT Samsung',  'tt samsung',           8),
+                array('Khác',        '',                    99),
+            );
+            foreach ($defaults as $row) {
+                $this->db->insert($this->primary_table, array(
+                    'type' => 'supplier',
+                    'name' => $row[0],
+                    'keywords' => $row[1],
+                    'sortOrder' => $row[2],
+                    'active' => 1,
+                ));
+            }
         }
 
         /** Danh sách theo loại, theo thứ tự hiển thị */
         public function readByType($type, $activeOnly = false) {
             $key = $type . ($activeOnly ? ':active' : ':all');
             if (!isset($this->cache[$key])) {
+                if ($type === 'supplier') {
+                    $this->ensureDefaultSuppliers();
+                }
                 $this->db->select('*');
                 $this->db->from($this->primary_table);
                 $this->db->where('type', $type);
@@ -177,7 +212,12 @@
                 $this->patterns[$type] = array();
                 foreach ($this->readByType($type, true) as $row) {
                     $patterns = array();
-                    foreach (self::splitKeywords($row->keywords) as $keyword) {
+                    $keywords = self::splitKeywords($row->keywords);
+                    $normName = self::normalize($row->name);
+                    if ($type === 'supplier' && $normName !== '' && $normName !== 'khác' && !in_array($normName, $keywords, true)) {
+                        array_unshift($keywords, $normName);
+                    }
+                    foreach ($keywords as $keyword) {
                         $patterns[] = array(
                             // nguyên từ: trước không phải chữ/số, sau không phải chữ (cho phép số: "iphone7", "a52")
                             'regex' => '/(?<![\p{L}\p{N}])' . preg_quote($keyword, '/') . '(?!\p{L})/u',
@@ -188,6 +228,35 @@
                 }
             }
             return $this->patterns[$type];
+        }
+
+        /** ID của mục "Khác" trong 1 loại danh mục (0 nếu không có) */
+        public function otherId($type) {
+            foreach ($this->readByType($type) as $row) {
+                if (self::normalize($row->name) === 'khác') {
+                    return (int) $row->id;
+                }
+            }
+            return 0;
+        }
+
+        /**
+         * Quy chuỗi tên nhà cung cấp (tasks.manufactory) về id nhà cung cấp trong task_categories (type = supplier).
+         * Không khớp nhà cung cấp nào trong danh sách thì quy về mục "Khác".
+         */
+        public function resolveSupplierId($manufactory) {
+            $otherId = $this->otherId('supplier');
+            $norm = self::normalize($manufactory);
+            if ($norm === '' || $norm === 'khác') {
+                return $otherId;
+            }
+            foreach ($this->readByType('supplier') as $row) {
+                if (self::normalize($row->name) === $norm) {
+                    return (int) $row->id;
+                }
+            }
+            $guessed = $this->guess('supplier', $manufactory, false);
+            return $guessed ? (int) $guessed : $otherId;
         }
     }
 ?>

@@ -685,13 +685,25 @@ a.history-repair-again {
     text-decoration: line-through;
 }
 
-/* Thống kê: Lợi nhuận chữ đỏ, không in đậm */
+/* Thống kê: Lợi nhuận chữ xanh lá, Chuyển khoản chữ xanh đậm, Tiền mặt chữ đỏ */
 .statistics-page .stats-card-profit b {
+    color: #007802;
+}
+.statistics-page .stats-card-transfer b {
+    color: #000080;
+}
+.statistics-page .stats-card-cash b {
     color: #e00000;
 }
 .statistics-page .stats-card span small {
     font-size: 11px;
     color: #999;
+}
+.dat-linh-kien select[name="manufactory"] {
+    display: inline-block;
+    width: auto;
+    min-width: 170px;
+    vertical-align: middle;
 }
 .statistics-page th.stats-profit,
 .statistics-page td.stats-profit {

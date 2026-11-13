@@ -468,6 +468,7 @@
         private function _categoryFormData(&$data) {
             $data['brands'] = $this->task_category_model->readByType('brand');
             $data['repairs'] = $this->task_category_model->readByType('repair');
+            $data['suppliers'] = $this->task_category_model->readByType('supplier');
             $data['categoryGuess'] = array(
                 'brand' => $this->task_category_model->guessData('brand'),
                 'repair' => $this->task_category_model->guessData('repair'),
@@ -513,9 +514,11 @@
 
             $brandNames = array(0 => 'Chưa phân loại') + $this->task_category_model->namesByType('brand');
             $repairNames = array(0 => 'Chưa phân loại') + $this->task_category_model->namesByType('repair');
+            $supplierNames = array(0 => 'Khác') + $this->task_category_model->namesByType('supplier');
+            $otherSupplierId = $this->task_category_model->otherId('supplier');
 
             $empty = array('total' => 0, 'revenue' => 0, 'accessory' => 0, 'noRepair' => 0);
-            $summary = $empty;
+            $summary = $empty + array('transferRevenue' => 0, 'cashRevenue' => 0);
             $byBrand = array();
             $byRepair = array();
             $matrix = array();
@@ -523,6 +526,8 @@
             foreach ($rows as $row) {
                 $b = isset($brandNames[$row->brandId]) ? (int) $row->brandId : 0;
                 $r = isset($repairNames[$row->repairCategoryId]) ? (int) $row->repairCategoryId : 0;
+                $summary['transferRevenue'] += (float) $row->transferRevenue;
+                $summary['cashRevenue'] += (float) $row->cashRevenue;
                 foreach (array('total', 'revenue', 'accessory', 'noRepair') as $key) {
                     $value = (float) $row->$key;
                     $summary[$key] += $value;
@@ -555,20 +560,62 @@
             }
             ksort($byTechnical);
 
+            // Nhà cung cấp linh kiện: tổng số lần lấy hàng (số máy) và tổng tiền linh kiện từng nhà cung cấp
+            $bySupplier = array();
+            $supplierSummary = array('total' => 0, 'accessory' => 0);
+            foreach ($this->task_model->statsBySupplier($from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $shop) as $row) {
+                $sid = $this->task_category_model->resolveSupplierId($row->manufactory);
+                if (!isset($supplierNames[$sid])) {
+                    $sid = $otherSupplierId;
+                }
+                if (!isset($bySupplier[$sid])) {
+                    $bySupplier[$sid] = array('total' => 0, 'accessory' => 0);
+                }
+                $bySupplier[$sid]['total'] += (float) $row->total;
+                $bySupplier[$sid]['accessory'] += (float) $row->accessory;
+                $supplierSummary['total'] += (float) $row->total;
+                $supplierSummary['accessory'] += (float) $row->accessory;
+            }
+            uksort($bySupplier, function ($a, $b) use ($bySupplier, $otherSupplierId) {
+                $aOther = ($a == 0 || $a == $otherSupplierId);
+                $bOther = ($b == 0 || $b == $otherSupplierId);
+                if ($aOther != $bOther) return $aOther ? 1 : -1;
+                if ($bySupplier[$a]['total'] != $bySupplier[$b]['total']) return $bySupplier[$a]['total'] < $bySupplier[$b]['total'] ? 1 : -1;
+                return $bySupplier[$a]['accessory'] < $bySupplier[$b]['accessory'] ? 1 : -1;
+            });
+
             // Bấm vào 1 ô: danh sách phiếu (để kiểm tra / sửa phân loại)
             $detailBrand = $this->input->get('brand');
             $detailRepair = $this->input->get('cat');
             $detailTechnical = $this->input->get('tech');
+            $detailSupplier = $this->input->get('supplier');
             $detailBrand = ($detailBrand !== false && $detailBrand !== '' && ctype_digit((string) $detailBrand)) ? (int) $detailBrand : null;
             $detailRepair = ($detailRepair !== false && $detailRepair !== '' && ctype_digit((string) $detailRepair)) ? (int) $detailRepair : null;
             $detailTechnical = ($detailTechnical !== false && $detailTechnical !== '' && ctype_digit((string) $detailTechnical)) ? (int) $detailTechnical : null;
+            $detailSupplier = ($detailSupplier !== false && $detailSupplier !== '' && ctype_digit((string) $detailSupplier)) ? (int) $detailSupplier : null;
             $data['detailTasks'] = null;
-            if ($detailBrand !== null || $detailRepair !== null || $detailTechnical !== null) {
+            if ($detailSupplier !== null) {
+                $allSupplierTasks = $this->task_model->statsSupplierTasks($from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $shop);
+                $filtered = array();
+                foreach ($allSupplierTasks as $row) {
+                    $sid = $this->task_category_model->resolveSupplierId($row->manufactory);
+                    if (!isset($supplierNames[$sid])) $sid = $otherSupplierId;
+                    if ($sid === $detailSupplier) {
+                        $filtered[] = $row;
+                    }
+                }
+                $data['detailTasks'] = $filtered;
+            } elseif ($detailBrand !== null || $detailRepair !== null || $detailTechnical !== null) {
                 $data['detailTasks'] = $this->task_model->statsTasks($from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $shop, $detailBrand, $detailRepair, $detailTechnical);
             }
             $data['byTechnical'] = $byTechnical;
             $data['technicalNames'] = $technicalNames;
             $data['detailTechnical'] = $detailTechnical;
+            $data['bySupplier'] = $bySupplier;
+            $data['supplierNames'] = $supplierNames;
+            $data['supplierSummary'] = $supplierSummary;
+            $data['detailSupplier'] = $detailSupplier;
+            $data['otherSupplierId'] = $otherSupplierId;
             // Danh sách phiếu: sửa phân loại ngay tại chỗ (không mở form phiếu, không đổi ngày giao)
             $data['brands'] = $this->task_category_model->readByType('brand');
             $data['repairs'] = $this->task_category_model->readByType('repair');
@@ -589,11 +636,12 @@
             $this->load->view('customer', $data);
         }
 
-        /** Quản lý danh sách Thương hiệu / Hạng mục sửa + tự phân loại phiếu cũ */
+        /** Quản lý danh sách Thương hiệu / Hạng mục sửa / Nhà cung cấp linh kiện + tự phân loại phiếu cũ */
         public function categories() {
             $this->_requireAdminShop();
             $data['brands'] = $this->task_category_model->readByType('brand');
             $data['repairs'] = $this->task_category_model->readByType('repair');
+            $data['suppliers'] = $this->task_category_model->readByType('supplier');
             $data['unclassified'] = $this->task_model->countUnclassified();
             $data['done'] = (string) $this->input->get('done');
             $data['view'] = 'customer/task/categories';
