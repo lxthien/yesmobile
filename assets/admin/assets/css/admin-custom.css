@@ -705,6 +705,117 @@ a.history-repair-again {
     min-width: 170px;
     vertical-align: middle;
 }
+.statistics-page .stats-chart-box {
+    background: #fff;
+    border: 1px solid #e2e6ea;
+    border-radius: 3px;
+    padding: 12px 14px 8px;
+    margin-bottom: 18px;
+}
+.statistics-page .stats-chart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+.statistics-page .stats-chart-head .stats-title {
+    margin: 0;
+}
+.statistics-page .stats-chart-legend {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 12px;
+    color: #333;
+}
+.statistics-page .stats-chart-legend .legend-dot {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    vertical-align: -1px;
+    margin-right: 4px;
+}
+.statistics-page .stats-chart-legend .legend-revenue {
+    background: #000080;
+}
+.statistics-page .stats-chart-legend .legend-profit {
+    background: #007802;
+}
+.statistics-page .stats-chart-wrap {
+    position: relative;
+    width: 100%;
+}
+.statistics-page .stats-chart-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+}
+.statistics-page .stats-chart-svg .chart-grid {
+    stroke: #eef1f4;
+    stroke-width: 1;
+}
+.statistics-page .stats-chart-svg .chart-axis-zero {
+    stroke: #b9c2cb;
+    stroke-width: 1.2;
+}
+.statistics-page .stats-chart-svg .chart-ylabel,
+.statistics-page .stats-chart-svg .chart-xlabel {
+    fill: #666;
+    font-size: 11px;
+}
+.statistics-page .stats-chart-svg .chart-bar-revenue {
+    fill: #000080;
+}
+.statistics-page .stats-chart-svg .chart-bar-profit {
+    fill: #007802;
+}
+.statistics-page .stats-chart-svg .chart-hit {
+    fill: transparent;
+    cursor: pointer;
+}
+.statistics-page .stats-chart-svg .chart-col:hover .chart-hit {
+    fill: rgba(0, 0, 0, 0.04);
+}
+.statistics-page .stats-chart-tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.97);
+    border: 1px solid #cfd6dd;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+    padding: 7px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    z-index: 20;
+    min-width: 165px;
+}
+.statistics-page .stats-chart-tooltip .tt-title {
+    font-weight: bold;
+    color: #222;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 4px;
+    padding-bottom: 3px;
+}
+.statistics-page .stats-chart-tooltip .tt-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+.statistics-page .stats-chart-tooltip .tt-rev,
+.statistics-page .stats-chart-tooltip .tt-rev + b {
+    color: #000080;
+}
+.statistics-page .stats-chart-tooltip .tt-prof,
+.statistics-page .stats-chart-tooltip .tt-prof + b {
+    color: #007802;
+}
+.statistics-page .stats-chart-tooltip .tt-acc {
+    color: #777;
+}
 .statistics-page th.stats-profit,
 .statistics-page td.stats-profit {
     color: #e00000 !important;

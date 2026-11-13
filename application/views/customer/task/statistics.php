@@ -239,6 +239,107 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <?php
+                                $chartMaxVal = 0;
+                                $chartMinVal = 0;
+                                foreach ($chartSeries as $pt) {
+                                    if ($pt['revenue'] > $chartMaxVal) $chartMaxVal = $pt['revenue'];
+                                    if ($pt['profit'] > $chartMaxVal) $chartMaxVal = $pt['profit'];
+                                    if ($pt['profit'] < $chartMinVal) $chartMinVal = $pt['profit'];
+                                }
+                                $rawSpan = max(1, $chartMaxVal - $chartMinVal);
+                                $pow10 = pow(10, floor(log10($rawSpan / 4)));
+                                $norm = ($rawSpan / 4) / $pow10;
+                                $niceMult = $norm <= 1 ? 1 : ($norm <= 2 ? 2 : ($norm <= 5 ? 5 : 10));
+                                $yStep = max(100000, $niceMult * $pow10);
+                                $yTop = ceil($chartMaxVal / $yStep) * $yStep;
+                                if ($yTop <= 0) $yTop = $yStep;
+                                $yBottom = $chartMinVal < 0 ? floor($chartMinVal / $yStep) * $yStep : 0;
+                                $ySpan = max(1, $yTop - $yBottom);
+
+                                $svgW = 1120;
+                                $svgH = 250;
+                                $padL = 58;
+                                $padR = 16;
+                                $padT = 16;
+                                $padB = 28;
+                                $plotW = $svgW - $padL - $padR;
+                                $plotH = $svgH - $padT - $padB;
+                                $zeroY = $padT + ($yTop / $ySpan) * $plotH;
+                                $countPt = max(1, count($chartSeries));
+                                $slotW = $plotW / $countPt;
+                                $barW = min(22, max(4, ($slotW * 0.68) / 2));
+                                $barGap = max(1.5, min(4, $slotW * 0.08));
+
+                                $fmtShort = function ($v) {
+                                    if ($v == 0) return '0';
+                                    $abs = abs($v);
+                                    $sign = $v < 0 ? '-' : '';
+                                    if ($abs >= 1000000) {
+                                        $m = $abs / 1000000;
+                                        return $sign . (abs($m - round($m)) < 0.05 ? round($m) : number_format($m, 1)) . 'tr';
+                                    }
+                                    if ($abs >= 1000) {
+                                        return $sign . round($abs / 1000) . 'k';
+                                    }
+                                    return $sign . number_format($abs);
+                                };
+                            ?>
+                            <div class="stats-chart-box">
+                                <div class="stats-chart-head">
+                                    <h4 class="stats-title"><?php echo $period === 'year' ? 'Biểu đồ doanh thu &amp; lợi nhuận 12 tháng' : 'Biểu đồ doanh thu &amp; lợi nhuận theo ngày'; ?></h4>
+                                    <div class="stats-chart-legend">
+                                        <span><i class="legend-dot legend-revenue"></i> Doanh thu</span>
+                                        <span><i class="legend-dot legend-profit"></i> Lợi nhuận</span>
+                                    </div>
+                                </div>
+                                <div class="stats-chart-wrap" id="statsChartWrap">
+                                    <svg class="stats-chart-svg" viewBox="0 0 <?php echo $svgW . ' ' . $svgH; ?>" preserveAspectRatio="xMidYMid meet">
+                                        <?php for ($yv = $yBottom; $yv <= $yTop + 0.001; $yv += $yStep):
+                                            $yy = $padT + (($yTop - $yv) / $ySpan) * $plotH;
+                                            $isZero = abs($yv) < 0.001;
+                                        ?>
+                                        <line x1="<?php echo $padL; ?>" y1="<?php echo round($yy, 2); ?>" x2="<?php echo $svgW - $padR; ?>" y2="<?php echo round($yy, 2); ?>" class="<?php echo $isZero ? 'chart-axis-zero' : 'chart-grid'; ?>" />
+                                        <text x="<?php echo $padL - 8; ?>" y="<?php echo round($yy + 4, 2); ?>" text-anchor="end" class="chart-ylabel"><?php echo $fmtShort($yv); ?></text>
+                                        <?php endfor; ?>
+
+                                        <?php foreach ($chartSeries as $idx => $pt):
+                                            $cx = $padL + ($idx + 0.5) * $slotW;
+                                            $xRev = $cx - $barW - $barGap / 2;
+                                            $xProf = $cx + $barGap / 2;
+
+                                            $revY = $padT + (($yTop - max(0, $pt['revenue'])) / $ySpan) * $plotH;
+                                            $revH = max(0, $zeroY - $revY);
+
+                                            $profVal = $pt['profit'];
+                                            if ($profVal >= 0) {
+                                                $profY = $padT + (($yTop - $profVal) / $ySpan) * $plotH;
+                                                $profH = max(0, $zeroY - $profY);
+                                            } else {
+                                                $profY = $zeroY;
+                                                $profH = max(0, ($padT + (($yTop - $profVal) / $ySpan) * $plotH) - $zeroY);
+                                            }
+                                        ?>
+                                        <g class="chart-col"
+                                           data-title="<?php echo $h($pt['title']); ?>"
+                                           data-total="<?php echo (int) $pt['total']; ?>"
+                                           data-revenue="<?php echo $money($pt['revenue']); ?>"
+                                           data-profit="<?php echo $money($pt['profit']); ?>"
+                                           data-accessory="<?php echo $money($pt['accessory']); ?>">
+                                            <rect x="<?php echo round($padL + $idx * $slotW, 2); ?>" y="<?php echo $padT; ?>" width="<?php echo round($slotW, 2); ?>" height="<?php echo $plotH; ?>" class="chart-hit" />
+                                            <?php if ($revH > 0): ?>
+                                            <rect x="<?php echo round($xRev, 2); ?>" y="<?php echo round($revY, 2); ?>" width="<?php echo round($barW, 2); ?>" height="<?php echo round($revH, 2); ?>" rx="1.5" class="chart-bar-revenue" />
+                                            <?php endif; ?>
+                                            <?php if ($profH > 0): ?>
+                                            <rect x="<?php echo round($xProf, 2); ?>" y="<?php echo round($profY, 2); ?>" width="<?php echo round($barW, 2); ?>" height="<?php echo round($profH, 2); ?>" rx="1.5" class="chart-bar-profit" />
+                                            <?php endif; ?>
+                                            <text x="<?php echo round($cx, 2); ?>" y="<?php echo $svgH - 8; ?>" text-anchor="middle" class="chart-xlabel"><?php echo $h($pt['label']); ?></text>
+                                        </g>
+                                        <?php endforeach; ?>
+                                    </svg>
+                                    <div class="stats-chart-tooltip" id="statsChartTooltip" style="display:none;"></div>
+                                </div>
+                            </div>
                             <?php endif; ?>
 
                             <?php if ($detailTasks !== null): ?>

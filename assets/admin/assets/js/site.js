@@ -104,4 +104,35 @@ $(document).ready(function() {
             });
         });
     }
+
+    // Tooltip biểu đồ doanh thu & lợi nhuận trên trang /tasks/statistics
+    var $statsChartWrap = $('#statsChartWrap');
+    var $statsChartTip = $('#statsChartTooltip');
+    if ($statsChartWrap.length && $statsChartTip.length) {
+        $statsChartWrap
+            .on('mouseenter', '.chart-col', function() {
+                var $col = $(this);
+                $statsChartTip.empty().append(
+                    $('<div class="tt-title"></div>').text($col.attr('data-title') + ' (' + $col.attr('data-total') + ' máy)'),
+                    $('<div class="tt-row"></div>').append('<span class="tt-rev">Doanh thu:</span> ', $('<b></b>').text($col.attr('data-revenue'))),
+                    $('<div class="tt-row"></div>').append('<span class="tt-prof">Lợi nhuận:</span> ', $('<b></b>').text($col.attr('data-profit'))),
+                    $('<div class="tt-row"></div>').append('<span class="tt-acc">Linh kiện:</span> ', $('<span></span>').text($col.attr('data-accessory')))
+                ).show();
+            })
+            .on('mousemove', '.chart-col', function(e) {
+                var offset = $statsChartWrap.offset();
+                var x = e.pageX - offset.left + 12;
+                var y = e.pageY - offset.top - 10;
+                var wrapW = $statsChartWrap.innerWidth();
+                var tipW = $statsChartTip.outerWidth();
+                if (x + tipW > wrapW - 8) {
+                    x = e.pageX - offset.left - tipW - 12;
+                }
+                if (y < 4) y = 4;
+                $statsChartTip.css({ left: x + 'px', top: y + 'px' });
+            })
+            .on('mouseleave', '.chart-col', function() {
+                $statsChartTip.hide();
+            });
+    }
 });

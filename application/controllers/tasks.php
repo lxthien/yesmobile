@@ -620,6 +620,40 @@
             $data['brands'] = $this->task_category_model->readByType('brand');
             $data['repairs'] = $this->task_category_model->readByType('repair');
 
+            // Biểu đồ doanh thu & lợi nhuận: theo 12 tháng (xem năm) hoặc từng ngày trong tháng (xem tháng)
+            $chartMap = array();
+            foreach ($this->task_model->statsTimeSeries($from->format('Y-m-d H:i:s'), $to->format('Y-m-d H:i:s'), $shop, $data['period']) as $row) {
+                $rev = (float) $row->revenue;
+                $acc = (float) $row->accessory;
+                $chartMap[(int) $row->bucket] = array(
+                    'total' => (int) $row->total,
+                    'revenue' => $rev,
+                    'accessory' => $acc,
+                    'profit' => $rev - $acc,
+                );
+            }
+            $chartSeries = array();
+            if ($data['period'] === 'year') {
+                for ($m = 1; $m <= 12; $m++) {
+                    $point = isset($chartMap[$m]) ? $chartMap[$m] : array('total' => 0, 'revenue' => 0, 'accessory' => 0, 'profit' => 0);
+                    $chartSeries[] = array(
+                        'label' => 'T' . $m,
+                        'title' => 'Tháng ' . $m . '/' . $year,
+                    ) + $point;
+                }
+            } else {
+                $daysInMonth = (int) $from->format('t');
+                $monthLabel = $from->format('m/Y');
+                for ($d = 1; $d <= $daysInMonth; $d++) {
+                    $point = isset($chartMap[$d]) ? $chartMap[$d] : array('total' => 0, 'revenue' => 0, 'accessory' => 0, 'profit' => 0);
+                    $chartSeries[] = array(
+                        'label' => (string) $d,
+                        'title' => sprintf('Ngày %02d/%s', $d, $monthLabel),
+                    ) + $point;
+                }
+            }
+
+            $data['chartSeries'] = $chartSeries;
             $data['month'] = $month;
             $data['prevMonth'] = $prev->format('Y-m');
             $data['nextMonth'] = $to->format('Y-m');

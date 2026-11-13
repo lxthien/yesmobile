@@ -665,6 +665,21 @@
             return $this->db->get()->result();
         }
 
+        /** Số máy, doanh thu, linh kiện theo từng ngày trong tháng hoặc từng tháng trong năm */
+        public function statsTimeSeries($timeFrom, $timeTo, $shop, $period = 'month') {
+            $bucketExpr = ($period === 'year') ? 'MONTH(timeClosedTask)' : 'DAY(timeClosedTask)';
+            $this->db->select(
+                $bucketExpr . ' AS bucket, COUNT(*) AS total, '
+                . self::revenueSql() . ' AS revenue, '
+                . self::accessorySql() . ' AS accessory',
+                FALSE
+            );
+            $this->_statsFilter($timeFrom, $timeTo, $shop);
+            $this->db->group_by($bucketExpr);
+            $this->db->order_by('bucket', 'asc');
+            return $this->db->get()->result();
+        }
+
         /** Số lần lấy hàng (số máy) và tổng chi phí linh kiện theo nhà cung cấp (chỉ phiếu có đặt hàng / có nhà cung cấp) */
         public function statsBySupplier($timeFrom, $timeTo, $shop) {
             $this->db->select('manufactory, COUNT(*) AS total, ' . self::accessorySql() . ' AS accessory', FALSE);
