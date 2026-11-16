@@ -816,6 +816,19 @@ a.history-repair-again {
 .statistics-page .stats-chart-tooltip .tt-acc {
     color: #777;
 }
+.statistics-page .stats-supplier-row {
+    margin-top: 8px;
+}
+.statistics-page .stats-supplier-hint {
+    margin-top: 32px;
+    padding: 18px 16px;
+    background: #fafbfc;
+    border: 1px dashed #d5dce2;
+    border-radius: 3px;
+    color: #777;
+    font-size: 13px;
+    text-align: center;
+}
 .statistics-page th.stats-profit,
 .statistics-page td.stats-profit {
     color: #e00000 !important;
@@ -849,6 +862,18 @@ a.history-repair-again {
 .revenue-table td.revenue-lksn {
     color: #000;
     font-weight: bold;
+}
+.revenue-table td.revenue-lksn .revenue-lksn-order {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 11px;
+}
+.revenue-table select.revenue-supplier-select {
+    min-width: 125px;
+    height: 26px;
+    padding: 2px 4px;
+    font-size: 12px;
+    font-weight: normal;
 }
 /* Ô sửa Giá LK tại chỗ */
 .revenue-table input.revenue-lk-input {

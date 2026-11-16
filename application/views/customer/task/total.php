@@ -79,7 +79,7 @@
                                             <th>Thiết bị</th>
                                             <th>Lỗi thiết bị</th>
                                             <th>Báo giá</th>
-                                            <th style="width: 100px;">LK/SN</th>
+                                            <th style="width: 135px;">LK/SN</th>
                                             <th>Giá LK</th>
                                             <th>Lợi nhuận</th>
                                             <th>Hướng xử lý</th>
@@ -112,8 +112,30 @@
                                                 <?php if ($paymentLabel != '') { ?><br><span class="revenue-paylabel"><?php echo $paymentLabel; ?></span><?php } ?>
                                             </td>
                                             <td class="revenue-lksn">
-                                                <?php echo $row->useAccessories == 1 ? '<span class="revenue-lksn-order">Đặt linh kiện</span>' : ''; ?>
-                                                <?php echo $row->useAccessories == 2 ? $row->manufactory : ''; ?>
+                                                <?php if ($row->useAccessories == 1): ?>
+                                                    <span class="revenue-lksn-order">Đặt linh kiện</span>
+                                                <?php endif; ?>
+                                                <?php
+                                                    $currentManufactory = $row->useAccessories == 2 ? trim((string) $row->manufactory) : '';
+                                                    $matchedSupplier = false;
+                                                    $supplierOptions = isset($suppliers) && is_array($suppliers) ? $suppliers : array();
+                                                ?>
+                                                <select class="form-control input-sm revenue-supplier-select"
+                                                        data-id="<?php echo (int) $row->id; ?>"
+                                                        data-saved="<?php echo htmlspecialchars($currentManufactory, ENT_QUOTES, 'UTF-8'); ?>"
+                                                        data-url="<?php echo base_url('tasks/setSupplier'); ?>">
+                                                    <option value="">-- Chọn NCC --</option>
+                                                    <?php foreach ($supplierOptions as $sup):
+                                                        $selected = ($currentManufactory !== '' && mb_strtolower($currentManufactory, 'UTF-8') === mb_strtolower(trim($sup->name), 'UTF-8'));
+                                                        if ($selected) $matchedSupplier = true;
+                                                    ?>
+                                                    <option value="<?php echo htmlspecialchars($sup->name, ENT_QUOTES, 'UTF-8'); ?>" <?php echo $selected ? 'selected' : ''; ?>><?php echo htmlspecialchars($sup->name, ENT_QUOTES, 'UTF-8'); ?></option>
+                                                    <?php endforeach; ?>
+                                                    <?php if ($currentManufactory !== '' && !$matchedSupplier): ?>
+                                                    <option value="<?php echo htmlspecialchars($currentManufactory, ENT_QUOTES, 'UTF-8'); ?>" selected><?php echo htmlspecialchars($currentManufactory, ENT_QUOTES, 'UTF-8'); ?></option>
+                                                    <?php endif; ?>
+                                                </select>
+                                                <span class="revenue-lk-status"></span>
                                             </td>
                                             <td class="num revenue-lk">
                                                 <?php // Sửa giá LK ngay tại đây: chỉ đổi giá LK, không đổi ngày giao máy hay thông tin khác ?>

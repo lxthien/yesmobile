@@ -116,7 +116,56 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-lg-6">
+                            </div>
+                            <?php
+                                $renderDetailTable = function ($tasks, $showCode) use ($h, $money, $select, $brands, $repairs) {
+                                    $sumAccessory = 0;
+                                    foreach ($tasks as $t) {
+                                        $sumAccessory += (float) $t->accessoryPrice;
+                                    }
+                            ?>
+                            <table class="table table-bordered table-condensed table-striped table-hover table-data stats-detail-table">
+                                <thead>
+                                    <tr>
+                                        <th>Ngày giao</th>
+                                        <?php if ($showCode): ?><th>Mã số</th><?php endif; ?>
+                                        <th>Tên thiết bị</th>
+                                        <th>Tình trạng</th>
+                                        <th>Thương hiệu</th>
+                                        <th>Hạng mục</th>
+                                        <th class="num">Báo giá</th>
+                                        <th class="num">Linh kiện</th>
+                                        <th>Cửa hàng</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($tasks as $row): ?>
+                                    <tr>
+                                        <td><?php echo date('d/m/Y', strtotime($row->timeClosedTask)); ?></td>
+                                        <?php if ($showCode): ?><td><?php echo $h('...' . substr($row->code, strlen($row->code) - 5)); ?></td><?php endif; ?>
+                                        <td><?php echo $h($row->phoneType); ?></td>
+                                        <td><?php echo $h($row->phoneStatus); ?></td>
+                                        <td><?php echo $select('brandId', $brands, $row->brandId, $row->id); ?></td>
+                                        <td><?php echo $select('repairCategoryId', $repairs, $row->repairCategoryId, $row->id); ?></td>
+                                        <td class="num"><?php echo taskNoRepairLabel($row->technicalFinish) != '' ? '<span style="color:red;">' . taskNoRepairLabel($row->technicalFinish) . '</span>' : (is_numeric($row->phonePrice) ? number_format($row->phonePrice) : $h($row->phonePrice)); ?></td>
+                                        <td class="num"><b><?php echo $money($row->accessoryPrice); ?></b></td>
+                                        <td><?php echo $row->shop == 2 ? 'Long Sơn' : 'Vũng Tàu'; ?></td>
+                                        <td><a href="<?php echo base_url('tasks/edit/' . $row->id); ?>" target="_blank">Sửa phiếu</a> <span class="uc-status"></span></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                    <?php if (!empty($tasks)): ?>
+                                    <tr class="stats-total">
+                                        <td colspan="<?php echo $showCode ? 7 : 6; ?>">Tổng (<?php echo count($tasks); ?> máy)</td>
+                                        <td class="num"><?php echo $money($sumAccessory); ?></td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                            <?php }; ?>
+                            <div class="row stats-supplier-row" id="nha-cung-cap">
+                                <div class="col-lg-4">
                                     <h4 class="stats-title">Nhà cung cấp linh kiện</h4>
                                     <table class="table table-bordered table-condensed table-striped table-hover table-data stats-table">
                                         <thead>
@@ -134,7 +183,7 @@
                                             <?php else: ?>
                                             <?php foreach ($bySupplier as $sid => $row): ?>
                                             <tr class="<?php echo ($detailSupplier === $sid) ? 'stats-active' : ''; ?>">
-                                                <td><a href="<?php echo $statsUrl(array('supplier' => $sid)); ?>#chi-tiet"><?php echo $h(isset($supplierNames[$sid]) ? $supplierNames[$sid] : 'Khác'); ?></a></td>
+                                                <td><a href="<?php echo $statsUrl(array('supplier' => $sid)); ?>#nha-cung-cap"><?php echo $h(isset($supplierNames[$sid]) ? $supplierNames[$sid] : 'Khác'); ?></a></td>
                                                 <td class="num"><b><?php echo $money($row['total']); ?></b></td>
                                                 <td class="num"><?php echo $money($row['accessory']); ?></td>
                                             </tr>
@@ -147,6 +196,17 @@
                                             <?php endif; ?>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="col-lg-8">
+                                    <?php if ($detailSupplier !== null && $detailTasks !== null): ?>
+                                    <h4 class="stats-title" id="chi-tiet">
+                                        Danh sách phiếu: NCC: <?php echo $h(isset($supplierNames[$detailSupplier]) ? $supplierNames[$detailSupplier] : 'Khác'); ?> (<?php echo count($detailTasks); ?> máy)
+                                        <a class="stats-close" href="<?php echo $statsUrl(); ?>#nha-cung-cap">Đóng</a>
+                                    </h4>
+                                    <?php $renderDetailTable($detailTasks, false); ?>
+                                    <?php else: ?>
+                                    <div class="stats-supplier-hint">Bấm vào tên một nhà cung cấp bên trái để xem danh sách phiếu và giá linh kiện đối chiếu.</div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="row">
@@ -239,6 +299,21 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <?php if ($detailTasks !== null && $detailSupplier === null): ?>
+                            <h4 class="stats-title" id="chi-tiet">
+                                Danh sách phiếu:
+                                <?php
+                                    $parts = array();
+                                    if ($detailBrand !== null) $parts[] = $h(isset($brandNames[$detailBrand]) ? $brandNames[$detailBrand] : '?');
+                                    if ($detailRepair !== null) $parts[] = $h(isset($repairNames[$detailRepair]) ? $repairNames[$detailRepair] : '?');
+                                    if ($detailTechnical !== null) $parts[] = $h(isset($technicalNames[$detailTechnical]) ? $technicalNames[$detailTechnical] : '?');
+                                    echo implode(' · ', $parts) . ' (' . count($detailTasks) . ' máy)';
+                                ?>
+                                <a class="stats-close" href="<?php echo $statsUrl(); ?>">Đóng</a>
+                            </h4>
+                            <p class="categories-note">Chọn lại Thương hiệu / Hạng mục ở 2 cột dưới là <b>lưu ngay</b>, chỉ đổi phân loại, không đổi ngày giao máy hay thông tin khác của phiếu. Bảng số liệu phía trên cập nhật khi tải lại trang.</p>
+                            <?php $renderDetailTable($detailTasks, true); ?>
+                            <?php endif; ?>
                             <?php
                                 $chartMaxVal = 0;
                                 $chartMinVal = 0;
@@ -340,52 +415,6 @@
                                     <div class="stats-chart-tooltip" id="statsChartTooltip" style="display:none;"></div>
                                 </div>
                             </div>
-                            <?php endif; ?>
-
-                            <?php if ($detailTasks !== null): ?>
-                            <h4 class="stats-title" id="chi-tiet">
-                                Danh sách phiếu:
-                                <?php
-                                    $parts = array();
-                                    if ($detailBrand !== null) $parts[] = $h(isset($brandNames[$detailBrand]) ? $brandNames[$detailBrand] : '?');
-                                    if ($detailRepair !== null) $parts[] = $h(isset($repairNames[$detailRepair]) ? $repairNames[$detailRepair] : '?');
-                                    if ($detailTechnical !== null) $parts[] = $h(isset($technicalNames[$detailTechnical]) ? $technicalNames[$detailTechnical] : '?');
-                                    if ($detailSupplier !== null) $parts[] = 'NCC: ' . $h(isset($supplierNames[$detailSupplier]) ? $supplierNames[$detailSupplier] : 'Khác');
-                                    echo implode(' · ', $parts) . ' (' . count($detailTasks) . ' máy)';
-                                ?>
-                                <a class="stats-close" href="<?php echo $statsUrl(); ?>">Đóng</a>
-                            </h4>
-                            <p class="categories-note">Chọn lại Thương hiệu / Hạng mục ở 2 cột dưới là <b>lưu ngay</b>, chỉ đổi phân loại, không đổi ngày giao máy hay thông tin khác của phiếu. Bảng số liệu phía trên cập nhật khi tải lại trang.</p>
-                            <table class="table table-bordered table-condensed table-striped table-hover table-data stats-detail-table">
-                                <thead>
-                                    <tr>
-                                        <th>Ngày giao</th>
-                                        <th>Mã số</th>
-                                        <th>Tên thiết bị</th>
-                                        <th>Tình trạng</th>
-                                        <th>Thương hiệu</th>
-                                        <th>Hạng mục</th>
-                                        <th>Báo giá</th>
-                                        <th>Cửa hàng</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($detailTasks as $row): ?>
-                                    <tr>
-                                        <td><?php echo date('d/m/Y', strtotime($row->timeClosedTask)); ?></td>
-                                        <td><?php echo $h('...' . substr($row->code, strlen($row->code) - 5)); ?></td>
-                                        <td><?php echo $h($row->phoneType); ?></td>
-                                        <td><?php echo $h($row->phoneStatus); ?></td>
-                                        <td><?php echo $select('brandId', $brands, $row->brandId, $row->id); ?></td>
-                                        <td><?php echo $select('repairCategoryId', $repairs, $row->repairCategoryId, $row->id); ?></td>
-                                        <td><?php echo taskNoRepairLabel($row->technicalFinish) != '' ? '<span style="color:red;">' . taskNoRepairLabel($row->technicalFinish) . '</span>' : (is_numeric($row->phonePrice) ? number_format($row->phonePrice) : $h($row->phonePrice)); ?></td>
-                                        <td><?php echo $row->shop == 2 ? 'Long Sơn' : 'Vũng Tàu'; ?></td>
-                                        <td><a href="<?php echo base_url('tasks/edit/' . $row->id); ?>" target="_blank">Sửa phiếu</a> <span class="uc-status"></span></td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
                             <?php endif; ?>
                         </div>
                     </div>

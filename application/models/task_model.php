@@ -811,6 +811,16 @@
             return true;
         }
 
+        /** Sửa nhà cung cấp linh kiện 1 phiếu tại chỗ (chỉ cột manufactory & useAccessories) */
+        public function setSupplier($id, $manufactory, $useAccessories) {
+            $this->db->where('id', (int) $id);
+            $this->db->update($this->primary_table, array(
+                'manufactory' => (string) $manufactory,
+                'useAccessories' => (int) $useAccessories,
+            ));
+            return true;
+        }
+
         /** Phân loại tay 1 phiếu (chỉ 2 cột brandId / repairCategoryId) */
         public function setCategory($id, $column, $value) {
             if (!in_array($column, array('brandId', 'repairCategoryId'))) {

@@ -135,4 +135,38 @@ $(document).ready(function() {
                 $statsChartTip.hide();
             });
     }
+
+    // Bổ sung / đổi nhà cung cấp linh kiện tại chỗ trên trang Doanh thu theo ngày
+    var $revenueTable = $('#revenueTable');
+    if ($revenueTable.length) {
+        $revenueTable.on('change', '.revenue-supplier-select', function() {
+            var $sel = $(this);
+            var val = $.trim($sel.val() || '');
+            if (val === ($sel.attr('data-saved') || '')) return;
+            var $cell = $sel.closest('td');
+            var $status = $cell.find('.revenue-lk-status');
+            $status.attr('class', 'revenue-lk-status').text('Đang lưu…');
+            $.ajax({
+                url: $sel.attr('data-url'),
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id: $sel.attr('data-id'),
+                    value: val
+                }
+            }).done(function(res) {
+                if (!res || !res.ok) {
+                    $status.attr('class', 'revenue-lk-status revenue-lk-fail').text('Lỗi, chưa lưu');
+                    return;
+                }
+                $sel.attr('data-saved', res.value);
+                if (res.value !== '') {
+                    $cell.find('.revenue-lksn-order').remove();
+                }
+                $status.attr('class', 'revenue-lk-status revenue-lk-ok').text('Đã lưu ✓');
+            }).fail(function() {
+                $status.attr('class', 'revenue-lk-status revenue-lk-fail').text('Lỗi mạng, chưa lưu');
+            });
+        });
+    }
 });

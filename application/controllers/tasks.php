@@ -116,6 +116,7 @@
             $data['tasksVT'] = $this->task_model->getAllTaskVT($timeFrom, $timeTo);
             $data['tasksLS'] = $this->task_model->getAllTaskLS($timeFrom, $timeTo);
             $data['timeSearch'] = $timeSearch;
+            $data['suppliers'] = $this->task_category_model->readByType('supplier');
 
             $data['view'] = 'customer/task/total';
             $this->load->view('customer', $data);
@@ -755,6 +756,50 @@
                             'user_id' => $this->ion_auth->user()->row()->id,
                             'task_id' => $id,
                             'tracks' => json_encode(array('accessoryPrice' => array('from' => (string) $old, 'to' => $value))),
+                            'created' => $createDate->format('Y-m-d H:i:s'),
+                        ));
+                    }
+                }
+            }
+            $this->output->set_content_type('application/json');
+            echo json_encode(array('ok' => (bool) $ok, 'value' => $value));
+        }
+
+        /**
+         * Trang Doanh thu theo ngày: bổ sung / đổi nhà cung cấp linh kiện tại chỗ (AJAX).
+         * Chỉ đổi manufactory & useAccessories, không đổi ngày giao máy hay bảo hành; có ghi lịch sử chỉnh sửa.
+         */
+        public function setSupplier() {
+            $this->_requireAdminShop();
+            $id = (int) $this->input->post('id');
+            $value = trim((string) $this->input->post('value'));
+            if (function_exists('mb_substr')) {
+                $value = mb_substr($value, 0, 255, 'UTF-8');
+            } else {
+                $value = substr($value, 0, 255);
+            }
+            $ok = false;
+            if ($this->input->server('REQUEST_METHOD') === 'POST' && $id > 0) {
+                $task = $this->task_model->read_by_id($id);
+                if ($task) {
+                    $oldManufactory = (string) $task->manufactory;
+                    $oldUseAccessories = (int) $task->useAccessories;
+                    $newUseAccessories = $value !== '' ? 2 : ($oldUseAccessories === 2 ? 0 : $oldUseAccessories);
+                    $ok = $this->task_model->setSupplier($id, $value, $newUseAccessories);
+                    if ($ok && ($oldManufactory !== $value || $oldUseAccessories !== $newUseAccessories)) {
+                        $tracks = array();
+                        if ($oldManufactory !== $value) {
+                            $tracks['manufactory'] = array('from' => $oldManufactory, 'to' => $value);
+                        }
+                        if ($oldUseAccessories !== $newUseAccessories) {
+                            $tracks['useAccessories'] = array('from' => (string) $oldUseAccessories, 'to' => (string) $newUseAccessories);
+                        }
+                        $createDate = new DateTime(date('Y-m-d H:i:s'));
+                        $createDate->setTimezone(new DateTimeZone('UTC'));
+                        $this->tasks_histories_model->add(array(
+                            'user_id' => $this->ion_auth->user()->row()->id,
+                            'task_id' => $id,
+                            'tracks' => json_encode($tracks),
                             'created' => $createDate->format('Y-m-d H:i:s'),
                         ));
                     }
